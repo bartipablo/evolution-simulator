@@ -17,6 +17,14 @@ public class Globe extends AbstractMap {
     }
     //------------------------------------------
 
+    public int getMapHeight() {
+        return mapHeight;
+    }
+
+    public int getMapWidth() {
+        return mapWidth;
+    }
+
     @Override
     public Vector2D calculatePositionAfterMovement(Vector2D position, MapDirection direction) {
         Vector2D unitVector = direction.toUnitVector();

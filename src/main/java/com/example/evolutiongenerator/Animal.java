@@ -2,13 +2,15 @@ package com.example.evolutiongenerator;
 
 import com.example.evolutiongenerator.direction.MapDirection;
 import com.example.evolutiongenerator.interfaces.IMap;
+import com.example.evolutiongenerator.interfaces.IMapElement;
 import com.example.evolutiongenerator.interfaces.IPositionChangeObserver;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animal {
+public class Animal implements IMapElement {
 
+    int energy;
     private final List<IPositionChangeObserver> observers = new ArrayList<>();
     private Vector2D position;
     private MapDirection direction;
@@ -28,6 +30,10 @@ public class Animal {
 
     public MapDirection getDirection() {
         return direction;
+    }
+
+    public int getEnergy() {
+        return energy;
     }
 
 

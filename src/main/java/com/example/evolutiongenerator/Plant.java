@@ -1,6 +1,8 @@
 package com.example.evolutiongenerator;
 
-public class Plant {
+import com.example.evolutiongenerator.interfaces.IMapElement;
+
+public class Plant implements IMapElement {
 
     private Vector2D position;
 

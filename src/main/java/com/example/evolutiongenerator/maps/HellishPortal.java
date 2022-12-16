@@ -17,6 +17,14 @@ public class HellishPortal extends AbstractMap {
     }
     //------------------------------------------
 
+    public int getMapHeight() {
+        return mapHeight;
+    }
+
+    public int getMapWidth() {
+        return mapWidth;
+    }
+
     @Override
     public Vector2D calculatePositionAfterMovement(Vector2D position, MapDirection direction) {
         if (position.x < 0 || position.x > mapWidth - 1 || position.y < 0 || position.y > mapHeight - 1) {

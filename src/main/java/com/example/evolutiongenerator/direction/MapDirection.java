@@ -2,6 +2,8 @@ package com.example.evolutiongenerator.direction;
 
 import com.example.evolutiongenerator.Vector2D;
 
+import java.util.Random;
+
 public enum MapDirection {
     NORTH,
     NORTH_EAST,
@@ -36,6 +38,22 @@ public enum MapDirection {
             case SOUTH_WEST -> NORTH_EAST;
             case WEST       -> EAST;
             case NORTH_WEST -> SOUTH_EAST;
+        };
+    }
+
+    public static MapDirection generateRandomDirection() {
+        Random random = new Random();
+        int choosing = random.nextInt(0, 7);
+        return switch (choosing) {
+            case 0 -> NORTH;
+            case 1 -> NORTH_EAST;
+            case 2 -> EAST;
+            case 3 -> SOUTH_EAST;
+            case 4 -> SOUTH;
+            case 5 -> SOUTH_WEST;
+            case 6 -> WEST;
+            case 7 -> NORTH_WEST;
+            default -> throw new IllegalStateException("Unexpected value: " + choosing);
         };
     }
 }

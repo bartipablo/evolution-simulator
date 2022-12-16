@@ -13,7 +13,7 @@ public class MainMenuController {
         errorMessage.setVisible(true);
     }
 
-    protected void validateUserArguments() {
+    private void validateUserArguments() {
 
     }
 
