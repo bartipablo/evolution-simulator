@@ -4,12 +4,13 @@ import com.example.evolutiongenerator.Animal;
 import com.example.evolutiongenerator.Plant;
 import com.example.evolutiongenerator.Vector2D;
 import com.example.evolutiongenerator.interfaces.IMap;
+import com.example.evolutiongenerator.interfaces.IPositionChangeObserver;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractMap implements IMap {
+public abstract class AbstractMap implements IMap, IPositionChangeObserver {
 
     private final Map<Vector2D, List<Animal>> animalsOnMap = new HashMap<>();
     private final Map<Vector2D, Plant>  plantsOnMap = new HashMap<>();
@@ -27,8 +28,8 @@ public abstract class AbstractMap implements IMap {
         animalsOnMap.get(animal.getPosition()).remove(animal);
     }
 
-    public void changeAnimalPositionAtMap(Animal animal, Vector2D newPosition) {
-        removeAnimalFromMap(animal);
+    public void positionChanged(Animal animal, Vector2D oldPosition, Vector2D newPosition) {
+        animalsOnMap.get(oldPosition).remove(animal);
         animalsOnMap.get(newPosition).add(animal);
     }
 
