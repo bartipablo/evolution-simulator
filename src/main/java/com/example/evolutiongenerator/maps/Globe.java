@@ -26,7 +26,6 @@ public class Globe extends AbstractMap {
         } else if (newPosition.x > mapWidth - 1) {
             newPosition = new Vector2D(newPosition.x, mapHeight - 1);
         }
-
         return newPosition;
     }
 

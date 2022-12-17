@@ -28,8 +28,8 @@ public class ReproductionA extends AbstractReproduction {
 
 
     @Override
-    public Animal newAnimal(Animal parentA, Animal parentB, int genomeLength, int quantityMutations, IMap map) {
-        initialVariable(parentA, parentB, genomeLength, quantityMutations);
+    public Animal newAnimal(Animal parentA, Animal parentB, int genomeLength, int quantityMutations, int energyUsedToReproduction, IMap map) {
+        initialVariable(parentA, parentB, genomeLength, quantityMutations, energyUsedToReproduction);
         createNewGenome();
         calculateEnergy();
         mutation();

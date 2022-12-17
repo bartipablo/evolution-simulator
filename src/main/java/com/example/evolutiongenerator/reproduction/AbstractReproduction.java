@@ -13,14 +13,16 @@ public abstract class AbstractReproduction implements IReproduction {
     protected int[] genome;
     protected int genomeLength;
     protected int quantityMutations;
+    protected int energyUsedToReproduction;
     protected int energy;
 
-    protected void initialVariable(Animal parentA, Animal parentB, int genomeLength, int quantityMutations) {
+    protected void initialVariable(Animal parentA, Animal parentB, int genomeLength, int quantityMutations, int energyUsedToReproduction) {
         this.parentA = parentA;
         this.parentB = parentB;
         this.genome = new int[genomeLength];
         this.genomeLength = genomeLength;
         this.quantityMutations = quantityMutations;
+        this.energyUsedToReproduction = energyUsedToReproduction;
     }
 
     protected void createNewGenome() {
@@ -52,11 +54,11 @@ public abstract class AbstractReproduction implements IReproduction {
         int quantityOfEnergyFromTheParentB;
         int totalEnergy = parentA.getEnergy() + parentB.getEnergy();
         if (parentA.getEnergy() > parentB.getEnergy()) {
-            quantityOfEnergyFromTheParentA = (int) Math.ceil((1.0 * parentA.getEnergy() / totalEnergy) * parentA.getEnergy());
-            quantityOfEnergyFromTheParentB = (int) Math.floor((1.0 * parentB.getEnergy() / totalEnergy) * parentB.getEnergy());
+            quantityOfEnergyFromTheParentA = (int) Math.ceil((1.0 * parentA.getEnergy() / totalEnergy) * energyUsedToReproduction);
+            quantityOfEnergyFromTheParentB = (int) Math.floor((1.0 * parentB.getEnergy() / totalEnergy) * energyUsedToReproduction);
         } else {
-            quantityOfEnergyFromTheParentA = (int) Math.floor((1.0 * parentA.getEnergy() / totalEnergy) * parentA.getEnergy());
-            quantityOfEnergyFromTheParentB = (int) Math.ceil((1.0 * parentB.getEnergy() / totalEnergy) * parentB.getEnergy());
+            quantityOfEnergyFromTheParentA = (int) Math.floor((1.0 * parentA.getEnergy() / totalEnergy) * energyUsedToReproduction);
+            quantityOfEnergyFromTheParentB = (int) Math.ceil((1.0 * parentB.getEnergy() / totalEnergy) * energyUsedToReproduction);
         }
         parentA.reduceEnergy(quantityOfEnergyFromTheParentA);
         parentB.reduceEnergy(quantityOfEnergyFromTheParentB);

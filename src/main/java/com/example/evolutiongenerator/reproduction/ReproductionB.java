@@ -9,7 +9,7 @@ import com.example.evolutiongenerator.interfaces.IMap;
 import java.util.Random;
 
 
-//variant implementation "nieco szaleństwa" :)
+//variant implementation "bit of craziness" :)
 public class ReproductionB extends AbstractReproduction {
 
     private void mutation() {
@@ -31,8 +31,8 @@ public class ReproductionB extends AbstractReproduction {
     }
 
     @Override
-    public Animal newAnimal(Animal parentA, Animal parentB, int genomeLength, int quantityMutations, IMap map) {
-        initialVariable(parentA, parentB, genomeLength, quantityMutations);
+    public Animal newAnimal(Animal parentA, Animal parentB, int genomeLength, int quantityMutations, int energyUsedToReproduction, IMap map) {
+        initialVariable(parentA, parentB, genomeLength, quantityMutations, energyUsedToReproduction);
         createNewGenome();
         calculateEnergy();
         mutation();
