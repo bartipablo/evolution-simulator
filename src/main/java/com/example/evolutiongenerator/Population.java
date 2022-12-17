@@ -43,8 +43,13 @@ public class Population {
     }
 
     //reproduction---------------------------
+    public void reproduction() {
+        Vector2D[] positions = map.getAnimalsPositions();
+        for (Vector2D animalPosition : positions) {
 
+        }
 
+    }
 
     //---------------------------------------
 

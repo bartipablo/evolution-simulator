@@ -17,12 +17,14 @@ public abstract class AbstractMap implements IMap, IPositionChangeObserver, IPop
     private final Map<Vector2D, Plant>  plantsOnMap = new HashMap<>();
 
 
+    @Override
     public List<Animal> getAnimalsAtPosition(Vector2D position) {
         return animalsOnMap.get(position);
     }
 
+    @Override
     public Vector2D[] getAnimalsPositions() {
-        return (Vector2D[]) animalsOnMap.keySet().toArray();
+        return animalsOnMap.keySet().toArray(new Vector2D[0]);
     }
 
     @Override

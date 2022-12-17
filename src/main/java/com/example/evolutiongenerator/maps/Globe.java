@@ -1,9 +1,7 @@
 package com.example.evolutiongenerator.maps;
 
-import com.example.evolutiongenerator.Animal;
 import com.example.evolutiongenerator.Vector2D;
 import com.example.evolutiongenerator.direction.MapDirection;
-import com.example.evolutiongenerator.direction.MoveDirection;
 
 public class Globe extends AbstractMap {
 
@@ -17,10 +15,12 @@ public class Globe extends AbstractMap {
     }
     //------------------------------------------
 
+    @Override
     public int getMapHeight() {
         return mapHeight;
     }
 
+    @Override
     public int getMapWidth() {
         return mapWidth;
     }

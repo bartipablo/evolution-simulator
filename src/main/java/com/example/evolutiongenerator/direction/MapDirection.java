@@ -56,4 +56,27 @@ public enum MapDirection {
             default -> throw new IllegalStateException("Unexpected value: " + choosing);
         };
     }
+
+
+    public MapDirection nextDirection() {
+        return switch (this) {
+            case NORTH      -> NORTH_EAST;
+            case NORTH_EAST -> EAST;
+            case EAST       -> SOUTH_EAST;
+            case SOUTH_EAST -> SOUTH;
+            case SOUTH      -> SOUTH_WEST;
+            case SOUTH_WEST -> WEST;
+            case WEST       -> NORTH_WEST;
+            case NORTH_WEST -> NORTH;
+        };
+    }
+
+    public MapDirection rotation(int n) {
+        MapDirection newDirection = this;
+        for (int i = 0; i < n; i++) {
+            newDirection = newDirection.nextDirection();
+        }
+        return newDirection;
+    }
+
 }
