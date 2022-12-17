@@ -1,5 +1,6 @@
 package com.example.evolutiongenerator;
 
+import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.interfaces.IMapElement;
 
 public class Plant implements IMapElement {

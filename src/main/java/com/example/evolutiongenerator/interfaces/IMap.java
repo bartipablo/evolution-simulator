@@ -1,7 +1,7 @@
 package com.example.evolutiongenerator.interfaces;
 
 import com.example.evolutiongenerator.Animal;
-import com.example.evolutiongenerator.Vector2D;
+import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.direction.MapDirection;
 
 import java.util.List;

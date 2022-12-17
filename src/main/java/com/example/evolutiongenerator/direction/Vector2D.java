@@ -1,4 +1,4 @@
-package com.example.evolutiongenerator;
+package com.example.evolutiongenerator.direction;
 
 import java.util.Objects;
 

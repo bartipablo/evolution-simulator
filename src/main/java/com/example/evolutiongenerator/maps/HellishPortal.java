@@ -1,28 +1,12 @@
 package com.example.evolutiongenerator.maps;
 
-import com.example.evolutiongenerator.Vector2D;
+import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.direction.MapDirection;
 
 public class HellishPortal extends AbstractMap {
 
-    private final int mapHeight;
-    private final int mapWidth;
-
-    // constructor------------------------------
     HellishPortal(int mapHeight, int mapWidth) {
-        this.mapHeight = mapHeight;
-        this.mapWidth  = mapWidth;
-    }
-    //------------------------------------------
-
-    @Override
-    public int getMapHeight() {
-        return mapHeight;
-    }
-
-    @Override
-    public int getMapWidth() {
-        return mapWidth;
+        super(mapHeight, mapWidth);
     }
 
     @Override

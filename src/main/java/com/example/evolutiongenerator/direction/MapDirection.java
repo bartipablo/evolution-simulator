@@ -1,7 +1,5 @@
 package com.example.evolutiongenerator.direction;
 
-import com.example.evolutiongenerator.Vector2D;
-
 import java.util.Random;
 
 public enum MapDirection {

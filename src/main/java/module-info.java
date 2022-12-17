@@ -12,4 +12,6 @@ module com.example.evolutiongenerator {
     opens com.example.evolutiongenerator.maps to javafx.fxml;
     exports com.example.evolutiongenerator.direction;
     opens com.example.evolutiongenerator.direction to javafx.fxml;
+    exports com.example.evolutiongenerator.genes;
+    opens com.example.evolutiongenerator.genes to javafx.fxml;
 }

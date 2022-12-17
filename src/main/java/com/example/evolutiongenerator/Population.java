@@ -1,6 +1,7 @@
 package com.example.evolutiongenerator;
 
 import com.example.evolutiongenerator.direction.MapDirection;
+import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.interfaces.IMap;
 import com.example.evolutiongenerator.interfaces.IPopulationChangeObserver;
 
@@ -27,7 +28,7 @@ public class Population {
         for (int i = 0; i < quantityPopulation; i++) {
             Vector2D initialPosition = Vector2D.generateRandomVector2D(0, map.getMapWidth(), 0, map.getMapHeight());
             MapDirection initialDirection = MapDirection.generateRandomDirection();
-            Animal animal = new Animal(initialPosition, initialDirection, map);
+            Animal animal = new Animal(initialPosition, initialDirection, map, 5);
             addAnimal(animal);
             informObserversAboutNewAnimal(animal);
         }
