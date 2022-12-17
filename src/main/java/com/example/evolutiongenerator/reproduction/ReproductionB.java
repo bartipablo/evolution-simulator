@@ -12,10 +12,6 @@ import java.util.Random;
 //variant implementation "nieco szaleństwa" :)
 public class ReproductionB extends AbstractReproduction {
 
-    ReproductionB(Animal parentA, Animal parentB, int genomeLength, int quantityMutantions, IMap map) {
-        super(parentA, parentB, genomeLength, quantityMutantions, map);
-    }
-
     private void mutation() {
         Random random = new Random();
         int[] mutationValue = {-1, 1};
@@ -35,7 +31,8 @@ public class ReproductionB extends AbstractReproduction {
     }
 
     @Override
-    public Animal newAnimal() {
+    public Animal newAnimal(Animal parentA, Animal parentB, int genomeLength, int quantityMutations, IMap map) {
+        initialVariable(parentA, parentB, genomeLength, quantityMutations);
         createNewGenome();
         calculateEnergy();
         mutation();

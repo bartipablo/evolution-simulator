@@ -14,10 +14,6 @@ import java.util.concurrent.ThreadLocalRandom;
 //variant implementation "full randomness"
 public class ReproductionA extends AbstractReproduction {
 
-    ReproductionA(Animal parentA, Animal parentB, int genomeLength, int quantityMutations, IMap map) {
-        super(parentA, parentB, genomeLength, quantityMutations, map);
-    }
-
     private void mutation() {
         Random random = new Random();
         int[] indexToMutation = new int[genomeLength];
@@ -32,7 +28,8 @@ public class ReproductionA extends AbstractReproduction {
 
 
     @Override
-    public Animal newAnimal() {
+    public Animal newAnimal(Animal parentA, Animal parentB, int genomeLength, int quantityMutations, IMap map) {
+        initialVariable(parentA, parentB, genomeLength, quantityMutations);
         createNewGenome();
         calculateEnergy();
         mutation();

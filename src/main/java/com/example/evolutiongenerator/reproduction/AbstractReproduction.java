@@ -14,15 +14,13 @@ public abstract class AbstractReproduction implements IReproduction {
     protected int genomeLength;
     protected int quantityMutations;
     protected int energy;
-    protected IMap map;
 
-    protected AbstractReproduction(Animal parentA, Animal parentB, int genomeLength, int quantityMutations, IMap map) {
+    protected void initialVariable(Animal parentA, Animal parentB, int genomeLength, int quantityMutations) {
         this.parentA = parentA;
         this.parentB = parentB;
         this.genome = new int[genomeLength];
         this.genomeLength = genomeLength;
         this.quantityMutations = quantityMutations;
-        this.map = map;
     }
 
     protected void createNewGenome() {
