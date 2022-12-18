@@ -12,11 +12,12 @@ import java.util.List;
 public class Animal implements IMapElement {
 
     private int energy;
+    private int age;
+    private int numberOfChildren;
     private final List<IPositionChangeObserver> observers = new ArrayList<>();
     private Vector2D position;
     private MapDirection direction;
     private final IMap map;
-
     private Gene gene;
 
     //constructors------------------------------------------
@@ -46,6 +47,14 @@ public class Animal implements IMapElement {
 
     public int getEnergy() {
         return energy;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public int getNumberOfChildren() {
+        return numberOfChildren;
     }
 
     public Gene getGene() {

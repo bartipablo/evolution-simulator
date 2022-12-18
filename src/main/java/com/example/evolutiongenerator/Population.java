@@ -5,10 +5,9 @@ import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.interfaces.IMap;
 import com.example.evolutiongenerator.interfaces.IPopulationChangeObserver;
 import com.example.evolutiongenerator.interfaces.IReproduction;
+import com.example.evolutiongenerator.interfaces.ITerrain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Population {
 
@@ -17,20 +16,23 @@ public class Population {
     private final List<IPopulationChangeObserver> observers = new ArrayList<>();
     private final List<Animal> animals = new ArrayList<>();
     private final IReproduction reproductionVariant;
+    private final ITerrain terrain;
     private final int minimumEnergyToReproduction;
     private final int energyUsedToReproduction;
     private final int genomeLength;
     private final int quantityMutations;
 
     //constructors----------------------------
-    Population(int quantityPopulation, int minimumEnergyToReproduction, int genomeLength, int energyUsedToReproduction, int qunatityMutantions, IMap map, IReproduction reproductionVariant) {
+    Population(int quantityPopulation, int minimumEnergyToReproduction, int genomeLength, int energyUsedToReproduction,
+               int quantityMutations, IMap map, IReproduction reproductionVariant, ITerrain terrain) {
         this.reproductionVariant = reproductionVariant;
         this.minimumEnergyToReproduction = minimumEnergyToReproduction;
         this.map = map;
         this.quantityPopulation = quantityPopulation;
         this.genomeLength = genomeLength;
-        this.quantityMutations = qunatityMutantions;
+        this.quantityMutations = quantityMutations;
         this.energyUsedToReproduction = energyUsedToReproduction;
+        this.terrain = terrain;
         createNewPopulation();
     }
 
@@ -54,7 +56,7 @@ public class Population {
         animals.remove(animal);
     }
 
-    //reproduction--------------------------------------------
+    //reproduction-------------------------------------------- TO DO!!!!!!!!!!!!
     public void reproduction() {
         Vector2D[] positions = map.getAnimalsPositions();
         for (Vector2D animalPosition : positions) {
@@ -95,7 +97,7 @@ public class Population {
 
     //--------------------------------------------------------
 
-    //vanishing-----------------------------
+    //vanishing-----------------------------------------------
     public void vanishing() {
         for (Animal animal : animals) {
             if (animal.getEnergy() <= 0) {
@@ -105,7 +107,79 @@ public class Population {
             }
         }
     }
-    //---------------------------------------
+    //--------------------------------------------------------
+
+    //consumption--------------------------------------------
+    public void consumptions() {
+        Vector2D[] positions = map.getAnimalsPositions();
+        for (Vector2D position : positions) {
+            Plant plant = map.getPlantAtPosition(position);
+            if (plant != null) {
+                Animal animal = chooseAnimalToConsumption(map.getAnimalsAtPosition(position));
+                animal.increaseEnergy(plant.getEnergy());
+                terrain.removePlant(plant);
+                //inform plant observer
+            }
+        }
+    }
+
+    private Animal chooseAnimalToConsumption(List<Animal> animalsAtPosition) {
+        Random random = new Random();
+        if (animalsAtPosition.size() == 1) {
+            return animalsAtPosition.get(0);
+        }
+
+        sortTheAnimalsByEnergy(animalsAtPosition);
+        if (animalsAtPosition.get(0).getEnergy() > animalsAtPosition.get(1).getEnergy()) {
+            return animalsAtPosition.get(0);
+        }
+
+        sortTheAnimalsByAge(animalsAtPosition);
+        if (animalsAtPosition.get(0).getAge() > animalsAtPosition.get(1).getAge()) {
+            return animalsAtPosition.get(0);
+        }
+
+        sortTheAnimalsByNumberOfChildren(animalsAtPosition);
+        if (animalsAtPosition.get(0).getNumberOfChildren() > animalsAtPosition.get(1).getNumberOfChildren()) {
+            return animalsAtPosition.get(0);
+        }
+        return animalsAtPosition.get(random.nextInt(0, animalsAtPosition.size()));
+    }
+    //-------------------------------------------------------------
+
+
+
+
+    //sorting---------------------------------------------------
+    private void sortTheAnimalsByEnergy(List<Animal> animalList) {
+        animalList.sort(new Comparator<Animal>() {
+            @Override
+            public int compare(Animal o1, Animal o2) {
+                return -(o1.getEnergy() - o2.getEnergy());
+            }
+        });
+    }
+
+    private void sortTheAnimalsByAge(List<Animal> animalList) {
+        animalList.sort(new Comparator<Animal>() {
+            @Override
+            public int compare(Animal o1, Animal o2) {
+                return -(o1.getAge() - o2.getAge());
+            }
+        });
+    }
+
+    private void sortTheAnimalsByNumberOfChildren(List<Animal> animalList) {
+        animalList.sort(new Comparator<Animal>() {
+            @Override
+            public int compare(Animal o1, Animal o2) {
+                return -(o1.getNumberOfChildren() - o2.getNumberOfChildren());
+            }
+        });
+    }
+    //-------------------------------------------------------------------
+
+
 
 
     //observers------------------------------
@@ -129,4 +203,5 @@ public class Population {
         }
     }
     //---------------------------------------
+
 }

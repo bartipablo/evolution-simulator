@@ -1,6 +1,7 @@
 package com.example.evolutiongenerator.interfaces;
 
 import com.example.evolutiongenerator.Animal;
+import com.example.evolutiongenerator.Plant;
 import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.direction.MapDirection;
 
@@ -15,6 +16,8 @@ public interface IMap {
     public List<Animal> getAnimalsAtPosition(Vector2D position);
 
     public Vector2D[] getAnimalsPositions();
+
+    Plant getPlantAtPosition(Vector2D position);
 
     Vector2D calculatePositionAfterMovement(Vector2D position, MapDirection direction);
 

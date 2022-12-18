@@ -38,6 +38,11 @@ public abstract class AbstractMap implements IMap, IPositionChangeObserver, IPop
     }
 
     @Override
+    public Plant getPlantAtPosition(Vector2D position) {
+        return plantsOnMap.get(position);
+    }
+
+    @Override
     public Vector2D[] getAnimalsPositions() {
         return animalsOnMap.keySet().toArray(new Vector2D[0]);
     }
