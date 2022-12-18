@@ -158,7 +158,7 @@ public class Population {
                 animal.increaseEnergy(plant.getEnergy());
                 animal.increaseNumberOfEatenPlants(1);
                 terrain.removePlant(plant);
-                //inform plant observer
+                //inform terrain observer
             }
         }
     }

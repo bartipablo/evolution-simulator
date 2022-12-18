@@ -1,15 +1,13 @@
 package com.example.evolutiongenerator;
 
-import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.interfaces.IMap;
 import com.example.evolutiongenerator.interfaces.ITerrain;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
-public class Statistics {
+public class GeneralStatistics {
 
     ITerrain terrain;
     Population population;
@@ -22,7 +20,7 @@ public class Statistics {
     private int numberOfTheMostPopularGenotype;
     private int[] theMostPopularGenotype;
 
-    Statistics(int populationSize, int numberOfPlants, IMap map, Population population, ITerrain terrain) {
+    GeneralStatistics(int populationSize, int numberOfPlants, IMap map, Population population, ITerrain terrain) {
         this.populationSize = populationSize;
         this.numberOfPlants = numberOfPlants;
         this.averageLifeLength = 0;
@@ -34,20 +32,11 @@ public class Statistics {
         this.terrain = terrain;
     }
 
-    public void completeStatistics() {
-        completeAverageEnergyAmount();
-        completeAverageLifeLength();
-        completeNumberOfPlants();
-        completeTheMostPopularGenotype();
-        completePopulationSize();
-        completeQuantityOfFreeField();
-    }
-
     public int getPopulationSize() {
         return populationSize;
     }
 
-    private void completePopulationSize() {
+    public void completePopulationSize() {
         this.populationSize = population.getAliveAnimals().size();
     }
 
@@ -55,7 +44,7 @@ public class Statistics {
         return numberOfPlants;
     }
 
-    private void completeNumberOfPlants() {
+    public void completeNumberOfPlants() {
         this.numberOfPlants = terrain.getPlants().size();
     }
 
@@ -63,7 +52,7 @@ public class Statistics {
         return averageLifeLength;
     }
 
-    private void completeAverageLifeLength() {
+    public void completeAverageLifeLength() {
         List<IAnimal> extinctAnimals = population.getExtinctAnimals();
         if (extinctAnimals.size() > 0) {
             int totalLifeLength = 0;
@@ -80,7 +69,7 @@ public class Statistics {
         return averageEnergyAmount;
     }
 
-    private void completeAverageEnergyAmount() {
+    public void completeAverageEnergyAmount() {
         List<IAnimal> aliveAnimals = population.getAliveAnimals();
         if (aliveAnimals.size() > 0) {
             int totalEnergy = 0;
@@ -97,7 +86,7 @@ public class Statistics {
         return quantityOfFreeField;
     }
 
-    private void completeQuantityOfFreeField() {
+    public void completeQuantityOfFreeField() {
         quantityOfFreeField = map.getAnimalsPositions().length;
     }
 
@@ -105,7 +94,7 @@ public class Statistics {
         return theMostPopularGenotype;
     }
 
-    private void completeTheMostPopularGenotype() {
+    public void completeTheMostPopularGenotype() {
         List<int[]> animalGenotypes = population.getAnimalGenomes();
         int numberOfTheMostPopularGenotypes = 0;
         int[] theMostPopularGenotype = {};
