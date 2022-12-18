@@ -15,10 +15,11 @@ import java.util.*;
 
 public class Population {
 
-    private int quantityPopulation;
+
     private final IMap map;
     private final List<IPopulationChangeObserver> observers = new ArrayList<>();
-    private final List<IAnimal> animals = new ArrayList<>();
+    private final List<IAnimal> aliveAnimals = new ArrayList<>();
+    private final List<IAnimal> extinctAnimals = new ArrayList<>();
     private final IReproduction reproductionVariant;
     private final ITerrain terrain;
     private final int minimumEnergyToReproduction;
@@ -27,24 +28,24 @@ public class Population {
     private final int quantityMutations;
     private final BehaviourVariant behaviourVariant;
 
+
     //constructors-------------------------------------------------------------------------
-    Population(int quantityPopulation, int minimumEnergyToReproduction, int genomeLength, int energyUsedToReproduction,
+    Population(int populationSize, int minimumEnergyToReproduction, int genomeLength, int energyUsedToReproduction,
                int quantityMutations, IMap map, IReproduction reproductionVariant, ITerrain terrain, BehaviourVariant behaviourVariant) {
         this.reproductionVariant = reproductionVariant;
         this.minimumEnergyToReproduction = minimumEnergyToReproduction;
         this.map = map;
-        this.quantityPopulation = quantityPopulation;
         this.genomeLength = genomeLength;
         this.quantityMutations = quantityMutations;
         this.energyUsedToReproduction = energyUsedToReproduction;
         this.terrain = terrain;
         this.behaviourVariant = behaviourVariant;
-        generateNewPopulation();
+        generateNewPopulation(populationSize);
     }
 
-    private void generateNewPopulation() {
+    private void generateNewPopulation(int populationSize) {
         Random random = new Random();
-        for (int i = 0; i < quantityPopulation; i++) {
+        for (int i = 0; i < populationSize; i++) {
             Vector2D initialPosition = Vector2D.generateRandomVector2D(0, map.getMapWidth(), 0, map.getMapHeight());
             MapDirection initialDirection = MapDirection.generateRandomDirection();
             IAnimal animal;
@@ -57,15 +58,33 @@ public class Population {
             informObserversAboutNewAnimal(animal);
         }
     }
+
     //-------------------------------------------------------------------------------------------
 
     private void addAnimal(IAnimal animal) {
-        animals.add(animal);
+        aliveAnimals.add(animal);
     }
 
     private void removeAnimal(IAnimal animal) {
-        animals.remove(animal);
+        aliveAnimals.remove(animal);
     }
+
+    public List<int[]> getAnimalGenomes() {
+        List<int[]> animalGenomes = new ArrayList<>();
+        for (IAnimal animal : aliveAnimals) {
+            animalGenomes.add(animal.getGene().getGenome());
+        }
+        return animalGenomes;
+    }
+
+    public List<IAnimal> getAliveAnimals() {
+        return aliveAnimals;
+    }
+
+    public List<IAnimal> getExtinctAnimals() {
+        return extinctAnimals;
+    }
+
 
     //reproduction--------------------------------------------------------------------------------
     public void reproduction() {
@@ -92,19 +111,19 @@ public class Population {
             return animalsAtPosition.subList(0, 1);
         }
 
-        drawsList = getEnergyTiesList(animalsAtPosition);
+        drawsList = getEnergyDrawsList(animalsAtPosition);
         sortTheAnimalsByAge(drawsList);
         if (drawsList.get(1).getAge() > drawsList.get(2).getAge()) {
             return drawsList.subList(0, 1);
         }
 
-        drawsList = getAgeTiesList(drawsList);
+        drawsList = getAgeDrawsList(drawsList);
         sortTheAnimalsByNumberOfChildren(drawsList);
         if (drawsList.get(1).getNumberOfChildren() > drawsList.get(2).getNumberOfChildren()) {
             return drawsList.subList(0, 1);
         }
 
-        drawsList = getAgeTiesList(drawsList);
+        drawsList = getAgeDrawsList(drawsList);
         Collections.shuffle(drawsList);
         return drawsList.subList(0, 1);
     }
@@ -113,18 +132,17 @@ public class Population {
         IAnimal newAnimal = reproductionVariant.newAnimal(animalA, animalB, genomeLength, quantityMutations, energyUsedToReproduction, map);
         addAnimal(newAnimal);
         informObserversAboutNewAnimal(newAnimal);
-        quantityPopulation += 1;
     }
 
     //------------------------------------------------------------------------------------------------
 
     //vanishing---------------------------------------------------------------------------------------
     public void vanishing() {
-        for (IAnimal animal : animals) {
+        for (IAnimal animal : aliveAnimals) {
             if (animal.getEnergy() <= 0) {
+                extinctAnimals.add(animal);
                 removeAnimal(animal);
                 informObserversAboutRemoveAnimal(animal);
-                quantityPopulation -= 1;
             }
         }
     }
@@ -138,6 +156,7 @@ public class Population {
             if (plant != null) {
                 IAnimal animal = chooseAnimalToConsumption(map.getAnimalsAtPosition(position));
                 animal.increaseEnergy(plant.getEnergy());
+                animal.increaseNumberOfEatenPlants(1);
                 terrain.removePlant(plant);
                 //inform plant observer
             }
@@ -152,19 +171,19 @@ public class Population {
         }
 
         sortTheAnimalsByEnergy(animalsAtPosition);
-        drawList = getEnergyTiesList(animalsAtPosition);
+        drawList = getEnergyDrawsList(animalsAtPosition);
         if (drawList.size() == 1) {
             return drawList.get(0);
         }
 
         sortTheAnimalsByAge(drawList);
-        drawList = getAgeTiesList(drawList);
+        drawList = getAgeDrawsList(drawList);
         if (drawList.size() == 1) {
             return drawList.get(0);
         }
 
         sortTheAnimalsByNumberOfChildren(drawList);
-        drawList = getNumberOfChildrenTiesList(drawList);
+        drawList = getNumberOfChildrenDrawsList(drawList);
         if (drawList.size() == 1) {
             return drawList.get(0);
         }
@@ -202,7 +221,7 @@ public class Population {
         });
     }
 
-    private List<IAnimal> getEnergyTiesList(List<IAnimal> animalList) {
+    private List<IAnimal> getEnergyDrawsList(List<IAnimal> animalList) {
         int numberOfTies = 1;
         while(numberOfTies < animalList.size() && animalList.get(numberOfTies).getEnergy() == animalList.get(numberOfTies - 1).getEnergy()) {
             numberOfTies++;
@@ -210,7 +229,7 @@ public class Population {
         return animalList.subList(0, numberOfTies - 1);
     }
 
-    private List<IAnimal> getAgeTiesList(List<IAnimal> animalList) {
+    private List<IAnimal> getAgeDrawsList(List<IAnimal> animalList) {
         int numberOfTies = 1;
         while(numberOfTies < animalList.size() && animalList.get(numberOfTies).getAge() == animalList.get(numberOfTies - 1).getAge()) {
             numberOfTies++;
@@ -218,7 +237,7 @@ public class Population {
         return animalList.subList(0, numberOfTies - 1);
     }
 
-    private List<IAnimal> getNumberOfChildrenTiesList(List<IAnimal> animalList) {
+    private List<IAnimal> getNumberOfChildrenDrawsList(List<IAnimal> animalList) {
         int numberOfTies = 1;
         while(numberOfTies < animalList.size() && animalList.get(numberOfTies).getNumberOfChildren() == animalList.get(numberOfTies - 1).getNumberOfChildren()) {
             numberOfTies++;

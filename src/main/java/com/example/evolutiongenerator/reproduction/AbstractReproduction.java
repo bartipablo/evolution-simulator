@@ -64,6 +64,11 @@ public abstract class AbstractReproduction implements IReproduction {
         energy = quantityOfEnergyFromTheParentA + quantityOfEnergyFromTheParentB;
     }
 
+    protected void completeStatistic() {
+        parentA.increaseNumberOfChildren(1);
+        parentB.increaseNumberOfChildren(1);
+    }
+
     protected void shuffleArray(int[] array) {
         Random random = new Random();
         for (int i = array.length - 1; i > 0; i--) {

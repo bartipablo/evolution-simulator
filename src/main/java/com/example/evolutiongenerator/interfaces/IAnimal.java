@@ -15,6 +15,18 @@ public interface IAnimal {
 
     int getNumberOfChildren();
 
+    int getActualGenome();
+
+    int[] getGenome();
+
+    int getNumberOfEatenPlants();
+
+    int getDeathDay();
+
+    void setDeathDay(int day);
+
+    void increaseNumberOfEatenPlants(int number);
+
     Gene getGene();
 
     void reduceEnergy(int amount);

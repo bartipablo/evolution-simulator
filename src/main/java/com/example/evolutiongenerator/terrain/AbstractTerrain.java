@@ -1,6 +1,7 @@
 package com.example.evolutiongenerator.terrain;
 
 import com.example.evolutiongenerator.Plant;
+import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.interfaces.ITerrain;
 
 import java.util.ArrayList;
@@ -12,6 +13,11 @@ public abstract class AbstractTerrain implements ITerrain {
     @Override
     public void removePlant(Plant plant) {
         plants.remove(plant);
+    }
+
+    @Override
+    public List<Plant> getPlants() {
+        return plants;
     }
 
 }
