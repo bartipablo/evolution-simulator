@@ -2,22 +2,18 @@ package com.example.evolutiongenerator;
 
 import com.example.evolutiongenerator.animals.AnimalBehaviourA;
 import com.example.evolutiongenerator.animals.AnimalBehaviourB;
-import com.example.evolutiongenerator.interfaces.IAnimal;
+import com.example.evolutiongenerator.interfaces.*;
 import com.example.evolutiongenerator.direction.MapDirection;
 import com.example.evolutiongenerator.direction.Vector2D;
-import com.example.evolutiongenerator.interfaces.IMap;
-import com.example.evolutiongenerator.interfaces.IPopulationChangeObserver;
-import com.example.evolutiongenerator.interfaces.IReproduction;
-import com.example.evolutiongenerator.interfaces.ITerrain;
 import com.example.evolutiongenerator.variants.BehaviourVariant;
 
 import java.util.*;
 
 public class Population {
 
-
     private final IMap map;
-    private final List<IPopulationChangeObserver> observers = new ArrayList<>();
+    private final List<IPopulationChangeObserver> populationObservers = new ArrayList<>();
+    private final List<IStatisticsObserver> statisticsObservers = new ArrayList<>();
     private final List<IAnimal> aliveAnimals = new ArrayList<>();
     private final List<IAnimal> extinctAnimals = new ArrayList<>();
     private final IReproduction reproductionVariant;
@@ -85,6 +81,16 @@ public class Population {
         return extinctAnimals;
     }
 
+    public void completeStatistics() {
+        for (IStatisticsObserver observer : statisticsObservers) {
+            observer.setAverageEnergy(aliveAnimals);
+            observer.setPopulationSize(aliveAnimals.size());
+            observer.setFreeFieldQuantity(map);
+            observer.setTheMostPopularGenotype(getAnimalGenomes());
+            observer.setAverageLifeLength(extinctAnimals);
+        }
+    }
+
 
     //reproduction--------------------------------------------------------------------------------
     public void reproduction() {
@@ -142,10 +148,11 @@ public class Population {
             if (animal.getEnergy() <= 0) {
                 extinctAnimals.add(animal);
                 removeAnimal(animal);
-                informObserversAboutRemoveAnimal(animal);
+                informObserversAboutDeathAnimal(animal);
             }
         }
     }
+
     //-------------------------------------------------------------------------------------------------
 
     //consumption--------------------------------------------------------------------------------------
@@ -158,7 +165,6 @@ public class Population {
                 animal.increaseEnergy(plant.getEnergy());
                 animal.increaseNumberOfEatenPlants(1);
                 terrain.removePlant(plant);
-                //inform terrain observer
             }
         }
     }
@@ -222,48 +228,49 @@ public class Population {
     }
 
     private List<IAnimal> getEnergyDrawsList(List<IAnimal> animalList) {
-        int numberOfTies = 1;
-        while(numberOfTies < animalList.size() && animalList.get(numberOfTies).getEnergy() == animalList.get(numberOfTies - 1).getEnergy()) {
-            numberOfTies++;
+        int numberOfDraws = 1;
+        while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getEnergy() == animalList.get(numberOfDraws - 1).getEnergy()) {
+            numberOfDraws++;
         }
-        return animalList.subList(0, numberOfTies - 1);
+        return animalList.subList(0, numberOfDraws - 1);
     }
 
     private List<IAnimal> getAgeDrawsList(List<IAnimal> animalList) {
-        int numberOfTies = 1;
-        while(numberOfTies < animalList.size() && animalList.get(numberOfTies).getAge() == animalList.get(numberOfTies - 1).getAge()) {
-            numberOfTies++;
+        int numberOfDraws = 1;
+        while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getAge() == animalList.get(numberOfDraws - 1).getAge()) {
+            numberOfDraws++;
         }
-        return animalList.subList(0, numberOfTies - 1);
+        return animalList.subList(0, numberOfDraws - 1);
     }
 
     private List<IAnimal> getNumberOfChildrenDrawsList(List<IAnimal> animalList) {
-        int numberOfTies = 1;
-        while(numberOfTies < animalList.size() && animalList.get(numberOfTies).getNumberOfChildren() == animalList.get(numberOfTies - 1).getNumberOfChildren()) {
-            numberOfTies++;
+        int numberOfDraws = 1;
+        while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getNumberOfChildren() == animalList.get(numberOfDraws - 1).getNumberOfChildren()) {
+            numberOfDraws++;
         }
-        return animalList.subList(0, numberOfTies - 1);
+        return animalList.subList(0, numberOfDraws - 1);
     }
     //-----------------------------------------------------------------------------------------------
 
 
     //observers--------------------------------------------------------------------------------------
-    public void addNewObserver(IPopulationChangeObserver observer) {
-        observers.add(observer);
+    public void addNewPopulationObserver(IPopulationChangeObserver observer) {
+        populationObservers.add(observer);
     }
 
-    public void removeObserver(IPopulationChangeObserver observer) {
-        observers.remove(observer);
+    public void addNewStatisticsObserver(IStatisticsObserver observer) {
+        statisticsObservers.add(observer);
     }
+
 
     private void informObserversAboutNewAnimal(IAnimal animal) {
-        for (IPopulationChangeObserver observer : observers) {
+        for (IPopulationChangeObserver observer : populationObservers) {
             observer.addedNewAnimal(animal);
         }
     }
 
-    private void informObserversAboutRemoveAnimal(IAnimal animal) {
-        for (IPopulationChangeObserver observer : observers) {
+    private void informObserversAboutDeathAnimal(IAnimal animal) {
+        for (IPopulationChangeObserver observer : populationObservers) {
             observer.removedAnimal(animal);
         }
     }
