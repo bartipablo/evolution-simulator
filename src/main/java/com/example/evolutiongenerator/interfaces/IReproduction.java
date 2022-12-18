@@ -1,7 +1,7 @@
 package com.example.evolutiongenerator.interfaces;
 
-import com.example.evolutiongenerator.Animal;
 
 public interface IReproduction {
-    Animal newAnimal(Animal parentA, Animal parentB, int genomeLength, int quantityMutations, int energyUsedToReproduction, IMap map);
+    IAnimal newAnimal(IAnimal parentA, IAnimal parentB, int genomeLength, int quantityMutations, int energyUsedToReproduction, IMap map);
+
 }

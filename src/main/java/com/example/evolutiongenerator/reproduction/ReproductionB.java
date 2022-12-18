@@ -1,6 +1,9 @@
 package com.example.evolutiongenerator.reproduction;
 
-import com.example.evolutiongenerator.Animal;
+import com.example.evolutiongenerator.animals.AnimalBehaviourA;
+import com.example.evolutiongenerator.animals.AnimalBehaviourB;
+import com.example.evolutiongenerator.interfaces.IAnimal;
+import com.example.evolutiongenerator.interfaces.IReproduction;
 import com.example.evolutiongenerator.Gene;
 import com.example.evolutiongenerator.direction.MapDirection;
 import com.example.evolutiongenerator.direction.Vector2D;
@@ -31,13 +34,19 @@ public class ReproductionB extends AbstractReproduction {
     }
 
     @Override
-    public Animal newAnimal(Animal parentA, Animal parentB, int genomeLength, int quantityMutations, int energyUsedToReproduction, IMap map) {
+    public IAnimal newAnimal(IAnimal parentA, IAnimal parentB, int genomeLength, int quantityMutations, int energyUsedToReproduction, IMap map) {
         initialVariable(parentA, parentB, genomeLength, quantityMutations, energyUsedToReproduction);
         createNewGenome();
         calculateEnergy();
         mutation();
         Gene gene = new Gene(genome);
         Vector2D initialPosition = new Vector2D(parentA.getPosition().x, parentA.getPosition().y);
-        return new Animal(initialPosition, MapDirection.generateRandomDirection(), map, gene);
+        if (parentA instanceof AnimalBehaviourA) {
+            return new AnimalBehaviourA(initialPosition, MapDirection.generateRandomDirection(), map, gene);
+        } else if (parentA instanceof AnimalBehaviourB) {
+            return new AnimalBehaviourB(initialPosition, MapDirection.generateRandomDirection(), map, gene);
+        }
+        return null;
     }
+
 }

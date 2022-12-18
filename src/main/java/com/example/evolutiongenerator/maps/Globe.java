@@ -40,4 +40,5 @@ public class Globe extends AbstractMap {
         }
         return direction;
     }
+
 }

@@ -1,6 +1,5 @@
 package com.example.evolutiongenerator.interfaces;
 
-import com.example.evolutiongenerator.Animal;
 import com.example.evolutiongenerator.Plant;
 import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.direction.MapDirection;
@@ -13,7 +12,7 @@ public interface IMap {
 
     int getMapWidth();
 
-    public List<Animal> getAnimalsAtPosition(Vector2D position);
+    public List<IAnimal> getAnimalsAtPosition(Vector2D position);
 
     public Vector2D[] getAnimalsPositions();
 

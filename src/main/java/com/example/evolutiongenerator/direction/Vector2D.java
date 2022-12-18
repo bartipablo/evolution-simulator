@@ -4,9 +4,11 @@ import java.util.Objects;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+
 import java.util.Random;
 
 public class Vector2D {
+
     public final int x;
     public final int y;
 
@@ -24,13 +26,11 @@ public class Vector2D {
         int y = random.nextInt(yMin, yMax);
         return new Vector2D(x, y);
     }
-
     //-------------------------------------------
 
     public String toString() {
         return "(%d, %d)".formatted(this.x, this.y);
     }
-
 
     public Vector2D add(Vector2D otherVector) {
         return new Vector2D(this.x + otherVector.x, this.y + otherVector.y);
@@ -64,4 +64,5 @@ public class Vector2D {
     public int hashCode() {
         return Objects.hash(this.x, this.y);
     }
+
 }

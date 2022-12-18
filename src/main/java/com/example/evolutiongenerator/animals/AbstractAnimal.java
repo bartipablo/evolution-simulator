@@ -1,77 +1,92 @@
-package com.example.evolutiongenerator;
+package com.example.evolutiongenerator.animals;
 
+import com.example.evolutiongenerator.Gene;
 import com.example.evolutiongenerator.direction.MapDirection;
 import com.example.evolutiongenerator.direction.Vector2D;
+import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.interfaces.IMap;
-import com.example.evolutiongenerator.interfaces.IMapElement;
 import com.example.evolutiongenerator.interfaces.IPositionChangeObserver;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animal implements IMapElement {
+public abstract class AbstractAnimal implements IAnimal {
 
+    protected int actualGenomeIndex;
     private int energy;
     private int age;
     private int numberOfChildren;
     private final List<IPositionChangeObserver> observers = new ArrayList<>();
-    private Vector2D position;
-    private MapDirection direction;
-    private final IMap map;
-    private Gene gene;
+    protected Vector2D position;
+    protected MapDirection direction;
+    protected final IMap map;
+    protected Gene gene;
 
     //constructors------------------------------------------
-    Animal(Vector2D initialPosition, MapDirection initialDirection, IMap map, int genomeLength) {
+    AbstractAnimal(Vector2D initialPosition, MapDirection initialDirection, IMap map, int genomeLength) {
         this.position = initialPosition;
         this.direction = initialDirection;
         this.map = map;
         this.gene = new Gene(genomeLength);
+        this.actualGenomeIndex = 0;
     }
 
-    public Animal(Vector2D initialPosition, MapDirection initialDirection, IMap map, Gene gene) {
+    public AbstractAnimal(Vector2D initialPosition, MapDirection initialDirection, IMap map, Gene gene) {
         this.position = initialPosition;
         this.direction = initialDirection;
         this.map = map;
         this.gene = gene;
     }
-
     //---------------------------------------------------
 
+    @Override
     public Vector2D getPosition() {
         return position;
     }
 
+    @Override
     public MapDirection getDirection() {
         return direction;
     }
 
+    @Override
     public int getEnergy() {
         return energy;
     }
 
+    @Override
     public int getAge() {
         return age;
     }
 
+    @Override
     public int getNumberOfChildren() {
         return numberOfChildren;
     }
 
+    @Override
     public Gene getGene() {
         return gene;
     }
 
-
-    public void move() {
-
-    }
-
+    @Override
     public void reduceEnergy(int amount) {
         energy -= amount;
     }
 
+    @Override
     public void increaseEnergy(int amount) {
         energy += amount;
+    }
+
+    @Override
+    public void increaseNumberOfChildren(int quantity) {
+        numberOfChildren += quantity;
+    }
+
+    @Override
+    public void increaseAge(int amount) {
+        age += amount;
     }
 
     public void addObserver(IPositionChangeObserver observer) {
@@ -82,7 +97,7 @@ public class Animal implements IMapElement {
         observers.remove(observer);
     }
 
-    private void informObserversAboutChanges(Vector2D oldPosition, Vector2D newPosition) {
+    protected void informObserversAboutChanges(Vector2D oldPosition, Vector2D newPosition) {
         for (IPositionChangeObserver observer : observers) {
             observer.positionChanged(this, oldPosition, newPosition);
         }

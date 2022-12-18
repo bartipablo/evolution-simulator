@@ -3,14 +3,14 @@ package com.example.evolutiongenerator;
 import java.util.Random;
 
 public class Gene {
-    private int genomeLength;
+
+    private final int genomeLength;
     private int[] genome;
 
-
     //constructors------------------------
-    Gene(int genomeLength) {
+    public Gene(int genomeLength) {
         this.genomeLength = genomeLength;
-        createRandomGenome();
+        generateRandomGenome();
     }
 
     public Gene(int[] genome) {
@@ -19,7 +19,7 @@ public class Gene {
     }
     //------------------------------------
 
-    private void createRandomGenome() {
+    private void generateRandomGenome() {
         Random random = new Random();
         genome = new int[genomeLength];
         for (int i = 0; i < genomeLength; i++) {
@@ -35,4 +35,5 @@ public class Gene {
     public int getGenomeLength() {
         return genomeLength;
     }
+
 }

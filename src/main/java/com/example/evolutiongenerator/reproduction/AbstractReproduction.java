@@ -1,22 +1,21 @@
 package com.example.evolutiongenerator.reproduction;
 
-import com.example.evolutiongenerator.Animal;
-import com.example.evolutiongenerator.interfaces.IMap;
+import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.interfaces.IReproduction;
 
 import java.util.Random;
 
 public abstract class AbstractReproduction implements IReproduction {
 
-    protected Animal parentA;
-    protected Animal parentB;
+    protected IAnimal parentA;
+    protected IAnimal parentB;
     protected int[] genome;
     protected int genomeLength;
     protected int quantityMutations;
     protected int energyUsedToReproduction;
     protected int energy;
 
-    protected void initialVariable(Animal parentA, Animal parentB, int genomeLength, int quantityMutations, int energyUsedToReproduction) {
+    protected void initialVariable(IAnimal parentA, IAnimal parentB, int genomeLength, int quantityMutations, int energyUsedToReproduction) {
         this.parentA = parentA;
         this.parentB = parentB;
         this.genome = new int[genomeLength];

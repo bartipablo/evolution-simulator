@@ -1,6 +1,6 @@
 package com.example.evolutiongenerator.maps;
 
-import com.example.evolutiongenerator.Animal;
+import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.Plant;
 import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.interfaces.IMap;
@@ -12,10 +12,11 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractMap implements IMap, IPositionChangeObserver, IPopulationChangeObserver {
+
     protected final int mapHeight;
     protected final int mapWidth;
-    private final Map<Vector2D, List<Animal>> animalsOnMap = new HashMap<>();
-    private final Map<Vector2D, Plant>  plantsOnMap = new HashMap<>();
+    private final Map<Vector2D, List<IAnimal>> animalsOnMap = new HashMap<>();
+    private final Map<Vector2D, Plant> plantsOnMap = new HashMap<>();
 
     AbstractMap(int mapHeight, int mapWidth) {
         this.mapHeight = mapHeight;
@@ -33,7 +34,7 @@ public abstract class AbstractMap implements IMap, IPositionChangeObserver, IPop
     }
 
     @Override
-    public List<Animal> getAnimalsAtPosition(Vector2D position) {
+    public List<IAnimal> getAnimalsAtPosition(Vector2D position) {
         return animalsOnMap.get(position);
     }
 
@@ -48,20 +49,19 @@ public abstract class AbstractMap implements IMap, IPositionChangeObserver, IPop
     }
 
     @Override
-    public void positionChanged(Animal animal, Vector2D oldPosition, Vector2D newPosition) {
+    public void positionChanged(IAnimal animal, Vector2D oldPosition, Vector2D newPosition) {
         animalsOnMap.get(oldPosition).remove(animal);
         animalsOnMap.get(newPosition).add(animal);
     }
 
     @Override
-    public void addedNewAnimal(Animal animal) {
+    public void addedNewAnimal(IAnimal animal) {
         animalsOnMap.get(animal.getPosition()).add(animal);
     }
 
     @Override
-    public void removedAnimal(Animal animal) {
+    public void removedAnimal(IAnimal animal) {
         animalsOnMap.get(animal.getPosition()).remove(animal);
     }
-
 
 }

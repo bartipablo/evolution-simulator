@@ -12,7 +12,6 @@ public enum MapDirection {
     WEST,
     NORTH_WEST;
 
-
     public Vector2D toUnitVector() {
         return switch(this) {
             case NORTH      -> new Vector2D(0, 1);
@@ -54,7 +53,6 @@ public enum MapDirection {
             default -> throw new IllegalStateException("Unexpected value: " + choosing);
         };
     }
-
 
     public MapDirection nextDirection() {
         return switch (this) {
