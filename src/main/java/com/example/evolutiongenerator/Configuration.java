@@ -10,7 +10,7 @@ public class Configuration {
 
 
     Configuration(int mapHeight, int mapWidth, int energyOfOneMove, int initialPlantsNumber) {
-        this.mapHeight = mapHeight;
+        this.mapHeight = mapWidth;
         this.mapWidth = mapWidth;
         this.energyOfOneMove = energyOfOneMove;
         this.initialPlantsNumber = initialPlantsNumber;
