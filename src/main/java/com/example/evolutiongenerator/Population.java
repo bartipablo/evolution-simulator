@@ -5,7 +5,6 @@ import com.example.evolutiongenerator.animals.AnimalBehaviourB;
 import com.example.evolutiongenerator.interfaces.*;
 import com.example.evolutiongenerator.direction.MapDirection;
 import com.example.evolutiongenerator.direction.Vector2D;
-import com.example.evolutiongenerator.terrain.AbstractTerrain;
 import com.example.evolutiongenerator.variants.BehaviourVariant;
 
 import java.util.*;
@@ -22,25 +21,27 @@ public class Population {
     private final int minimumEnergyToReproduction;
     private final int energyUsedToReproduction;
     private final int genomeLength;
-    private final int quantityMutations;
-    private final int energyOfOneMove;
+    private final int minimumNumberOfMutations;
+    private final int maximumNumberOfMutations;
+    private final int dailyEnergyConsumption;
     private final int initialEnergy;
     private final BehaviourVariant behaviourVariant;
 
 
     //constructors-------------------------------------------------------------------------
-    Population(int populationSize, int minimumEnergyToReproduction, int genomeLength, int energyUsedToReproduction,
-               int quantityMutations, IMap map, IReproduction reproductionVariant, ITerrain terrain, BehaviourVariant behaviourVariant,
-               int energyOfOneMove, int initialEnergy) {
+    public Population(int populationSize, int minimumEnergyToReproduction, int genomeLength, int energyUsedToReproduction,
+               int minimumNumberOfMutations, int maximumNumberOfMutations, IMap map, IReproduction reproductionVariant,
+               ITerrain terrain, BehaviourVariant behaviourVariant, int dailyEnergyConsumption, int initialEnergy) {
         this.reproductionVariant = reproductionVariant;
         this.minimumEnergyToReproduction = minimumEnergyToReproduction;
         this.map = map;
         this.genomeLength = genomeLength;
-        this.quantityMutations = quantityMutations;
+        this.minimumNumberOfMutations = minimumNumberOfMutations;
+        this.maximumNumberOfMutations = maximumNumberOfMutations;
         this.energyUsedToReproduction = energyUsedToReproduction;
         this.terrain = terrain;
         this.behaviourVariant = behaviourVariant;
-        this.energyOfOneMove = energyOfOneMove;
+        this.dailyEnergyConsumption = dailyEnergyConsumption;
         this.initialEnergy = initialEnergy;
         generateNewPopulation(populationSize);
     }
@@ -52,9 +53,9 @@ public class Population {
             MapDirection initialDirection = MapDirection.generateRandomDirection();
             IAnimal animal;
             if (behaviourVariant == BehaviourVariant.FULL_PREDESTINATION) {
-                animal = new AnimalBehaviourA(initialPosition, initialDirection, map, genomeLength, energyOfOneMove, initialEnergy);
+                animal = new AnimalBehaviourA(initialPosition, initialDirection, map, genomeLength, initialEnergy);
             } else {
-                animal = new AnimalBehaviourB(initialPosition, initialDirection, map, genomeLength, energyOfOneMove, initialEnergy);
+                animal = new AnimalBehaviourB(initialPosition, initialDirection, map, genomeLength, initialEnergy);
             }
             addAnimal(animal);
             informObserversAboutNewAnimal(animal);
@@ -96,14 +97,20 @@ public class Population {
             observer.setAverageLifeLength(extinctAnimals);
         }
     }
+    //daily energy consumption---------------------------------------------------------------------
+    public void dailyEnergyConsumption() {
+        for (IAnimal animal : aliveAnimals) {
+            animal.increaseEnergy(dailyEnergyConsumption);
+        }
+    }
+    //--------------------------------------------------------------------------------------------
 
     //moving--------------------------------------------------------------------------------------
-    public void move() {
+    public void dailyMoving() {
         for (IAnimal animal : aliveAnimals) {
             animal.move();
         }
     }
-
     //--------------------------------------------------------------------------------------------
 
     //reproduction--------------------------------------------------------------------------------
@@ -149,7 +156,7 @@ public class Population {
     }
 
     private void createNewAnimal(IAnimal animalA, IAnimal animalB) {
-        IAnimal newAnimal = reproductionVariant.newAnimal(animalA, animalB, genomeLength, quantityMutations, energyUsedToReproduction, map);
+        IAnimal newAnimal = reproductionVariant.newAnimal(animalA, animalB, genomeLength, minimumNumberOfMutations, energyUsedToReproduction, map);
         addAnimal(newAnimal);
         informObserversAboutNewAnimal(newAnimal);
     }
