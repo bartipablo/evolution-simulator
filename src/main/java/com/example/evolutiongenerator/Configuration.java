@@ -7,13 +7,14 @@ public class Configuration {
     private final int mapWidth;
     private final int energyOfOneMove;
     private final int initialPlantsNumber;
+    private final int initialAnimalsNumber;
 
-
-    Configuration(int mapHeight, int mapWidth, int energyOfOneMove, int initialPlantsNumber) {
+    Configuration(int mapHeight, int mapWidth, int energyOfOneMove, int initialPlantsNumber, int initialAnimalsNumber) {
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
         this.energyOfOneMove = energyOfOneMove;
         this.initialPlantsNumber = initialPlantsNumber;
+        this.initialAnimalsNumber = initialAnimalsNumber;
     }
 
     public int getMapHeight() {
@@ -30,5 +31,9 @@ public class Configuration {
 
     public int getInitialPlantsNumber() {
         return initialPlantsNumber;
+    }
+
+    public int getInitialAnimalsNumber() {
+        return initialAnimalsNumber;
     }
 }
