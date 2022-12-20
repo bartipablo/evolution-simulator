@@ -5,6 +5,7 @@ import com.example.evolutiongenerator.animals.AnimalBehaviourB;
 import com.example.evolutiongenerator.interfaces.*;
 import com.example.evolutiongenerator.direction.MapDirection;
 import com.example.evolutiongenerator.direction.Vector2D;
+import com.example.evolutiongenerator.terrain.AbstractTerrain;
 import com.example.evolutiongenerator.variants.BehaviourVariant;
 
 import java.util.*;
@@ -22,12 +23,15 @@ public class Population {
     private final int energyUsedToReproduction;
     private final int genomeLength;
     private final int quantityMutations;
+    private final int energyOfOneMove;
+    private final int initialEnergy;
     private final BehaviourVariant behaviourVariant;
 
 
     //constructors-------------------------------------------------------------------------
     Population(int populationSize, int minimumEnergyToReproduction, int genomeLength, int energyUsedToReproduction,
-               int quantityMutations, IMap map, IReproduction reproductionVariant, ITerrain terrain, BehaviourVariant behaviourVariant) {
+               int quantityMutations, IMap map, IReproduction reproductionVariant, ITerrain terrain, BehaviourVariant behaviourVariant,
+               int energyOfOneMove, int initialEnergy) {
         this.reproductionVariant = reproductionVariant;
         this.minimumEnergyToReproduction = minimumEnergyToReproduction;
         this.map = map;
@@ -36,6 +40,8 @@ public class Population {
         this.energyUsedToReproduction = energyUsedToReproduction;
         this.terrain = terrain;
         this.behaviourVariant = behaviourVariant;
+        this.energyOfOneMove = energyOfOneMove;
+        this.initialEnergy = initialEnergy;
         generateNewPopulation(populationSize);
     }
 
@@ -46,9 +52,9 @@ public class Population {
             MapDirection initialDirection = MapDirection.generateRandomDirection();
             IAnimal animal;
             if (behaviourVariant == BehaviourVariant.FULL_PREDESTINATION) {
-                animal = new AnimalBehaviourA(initialPosition, initialDirection, map, genomeLength);
+                animal = new AnimalBehaviourA(initialPosition, initialDirection, map, genomeLength, energyOfOneMove, initialEnergy);
             } else {
-                animal = new AnimalBehaviourB(initialPosition, initialDirection, map, genomeLength);
+                animal = new AnimalBehaviourB(initialPosition, initialDirection, map, genomeLength, energyOfOneMove, initialEnergy);
             }
             addAnimal(animal);
             informObserversAboutNewAnimal(animal);
@@ -91,6 +97,14 @@ public class Population {
         }
     }
 
+    //moving--------------------------------------------------------------------------------------
+    public void move() {
+        for (IAnimal animal : aliveAnimals) {
+            animal.move();
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------
 
     //reproduction--------------------------------------------------------------------------------
     public void reproduction() {

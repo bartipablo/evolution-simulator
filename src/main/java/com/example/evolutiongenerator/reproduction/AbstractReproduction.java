@@ -15,7 +15,7 @@ public abstract class AbstractReproduction implements IReproduction {
     protected int energyUsedToReproduction;
     protected int energy;
 
-    protected void initialVariable(IAnimal parentA, IAnimal parentB, int genomeLength, int quantityMutations, int energyUsedToReproduction) {
+    protected void initialVariable(IAnimal parentA, IAnimal parentB, int genomeLength, int quantityMutations, int energyUsedToReproduction, int energyOfOneMove) {
         this.parentA = parentA;
         this.parentB = parentB;
         this.genome = new int[genomeLength];
@@ -59,8 +59,8 @@ public abstract class AbstractReproduction implements IReproduction {
             quantityOfEnergyFromTheParentA = (int) Math.floor((1.0 * parentA.getEnergy() / totalEnergy) * energyUsedToReproduction);
             quantityOfEnergyFromTheParentB = (int) Math.ceil((1.0 * parentB.getEnergy() / totalEnergy) * energyUsedToReproduction);
         }
-        parentA.reduceEnergy(quantityOfEnergyFromTheParentA);
-        parentB.reduceEnergy(quantityOfEnergyFromTheParentB);
+        parentA.increaseEnergy(-quantityOfEnergyFromTheParentA);
+        parentB.increaseEnergy(-quantityOfEnergyFromTheParentB);
         energy = quantityOfEnergyFromTheParentA + quantityOfEnergyFromTheParentB;
     }
 

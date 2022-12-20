@@ -29,14 +29,12 @@ public interface IAnimal {
 
     Gene getGene();
 
-    void reduceEnergy(int amount);
-
     void increaseEnergy(int amount);
 
     void move();
 
-    public void increaseNumberOfChildren(int quantity);
+    void increaseNumberOfChildren(int quantity);
 
-    public void increaseAge(int amount);
+    void increaseAge(int amount);
 
 }
