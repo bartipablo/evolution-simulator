@@ -10,12 +10,12 @@ import java.util.Random;
 //behaviour variant "a bit of craziness"
 public class AnimalBehaviourB extends AbstractAnimal {
 
-    public AnimalBehaviourB(Vector2D initialPosition, MapDirection initialDirection, IMap map, Gene gene) {
-        super(initialPosition, initialDirection, map, gene);
+    public AnimalBehaviourB(Vector2D initialPosition, MapDirection initialDirection, IMap map, Gene gene, int energyOfOneMove, int initialEnergy) {
+        super(initialPosition, initialDirection, map, gene, energyOfOneMove, initialEnergy);
     }
 
-    public AnimalBehaviourB(Vector2D initialPosition, MapDirection initialDirection, IMap map, int genomeLength) {
-        super(initialPosition, initialDirection, map, genomeLength);
+    public AnimalBehaviourB(Vector2D initialPosition, MapDirection initialDirection, IMap map, int genomeLength, int energyOfOneMove, int initialEnergy) {
+        super(initialPosition, initialDirection, map, genomeLength, energyOfOneMove, initialEnergy);
     }
 
     private void updateActualGenomeIndex() {
@@ -42,6 +42,7 @@ public class AnimalBehaviourB extends AbstractAnimal {
         direction = newDirection;
         informObserversAboutChanges(oldPosition, newPosition);
         updateActualGenomeIndex();
+        energy -= energyOfOneMove;
     }
 
 }
