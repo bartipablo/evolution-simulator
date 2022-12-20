@@ -156,7 +156,7 @@ public class Population {
     }
 
     private void createNewAnimal(IAnimal animalA, IAnimal animalB) {
-        IAnimal newAnimal = reproductionVariant.newAnimal(animalA, animalB, genomeLength, minimumNumberOfMutations, energyUsedToReproduction, map);
+        IAnimal newAnimal = reproductionVariant.newAnimal(animalA, animalB, genomeLength, minimumNumberOfMutations, maximumNumberOfMutations, energyUsedToReproduction, map);
         addAnimal(newAnimal);
         informObserversAboutNewAnimal(newAnimal);
     }
@@ -173,7 +173,6 @@ public class Population {
             }
         }
     }
-
     //-------------------------------------------------------------------------------------------------
 
     //consumption--------------------------------------------------------------------------------------

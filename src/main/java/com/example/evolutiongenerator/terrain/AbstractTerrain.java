@@ -7,16 +7,26 @@ import com.example.evolutiongenerator.interfaces.ITerrain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public abstract class AbstractTerrain implements ITerrain {
 
-    private final IMap map;
-    private final List<Plant> plants = new ArrayList<>();
+    protected final Random random;
+    protected final IMap map;
+    protected final int numberOfPlantsGrowingDaily;
+    protected final int plantEnergy;
+    protected final int initialPlantsNumber;
+    protected final List<Plant> plants = new ArrayList<>();
     private final List<IStatisticsObserver> statisticsObservers = new ArrayList<>();
 
+
     //constructors------------------------------------------------------------------
-    public AbstractTerrain(IMap map) {
+    public AbstractTerrain(IMap map, int numberOfPlantsGrowingDaily, int plantEnergy, int initialPlantsNumber) {
         this.map = map;
+        this.numberOfPlantsGrowingDaily = numberOfPlantsGrowingDaily;
+        this.random = new Random();
+        this.plantEnergy = plantEnergy;
+        this.initialPlantsNumber = initialPlantsNumber;
     }
     //-----------------------------------------------------------------------------
 
@@ -40,7 +50,6 @@ public abstract class AbstractTerrain implements ITerrain {
             observer.setPlantsQuantity(plants.size());
         }
     }
-
     //---------------------------------------------------------------------------------
 
 }

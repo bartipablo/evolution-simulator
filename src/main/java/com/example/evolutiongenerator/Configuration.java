@@ -18,6 +18,7 @@ public class Configuration {
     private final int maximumNumberOfMutations;
     private final int genomeLength;
     private final int numberOfPlantGrowingDaily;
+    private final int plantsEnergy;
     private final MapVariant mapVariant;
     private final BehaviourVariant behaviourVariant;
     private final MutationVariant mutationVariant;
@@ -25,7 +26,7 @@ public class Configuration {
 
     Configuration(int mapHeight, int mapWidth, int energyOfOneMove, int initialPlantsNumber, int initialAnimalsNumber, int initialAnimalsEnergy,
                   int energyRequiredForReproduction, int energyUsedForReproduction, int minimumNumberOfMutations, int maximumNumberOfMutations,
-                  int genomeLength, int numberOfPlantGrowingDaily, MapVariant mapVariant, BehaviourVariant behaviourVariant,
+                  int genomeLength, int numberOfPlantGrowingDaily, int plantEnergy, MapVariant mapVariant, BehaviourVariant behaviourVariant,
                   MutationVariant mutationVariant, TerrainVariant terrainVariant) {
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
@@ -39,6 +40,7 @@ public class Configuration {
         this.maximumNumberOfMutations = maximumNumberOfMutations;
         this.genomeLength = genomeLength;
         this.numberOfPlantGrowingDaily = numberOfPlantGrowingDaily;
+        this.plantsEnergy = plantEnergy;
         this.mapVariant = mapVariant;
         this.behaviourVariant = behaviourVariant;
         this.mutationVariant = mutationVariant;
@@ -109,4 +111,7 @@ public class Configuration {
         return terrainVariant;
     }
 
+    public int getPlantsEnergy() {
+        return plantsEnergy;
+    }
 }

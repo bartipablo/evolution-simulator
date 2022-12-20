@@ -8,7 +8,7 @@ public class Plant {
     private final int energy;
 
     //constructor-------------------------
-    Plant(Vector2D initialPosition, int plantEnergy) {
+    public Plant(Vector2D initialPosition, int plantEnergy) {
         this.position = initialPosition;
         this.energy = plantEnergy;
     }

@@ -5,9 +5,8 @@ import com.example.evolutiongenerator.Plant;
 import java.util.List;
 
 public interface ITerrain {
-
+    void dailyPlantGrowth();
     void removePlant(Plant plant);
-
     List<Plant> getPlants();
 
 }
