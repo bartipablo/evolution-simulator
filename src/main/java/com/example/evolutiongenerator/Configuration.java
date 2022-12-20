@@ -22,11 +22,11 @@ public class Configuration {
     }
 
     public int getMapWidth() {
-        return mapWidth;
+        return energyOfOneMove;
     }
 
     public int getEnergyOfOneMove() {
-        return initialPlantsNumber;
+        return energyOfOneMove;
     }
 
     public int getInitialPlantsNumber() {
