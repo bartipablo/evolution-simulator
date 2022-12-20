@@ -11,16 +11,19 @@ public abstract class AbstractReproduction implements IReproduction {
     protected IAnimal parentB;
     protected int[] genome;
     protected int genomeLength;
-    protected int quantityMutations;
+    protected int minimumQuantityMutations;
+    protected int maximumQuantityMutations;
     protected int energyUsedToReproduction;
     protected int energy;
 
-    protected void initialVariable(IAnimal parentA, IAnimal parentB, int genomeLength, int quantityMutations, int energyUsedToReproduction, int energyOfOneMove) {
+    protected void initialVariable(IAnimal parentA, IAnimal parentB, int genomeLength, int minimumQuantityMutations,
+                                   int maximumQuantityMutations, int energyUsedToReproduction) {
         this.parentA = parentA;
         this.parentB = parentB;
         this.genome = new int[genomeLength];
         this.genomeLength = genomeLength;
-        this.quantityMutations = quantityMutations;
+        this.minimumQuantityMutations = minimumQuantityMutations;
+        this.maximumQuantityMutations = maximumQuantityMutations;
         this.energyUsedToReproduction = energyUsedToReproduction;
     }
 

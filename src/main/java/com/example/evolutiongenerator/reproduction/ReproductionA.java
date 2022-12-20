@@ -21,25 +21,27 @@ public class ReproductionA extends AbstractReproduction {
             indexToMutation[i] = i;
         }
         shuffleArray(indexToMutation);
+        int quantityMutations = random.nextInt(minimumQuantityMutations, maximumQuantityMutations + 1);
         for (int i = 0; i < quantityMutations; i++) {
             genome[indexToMutation[i]] = random.nextInt(0, 8);
         }
     }
 
     @Override
-    public IAnimal newAnimal(IAnimal parentA, IAnimal parentB, int genomeLength, int quantityMutations, int energyUsedToReproduction, IMap map) {
+    public IAnimal newAnimal(IAnimal parentA, IAnimal parentB, int genomeLength, int minimumQuantityMutations, int maximumQuantityMutations,
+                             int energyUsedToReproduction, IMap map) {
         parentA.increaseNumberOfChildren(1);
         parentB.increaseNumberOfChildren(1);
-        initialVariable(parentA, parentB, genomeLength, quantityMutations, energyUsedToReproduction);
+        initialVariable(parentA, parentB, genomeLength, minimumQuantityMutations, maximumQuantityMutations, energyUsedToReproduction);
         createNewGenome();
         calculateEnergy();
         mutation();
         Gene gene = new Gene(genome);
         Vector2D initialPosition = new Vector2D(parentA.getPosition().x, parentA.getPosition().y);
         if (parentA instanceof AnimalBehaviourA) {
-            return new AnimalBehaviourA(initialPosition, MapDirection.generateRandomDirection(), map, gene);
+            return new AnimalBehaviourA(initialPosition, MapDirection.generateRandomDirection(), map, gene, energy);
         } else if (parentA instanceof AnimalBehaviourB) {
-            return new AnimalBehaviourB(initialPosition, MapDirection.generateRandomDirection(), map, gene);
+            return new AnimalBehaviourB(initialPosition, MapDirection.generateRandomDirection(), map, gene, energy);
         }
         return null;
     }
