@@ -1,6 +1,5 @@
 package com.example.evolutiongenerator;
 
-import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.interfaces.IMap;
 import com.example.evolutiongenerator.interfaces.IStatisticsObserver;
@@ -8,7 +7,7 @@ import com.example.evolutiongenerator.interfaces.IStatisticsObserver;
 import java.util.Arrays;
 import java.util.List;
 
-public class GeneralStatistics implements IStatisticsObserver {
+public class Statistics implements IStatisticsObserver {
 
     private int populationSize;
     private int plantsQuantity;
@@ -18,7 +17,7 @@ public class GeneralStatistics implements IStatisticsObserver {
     private int mostPopularGenotypeQuantity;
     private int[] theMostPopularGenotype;
 
-    GeneralStatistics(int populationSize, int numberOfPlants) {
+    Statistics(int populationSize, int numberOfPlants) {
         this.populationSize = populationSize;
         this.plantsQuantity = numberOfPlants;
         this.averageLifeLength = 0;
