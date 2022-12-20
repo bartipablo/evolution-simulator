@@ -25,7 +25,7 @@ public class Configuration {
     }
 
     public int getEnergyOfOneMove() {
-        return energyOfOneMove;
+        return initialPlantsNumber;
     }
 
     public int getInitialPlantsNumber() {
