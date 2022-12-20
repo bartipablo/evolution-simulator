@@ -1,6 +1,5 @@
 package com.example.evolutiongenerator.terrain;
 
-import com.example.evolutiongenerator.GeneralStatistics;
 import com.example.evolutiongenerator.Plant;
 import com.example.evolutiongenerator.interfaces.IMap;
 import com.example.evolutiongenerator.interfaces.IStatisticsObserver;
