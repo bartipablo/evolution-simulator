@@ -22,7 +22,7 @@ public class Configuration {
     }
 
     public int getMapWidth() {
-        return mapHeight;
+        return mapWidth;
     }
 
     public int getEnergyOfOneMove() {
