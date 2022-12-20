@@ -25,7 +25,7 @@ public class Configuration {
     }
 
     public int getEnergyOfOneMove() {
-        return mapHeight;
+        return energyOfOneMove;
     }
 
     public int getInitialPlantsNumber() {
