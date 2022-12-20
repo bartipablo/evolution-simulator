@@ -36,5 +36,7 @@ public interface IAnimal {
     void increaseNumberOfChildren(int quantity);
 
     void increaseAge(int amount);
+    void addObserver(IMapElementsObserver observer);
+    void removeObserver(IMapElementsObserver observer);
 
 }

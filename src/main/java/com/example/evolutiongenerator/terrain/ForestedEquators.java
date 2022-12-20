@@ -12,6 +12,7 @@ public class ForestedEquators extends AbstractTerrain {
 
     public ForestedEquators(IMap map, int numberOfPlantsGrowingDaily, int plantEnergy, int initialPlantsNumber) {
         super(map, numberOfPlantsGrowingDaily, plantEnergy, initialPlantsNumber);
+        calculateEquatorIndexes();
         generateTerrain(initialPlantsNumber);
     }
 
@@ -47,7 +48,7 @@ public class ForestedEquators extends AbstractTerrain {
             if (map.getPlantAtPosition(position) == null) {
                 plants.add(plant);
                 quantity -= 1;
-                //inform observer
+                informObserverAboutAddedNewPlats(plant);
             }
             if (quantity == 0) {
                 break;
@@ -56,7 +57,8 @@ public class ForestedEquators extends AbstractTerrain {
     }
 
     private void calculateEquatorIndexes() {
-
+        minEquatorIndex = (int) Math.floor(0.35 * map.getMapHeight());
+        maxEquatorIndex = (int) Math.floor(0.65 * map.getMapHeight());
     }
 
 }

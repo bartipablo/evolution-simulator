@@ -4,14 +4,13 @@ import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.Plant;
 import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.interfaces.IMap;
-import com.example.evolutiongenerator.interfaces.IPopulationChangeObserver;
-import com.example.evolutiongenerator.interfaces.IPositionChangeObserver;
+import com.example.evolutiongenerator.interfaces.IMapElementsObserver;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractMap implements IMap, IPositionChangeObserver, IPopulationChangeObserver {
+public abstract class AbstractMap implements IMap, IMapElementsObserver {
 
     protected final int mapHeight;
     protected final int mapWidth;
@@ -62,6 +61,16 @@ public abstract class AbstractMap implements IMap, IPositionChangeObserver, IPop
     @Override
     public void removedAnimal(IAnimal animal) {
         animalsOnMap.get(animal.getPosition()).remove(animal);
+    }
+
+    @Override
+    public void addedNewPlant(Plant plant) {
+        plantsOnMap.put(plant.getPosition(), plant);
+    }
+
+    @Override
+    public void removedPlant(Plant plant) {
+        plantsOnMap.remove(plant.getPosition());
     }
 
 }
