@@ -37,7 +37,7 @@ public class ReproductionB extends AbstractReproduction {
     public IAnimal newAnimal(IAnimal parentA, IAnimal parentB, int genomeLength, int quantityMutations, int energyUsedToReproduction, IMap map) {
         parentA.increaseNumberOfChildren(1);
         parentB.increaseNumberOfChildren(1);
-        initialVariable(parentA, parentB, genomeLength, quantityMutations, energyUsedToReproduction);
+        initialVariable(parentB, parentA, genomeLength, quantityMutations, energyUsedToReproduction);
         createNewGenome();
         calculateEnergy();
         mutation();
