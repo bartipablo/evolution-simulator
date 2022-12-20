@@ -33,7 +33,7 @@ public class AnimalBehaviourA extends AbstractAnimal {
         MapDirection newDirection = map.calculateDirectionAfterMovement(position, direction);
         position = newPosition;
         direction = newDirection;
-        informObserversAboutChanges(oldPosition, newPosition);
+        informObserversAboutPositionChanges(oldPosition, newPosition);
         updateActualGenomeIndex();
     }
 

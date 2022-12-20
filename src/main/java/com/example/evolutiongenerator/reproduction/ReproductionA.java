@@ -1,5 +1,6 @@
 package com.example.evolutiongenerator.reproduction;
 
+import com.example.evolutiongenerator.Static;
 import com.example.evolutiongenerator.animals.AnimalBehaviourA;
 import com.example.evolutiongenerator.animals.AnimalBehaviourB;
 import com.example.evolutiongenerator.interfaces.IAnimal;
@@ -20,7 +21,7 @@ public class ReproductionA extends AbstractReproduction {
         for (int i = 0; i < genomeLength; i++) {
             indexToMutation[i] = i;
         }
-        shuffleArray(indexToMutation);
+        Static.shuffleIntArray(indexToMutation);
         int quantityMutations = random.nextInt(minimumQuantityMutations, maximumQuantityMutations + 1);
         for (int i = 0; i < quantityMutations; i++) {
             genome[indexToMutation[i]] = random.nextInt(0, 8);

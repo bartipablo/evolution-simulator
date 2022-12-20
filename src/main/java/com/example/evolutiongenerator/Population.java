@@ -12,7 +12,7 @@ import java.util.*;
 public class Population {
 
     private final IMap map;
-    private final List<IPopulationChangeObserver> populationObservers = new ArrayList<>();
+    private final List<IMapElementsObserver> populationObservers = new ArrayList<>();
     private final List<IStatisticsObserver> statisticsObservers = new ArrayList<>();
     private final List<IAnimal> aliveAnimals = new ArrayList<>();
     private final List<IAnimal> extinctAnimals = new ArrayList<>();
@@ -156,7 +156,7 @@ public class Population {
     }
 
     private void createNewAnimal(IAnimal animalA, IAnimal animalB) {
-        IAnimal newAnimal = reproductionVariant.newAnimal(animalA, animalB, genomeLength, minimumNumberOfMutations, energyUsedToReproduction, map);
+        IAnimal newAnimal = reproductionVariant.newAnimal(animalA, animalB, genomeLength, minimumNumberOfMutations, maximumNumberOfMutations, energyUsedToReproduction, map);
         addAnimal(newAnimal);
         informObserversAboutNewAnimal(newAnimal);
     }
@@ -173,7 +173,6 @@ public class Population {
             }
         }
     }
-
     //-------------------------------------------------------------------------------------------------
 
     //consumption--------------------------------------------------------------------------------------
@@ -275,7 +274,7 @@ public class Population {
 
 
     //observers--------------------------------------------------------------------------------------
-    public void addNewPopulationObserver(IPopulationChangeObserver observer) {
+    public void addNewPopulationObserver(IMapElementsObserver observer) {
         populationObservers.add(observer);
     }
 
@@ -285,13 +284,13 @@ public class Population {
 
 
     private void informObserversAboutNewAnimal(IAnimal animal) {
-        for (IPopulationChangeObserver observer : populationObservers) {
+        for (IMapElementsObserver observer : populationObservers) {
             observer.addedNewAnimal(animal);
         }
     }
 
     private void informObserversAboutDeathAnimal(IAnimal animal) {
-        for (IPopulationChangeObserver observer : populationObservers) {
+        for (IMapElementsObserver observer : populationObservers) {
             observer.removedAnimal(animal);
         }
     }

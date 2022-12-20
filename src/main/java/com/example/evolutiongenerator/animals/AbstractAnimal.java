@@ -5,7 +5,7 @@ import com.example.evolutiongenerator.direction.MapDirection;
 import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.interfaces.IMap;
-import com.example.evolutiongenerator.interfaces.IPositionChangeObserver;
+import com.example.evolutiongenerator.interfaces.IMapElementsObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public abstract class AbstractAnimal implements IAnimal {
     private int numberOfChildren;
     private int numberOfEatenPlants;
     private int deathDay;
-    private final List<IPositionChangeObserver> observers = new ArrayList<>();
+    private final List<IMapElementsObserver> positionObservers = new ArrayList<>();
     protected Vector2D position;
     protected MapDirection direction;
     protected final IMap map;
@@ -73,6 +73,7 @@ public abstract class AbstractAnimal implements IAnimal {
     public int[] getGenome() {
         return gene.getGenome();
     }
+
     @Override
     public int getAge() {
         return age;
@@ -123,16 +124,18 @@ public abstract class AbstractAnimal implements IAnimal {
         this.deathDay = deathDay;
     }
 
-    public void addObserver(IPositionChangeObserver observer) {
-        observers.add(observer);
+    @Override
+    public void addObserver(IMapElementsObserver observer) {
+        positionObservers.add(observer);
     }
 
-    public void removeObserver(IPositionChangeObserver observer) {
-        observers.remove(observer);
+    @Override
+    public void removeObserver(IMapElementsObserver observer) {
+        positionObservers.remove(observer);
     }
 
-    protected void informObserversAboutChanges(Vector2D oldPosition, Vector2D newPosition) {
-        for (IPositionChangeObserver observer : observers) {
+    protected void informObserversAboutPositionChanges(Vector2D oldPosition, Vector2D newPosition) {
+        for (IMapElementsObserver observer : positionObservers) {
             observer.positionChanged(this, oldPosition, newPosition);
         }
     }
