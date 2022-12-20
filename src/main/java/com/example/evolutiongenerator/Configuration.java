@@ -8,7 +8,7 @@ import com.example.evolutiongenerator.variants.TerrainVariant;
 public class Configuration {
     private final int mapHeight;
     private final int mapWidth;
-    private final int energyUsedDuringMovement;
+    private final int dailyEnergyConsumption;
     private final int initialPlantsNumber;
     private final int initialAnimalsNumber;
     private final int initialAnimalsEnergy;
@@ -29,7 +29,7 @@ public class Configuration {
                   MutationVariant mutationVariant, TerrainVariant terrainVariant) {
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
-        this.energyUsedDuringMovement = energyOfOneMove;
+        this.dailyEnergyConsumption = energyOfOneMove;
         this.initialPlantsNumber = initialPlantsNumber;
         this.initialAnimalsNumber = initialAnimalsNumber;
         this.initialAnimalsEnergy = initialAnimalsEnergy;
@@ -53,8 +53,8 @@ public class Configuration {
         return mapWidth;
     }
 
-    public int getEnergyUsedDuringMovement() {
-        return energyUsedDuringMovement;
+    public int getDailyEnergyConsumption() {
+        return dailyEnergyConsumption;
     }
 
     public int getInitialPlantsNumber() {
@@ -108,6 +108,5 @@ public class Configuration {
     public TerrainVariant terrainVariant() {
         return terrainVariant;
     }
-
 
 }

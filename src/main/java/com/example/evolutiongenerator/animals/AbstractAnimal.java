@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractAnimal implements IAnimal {
-
-    protected int energyOfOneMove;
     protected int actualGenomeIndex;
     protected int energy;
     private int age;
@@ -26,7 +24,7 @@ public abstract class AbstractAnimal implements IAnimal {
     protected Gene gene;
 
     //constructors------------------------------------------
-    AbstractAnimal(Vector2D initialPosition, MapDirection initialDirection, IMap map, int genomeLength, int energyOfOneMove, int initialEnergy) {
+    AbstractAnimal(Vector2D initialPosition, MapDirection initialDirection, IMap map, int genomeLength, int initialEnergy) {
         this.position = initialPosition;
         this.direction = initialDirection;
         this.map = map;
@@ -35,11 +33,10 @@ public abstract class AbstractAnimal implements IAnimal {
         this.numberOfEatenPlants = 0;
         this.numberOfChildren = 0;
         this.age = 0;
-        this.energyOfOneMove = energyOfOneMove;
         this.energy = initialEnergy;
     }
 
-    public AbstractAnimal(Vector2D initialPosition, MapDirection initialDirection, IMap map, Gene gene, int energyOfOneMove, int initialEnergy) {
+    public AbstractAnimal(Vector2D initialPosition, MapDirection initialDirection, IMap map, Gene gene, int initialEnergy) {
         this.position = initialPosition;
         this.direction = initialDirection;
         this.map = map;
@@ -48,7 +45,6 @@ public abstract class AbstractAnimal implements IAnimal {
         this.numberOfEatenPlants = 0;
         this.numberOfChildren = 0;
         this.age = 0;
-        this.energyOfOneMove = energyOfOneMove;
         this.energy = initialEnergy;
     }
     //---------------------------------------------------
