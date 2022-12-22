@@ -17,24 +17,14 @@ public class ForestedEquators extends AbstractTerrain {
     }
 
     @Override
-    public void dailyPlantGrowth() {
-        generateTerrain(numberOfPlantsGrowingDaily);
-    }
-
-    private void generateTerrain(int quantityOfPlants) {
-        int quantityOfPlantsOnEquator = (int) Math.ceil(0.8 * quantityOfPlants);
-        int quantityOfPlantsOutsideEquator = quantityOfPlants - quantityOfPlantsOnEquator;
-        setAtEquator(quantityOfPlantsOnEquator);
-        setOutsideEquator(quantityOfPlantsOutsideEquator);
-    }
-
-    private void setAtEquator(int quantity) {
+    protected void setAtPreferPosition(int quantity) {
         Vector2D[] positions = Static.generateVector2DArray(0, map.getMapHeight(), minEquatorIndex, maxEquatorIndex);
         setAtPositions(positions, quantity);
 
     }
 
-    private void setOutsideEquator(int quantity) {
+    @Override
+    protected void setOutsidePreferPosition(int quantity) {
         Vector2D[] positions1 = Static.generateVector2DArray(0, map.getMapHeight(), 0, minEquatorIndex - 1);
         Vector2D[] positions2 = Static.generateVector2DArray(0, map.getMapHeight(), maxEquatorIndex + 1, map.getMapHeight());
         Vector2D[] positions = Static.concatTwoVector2DArrays(positions1, positions2);
@@ -44,7 +34,7 @@ public class ForestedEquators extends AbstractTerrain {
 
     private void setAtPositions(Vector2D[] positions, int quantity) {
         for (Vector2D position: positions) {
-            Plant plant = new Plant(position, plantEnergy);
+            Plant plant = new Plant(position, initialPlantsEnergy);
             if (map.getPlantAtPosition(position) == null) {
                 plants.add(plant);
                 quantity -= 1;

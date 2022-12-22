@@ -15,7 +15,7 @@ import java.util.Random;
 //variant implementation "full randomness"
 public class ReproductionA extends AbstractReproduction {
 
-    private void mutation() {
+    protected void mutation() {
         Random random = new Random();
         int[] indexToMutation = new int[genomeLength];
         for (int i = 0; i < genomeLength; i++) {
@@ -28,23 +28,5 @@ public class ReproductionA extends AbstractReproduction {
         }
     }
 
-    @Override
-    public IAnimal newAnimal(IAnimal parentA, IAnimal parentB, int genomeLength, int minimumQuantityMutations, int maximumQuantityMutations,
-                             int energyUsedToReproduction, IMap map) {
-        parentA.increaseNumberOfChildren(1);
-        parentB.increaseNumberOfChildren(1);
-        initialVariable(parentA, parentB, genomeLength, minimumQuantityMutations, maximumQuantityMutations, energyUsedToReproduction);
-        createNewGenome();
-        calculateEnergy();
-        mutation();
-        Gene gene = new Gene(genome);
-        Vector2D initialPosition = new Vector2D(parentA.getPosition().x, parentA.getPosition().y);
-        if (parentA instanceof AnimalBehaviourA) {
-            return new AnimalBehaviourA(initialPosition, MapDirection.generateRandomDirection(), map, gene, energy);
-        } else if (parentA instanceof AnimalBehaviourB) {
-            return new AnimalBehaviourB(initialPosition, MapDirection.generateRandomDirection(), map, gene, energy);
-        }
-        return null;
-    }
 
 }

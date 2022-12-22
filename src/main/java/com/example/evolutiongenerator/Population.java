@@ -15,7 +15,6 @@ public class Population {
     private final List<IMapElementsObserver> populationObservers = new ArrayList<>();
     private final List<IStatisticsObserver> statisticsObservers = new ArrayList<>();
     private final List<IAnimal> aliveAnimals = new ArrayList<>();
-    private final List<IAnimal> extinctAnimals = new ArrayList<>();
     private final IReproduction reproductionVariant;
     private final ITerrain terrain;
     private final int minimumEnergyToReproduction;
@@ -25,6 +24,7 @@ public class Population {
     private final int maximumNumberOfMutations;
     private final int dailyEnergyConsumption;
     private final int initialEnergy;
+    private int totalLifeExpectancy;
     private final BehaviourVariant behaviourVariant;
 
 
@@ -43,6 +43,7 @@ public class Population {
         this.behaviourVariant = behaviourVariant;
         this.dailyEnergyConsumption = dailyEnergyConsumption;
         this.initialEnergy = initialEnergy;
+        this.totalLifeExpectancy = 0;
         generateNewPopulation(populationSize);
     }
 
@@ -84,23 +85,19 @@ public class Population {
         return aliveAnimals;
     }
 
-    public List<IAnimal> getExtinctAnimals() {
-        return extinctAnimals;
-    }
-
     public void completeStatistics() {
         for (IStatisticsObserver observer : statisticsObservers) {
             observer.setAverageEnergy(aliveAnimals);
             observer.setPopulationSize(aliveAnimals.size());
             observer.setFreeFieldQuantity(map);
             observer.setTheMostPopularGenotype(getAnimalGenomes());
-            observer.setAverageLifeLength(extinctAnimals);
+            //observer.setAverageLifeLength();
         }
     }
     //daily energy consumption---------------------------------------------------------------------
     public void dailyEnergyConsumption() {
         for (IAnimal animal : aliveAnimals) {
-            animal.increaseEnergy(dailyEnergyConsumption);
+            animal.increaseEnergy(-dailyEnergyConsumption);
         }
     }
     //--------------------------------------------------------------------------------------------
@@ -167,7 +164,7 @@ public class Population {
     public void vanishing() {
         for (IAnimal animal : aliveAnimals) {
             if (animal.getEnergy() <= 0) {
-                extinctAnimals.add(animal);
+                totalLifeExpectancy += animal.getAge();
                 removeAnimal(animal);
                 informObserversAboutDeathAnimal(animal);
             }
@@ -285,13 +282,13 @@ public class Population {
 
     private void informObserversAboutNewAnimal(IAnimal animal) {
         for (IMapElementsObserver observer : populationObservers) {
-            observer.addedNewAnimal(animal);
+            observer.addAnimalToMap(animal);
         }
     }
 
     private void informObserversAboutDeathAnimal(IAnimal animal) {
         for (IMapElementsObserver observer : populationObservers) {
-            observer.removedAnimal(animal);
+            observer.removeAnimalFromMap(animal);
         }
     }
     //-------------------------------------------------------------------------------------------------

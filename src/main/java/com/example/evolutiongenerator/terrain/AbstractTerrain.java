@@ -14,20 +14,20 @@ public abstract class AbstractTerrain implements ITerrain {
 
     protected final Random random;
     protected final IMap map;
-    protected final int numberOfPlantsGrowingDaily;
-    protected final int plantEnergy;
+    protected final int plantsNumberGrowingDaily;
+    protected final int initialPlantsEnergy;
     protected final int initialPlantsNumber;
     protected final List<Plant> plants = new ArrayList<>();
     private final List<IStatisticsObserver> statisticsObservers = new ArrayList<>();
-    protected final List<IMapElementsObserver> plantsObserver = new ArrayList<>();
+    protected final List<IMapElementsObserver> terrainObserver = new ArrayList<>();
 
 
     //constructors------------------------------------------------------------------
-    public AbstractTerrain(IMap map, int numberOfPlantsGrowingDaily, int plantEnergy, int initialPlantsNumber) {
+    public AbstractTerrain(IMap map, int plantsNumberGrowingDaily, int initialPlantsEnergy, int initialPlantsNumber) {
         this.map = map;
-        this.numberOfPlantsGrowingDaily = numberOfPlantsGrowingDaily;
+        this.plantsNumberGrowingDaily = plantsNumberGrowingDaily;
         this.random = new Random();
-        this.plantEnergy = plantEnergy;
+        this.initialPlantsEnergy = initialPlantsEnergy;
         this.initialPlantsNumber = initialPlantsNumber;
     }
     //-----------------------------------------------------------------------------
@@ -44,11 +44,11 @@ public abstract class AbstractTerrain implements ITerrain {
     }
 
     //observers------------------------------------------------------------------------
-    public void addPlantsObserver(IMapElementsObserver mapElementsObserver) {
-        plantsObserver.add(mapElementsObserver);
+    public void addTerrainObserver(IMapElementsObserver mapElementsObserver) {
+        terrainObserver.add(mapElementsObserver);
     }
 
-    public void addNewStatisticsObserver(IStatisticsObserver observer) {
+    public void addStatisticsObserver(IStatisticsObserver observer) {
         statisticsObservers.add(observer);
     }
 
@@ -59,17 +59,32 @@ public abstract class AbstractTerrain implements ITerrain {
     }
 
     protected void informObserverAboutAddedNewPlats(Plant plant) {
-        for (IMapElementsObserver observer : plantsObserver) {
-            observer.addedNewPlant(plant);
+        for (IMapElementsObserver observer : terrainObserver) {
+            observer.addPlantToMap(plant);
         }
     }
 
     protected void informObserverAboutRemovedPlats(Plant plant) {
-        for (IMapElementsObserver observer : plantsObserver) {
-            observer.removedPlant(plant);
+        for (IMapElementsObserver observer : terrainObserver) {
+            observer.removePlantFromMap(plant);
         }
     }
 
     //---------------------------------------------------------------------------------
 
+    @Override
+    public void dailyPlantGrowth() {
+        generateTerrain(plantsNumberGrowingDaily);
+    }
+
+    protected void generateTerrain(int quantityOfPlants) {
+        int quantityOfPlantsOnPreferPosition = (int) Math.ceil(0.8 * quantityOfPlants);
+        int quantityOfPlantsOutsidePreferPosition = quantityOfPlants - quantityOfPlantsOnPreferPosition;
+        setAtPreferPosition(quantityOfPlantsOnPreferPosition);
+        setOutsidePreferPosition(quantityOfPlantsOutsidePreferPosition);
+    }
+
+    protected abstract void setAtPreferPosition(int quantityOfPlants);
+
+    protected abstract void setOutsidePreferPosition(int quantityOfPlants);
 }
