@@ -60,13 +60,13 @@ public abstract class AbstractTerrain implements ITerrain {
 
     protected void informObserverAboutAddedNewPlats(Plant plant) {
         for (IMapElementsObserver observer : terrainObserver) {
-            observer.addedNewPlant(plant);
+            observer.addPlantToMap(plant);
         }
     }
 
     protected void informObserverAboutRemovedPlats(Plant plant) {
         for (IMapElementsObserver observer : terrainObserver) {
-            observer.removedPlant(plant);
+            observer.removePlantFromMap(plant);
         }
     }
 

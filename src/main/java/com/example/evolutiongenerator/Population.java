@@ -282,13 +282,13 @@ public class Population {
 
     private void informObserversAboutNewAnimal(IAnimal animal) {
         for (IMapElementsObserver observer : populationObservers) {
-            observer.addedNewAnimal(animal);
+            observer.addAnimalToMap(animal);
         }
     }
 
     private void informObserversAboutDeathAnimal(IAnimal animal) {
         for (IMapElementsObserver observer : populationObservers) {
-            observer.removedAnimal(animal);
+            observer.removeAnimalFromMap(animal);
         }
     }
     //-------------------------------------------------------------------------------------------------

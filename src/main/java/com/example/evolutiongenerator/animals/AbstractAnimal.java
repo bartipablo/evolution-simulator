@@ -136,7 +136,7 @@ public abstract class AbstractAnimal implements IAnimal {
 
     protected void informObserversAboutPositionChanges(Vector2D oldPosition, Vector2D newPosition) {
         for (IMapElementsObserver observer : positionObservers) {
-            observer.positionChanged(this, oldPosition, newPosition);
+            observer.changePositionOnMap(this, oldPosition, newPosition);
         }
     }
 
