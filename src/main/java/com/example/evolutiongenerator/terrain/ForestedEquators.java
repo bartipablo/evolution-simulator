@@ -18,7 +18,7 @@ public class ForestedEquators extends AbstractTerrain {
 
     @Override
     public void dailyPlantGrowth() {
-        generateTerrain(numberOfPlantsGrowingDaily);
+        generateTerrain(plantsNumberGrowingDaily);
     }
 
     private void generateTerrain(int quantityOfPlants) {
@@ -44,7 +44,7 @@ public class ForestedEquators extends AbstractTerrain {
 
     private void setAtPositions(Vector2D[] positions, int quantity) {
         for (Vector2D position: positions) {
-            Plant plant = new Plant(position, plantEnergy);
+            Plant plant = new Plant(position, initialPlantsEnergy);
             if (map.getPlantAtPosition(position) == null) {
                 plants.add(plant);
                 quantity -= 1;

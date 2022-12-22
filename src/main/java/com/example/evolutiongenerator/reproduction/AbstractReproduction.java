@@ -1,6 +1,12 @@
 package com.example.evolutiongenerator.reproduction;
 
+import com.example.evolutiongenerator.Gene;
+import com.example.evolutiongenerator.animals.AnimalBehaviourA;
+import com.example.evolutiongenerator.animals.AnimalBehaviourB;
+import com.example.evolutiongenerator.direction.MapDirection;
+import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.interfaces.IAnimal;
+import com.example.evolutiongenerator.interfaces.IMap;
 import com.example.evolutiongenerator.interfaces.IReproduction;
 
 import java.util.Random;
@@ -66,5 +72,27 @@ public abstract class AbstractReproduction implements IReproduction {
         parentB.increaseEnergy(-quantityOfEnergyFromTheParentB);
         energy = quantityOfEnergyFromTheParentA + quantityOfEnergyFromTheParentB;
     }
+
+    @Override
+    public IAnimal newAnimal(IAnimal parentA, IAnimal parentB, int genomeLength, int minimumQuantityMutations, int maximumQuantityMutations,
+                             int energyUsedToReproduction, IMap map) {
+        parentA.increaseNumberOfChildren(1);
+        parentB.increaseNumberOfChildren(1);
+        initialVariable(parentA, parentB, genomeLength, minimumQuantityMutations, maximumQuantityMutations, energyUsedToReproduction);
+        createNewGenome();
+        calculateEnergy();
+        mutation();
+        Gene gene = new Gene(genome);
+        Vector2D initialPosition = new Vector2D(parentA.getPosition().x, parentA.getPosition().y);
+        if (parentA instanceof AnimalBehaviourA) {
+            return new AnimalBehaviourA(initialPosition, MapDirection.generateRandomDirection(), map, gene, energy);
+        } else if (parentA instanceof AnimalBehaviourB) {
+            return new AnimalBehaviourB(initialPosition, MapDirection.generateRandomDirection(), map, gene, energy);
+        }
+        return null;
+    }
+
+
+    protected abstract void mutation();
 
 }
