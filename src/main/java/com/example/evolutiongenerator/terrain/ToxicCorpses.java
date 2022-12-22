@@ -47,6 +47,4 @@ public class ToxicCorpses extends AbstractTerrain {
             }
         }
     }
-
-
 }
