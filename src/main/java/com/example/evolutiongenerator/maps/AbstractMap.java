@@ -47,6 +47,15 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
     }
 
     @Override
+    public List<Vector2D> getPositionsSortedByNumbersOfDeaths() {
+        List<Vector2D> resultList = new ArrayList<>();
+        for (List<Vector2D> vector2DList : positionWithNumberOfDeath.values()) {
+            resultList.addAll(vector2DList);
+        }
+        return resultList;
+    }
+
+    @Override
     public List<IAnimal> getAnimalsAtPosition(Vector2D position) {
         return livesAnimalsOnMap.get(position);
     }

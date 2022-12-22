@@ -16,6 +16,8 @@ public interface IMap {
 
     public Vector2D[] getAnimalsPositions();
 
+    List<Vector2D> getPositionsSortedByNumbersOfDeaths();
+
     Plant getPlantAtPosition(Vector2D position);
 
     Vector2D calculatePositionAfterMovement(Vector2D position, MapDirection direction);

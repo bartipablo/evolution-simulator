@@ -72,4 +72,19 @@ public abstract class AbstractTerrain implements ITerrain {
 
     //---------------------------------------------------------------------------------
 
+    @Override
+    public void dailyPlantGrowth() {
+        generateTerrain(plantsNumberGrowingDaily);
+    }
+
+    protected void generateTerrain(int quantityOfPlants) {
+        int quantityOfPlantsOnPreferPosition = (int) Math.ceil(0.8 * quantityOfPlants);
+        int quantityOfPlantsOutsidePreferPosition = quantityOfPlants - quantityOfPlantsOnPreferPosition;
+        setAtPreferPosition(quantityOfPlantsOnPreferPosition);
+        setOutsidePreferPosition(quantityOfPlantsOutsidePreferPosition);
+    }
+
+    protected abstract void setAtPreferPosition(int quantityOfPlants);
+
+    protected abstract void setOutsidePreferPosition(int quantityOfPlants);
 }
