@@ -76,7 +76,7 @@ public class Population {
     public List<int[]> getAnimalGenomes() {
         List<int[]> animalGenomes = new ArrayList<>();
         for (IAnimal animal : aliveAnimals) {
-            animalGenomes.add(animal.getGene().getGenome());
+            animalGenomes.add(animal.getGene().getGenomes());
         }
         return animalGenomes;
     }
@@ -143,7 +143,7 @@ public class Population {
 
         drawsList = getAgeDrawsList(drawsList);
         sortTheAnimalsByNumberOfChildren(drawsList);
-        if (drawsList.get(1).getNumberOfChildren() > drawsList.get(2).getNumberOfChildren()) {
+        if (drawsList.get(1).getChildrenNumber() > drawsList.get(2).getChildrenNumber()) {
             return drawsList.subList(0, 1);
         }
 
@@ -180,7 +180,7 @@ public class Population {
             if (plant != null) {
                 IAnimal animal = chooseAnimalToConsumption(map.getAnimalsAtPosition(position));
                 animal.increaseEnergy(plant.getEnergy());
-                animal.increaseNumberOfEatenPlants(1);
+                animal.changeEatenPlantsNumber(1);
                 terrain.removePlant(plant);
             }
         }
@@ -239,7 +239,7 @@ public class Population {
         animalList.sort(new Comparator<IAnimal>() {
             @Override
             public int compare(IAnimal o1, IAnimal o2) {
-                return -(o1.getNumberOfChildren() - o2.getNumberOfChildren());
+                return -(o1.getChildrenNumber() - o2.getChildrenNumber());
             }
         });
     }
@@ -262,7 +262,7 @@ public class Population {
 
     private List<IAnimal> getNumberOfChildrenDrawsList(List<IAnimal> animalList) {
         int numberOfDraws = 1;
-        while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getNumberOfChildren() == animalList.get(numberOfDraws - 1).getNumberOfChildren()) {
+        while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getChildrenNumber() == animalList.get(numberOfDraws - 1).getChildrenNumber()) {
             numberOfDraws++;
         }
         return animalList.subList(0, numberOfDraws - 1);

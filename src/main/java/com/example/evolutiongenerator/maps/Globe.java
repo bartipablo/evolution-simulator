@@ -5,7 +5,7 @@ import com.example.evolutiongenerator.direction.MapDirection;
 
 public class Globe extends AbstractMap {
 
-    Globe(int mapHeight, int mapWidth) {
+    public Globe(int mapHeight, int mapWidth) {
         super(mapHeight, mapWidth);
     }
 

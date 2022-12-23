@@ -28,7 +28,7 @@ public class Gene {
         }
     }
 
-    public int[] getGenome() {
+    public int[] getGenomes() {
         return genome;
     }
 

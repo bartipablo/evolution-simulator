@@ -5,7 +5,7 @@ import com.example.evolutiongenerator.direction.MapDirection;
 
 public class HellishPortal extends AbstractMap {
 
-    HellishPortal(int mapHeight, int mapWidth) {
+    public HellishPortal(int mapHeight, int mapWidth) {
         super(mapHeight, mapWidth);
     }
 

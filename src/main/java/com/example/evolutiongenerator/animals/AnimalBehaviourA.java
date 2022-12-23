@@ -17,24 +17,12 @@ public class AnimalBehaviourA extends AbstractAnimal {
         super(initialPosition, initialDirection, map, genomeLength, initialEnergy);
     }
 
-    private void updateActualGenomeIndex() {
+    protected void updateActualGenomeIndex() {
         if (actualGenomeIndex == gene.getGenomeLength() - 1) {
             actualGenomeIndex = 0;
         } else {
             actualGenomeIndex += 1;
         }
-    }
-
-    @Override
-    public void move() {
-        Vector2D oldPosition = new Vector2D(position.x, position.y);
-        direction = direction.rotation(gene.getGenome()[actualGenomeIndex]);
-        Vector2D newPosition = map.calculatePositionAfterMovement(position, direction);
-        MapDirection newDirection = map.calculateDirectionAfterMovement(position, direction);
-        position = newPosition;
-        direction = newDirection;
-        informObserversAboutPositionChanges(oldPosition, newPosition);
-        updateActualGenomeIndex();
     }
 
 }
