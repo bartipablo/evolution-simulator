@@ -28,5 +28,4 @@ public class ReproductionA extends AbstractReproduction {
         }
     }
 
-
 }
