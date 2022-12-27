@@ -1,13 +1,7 @@
 package com.example.evolutiongenerator;
 
-import com.example.evolutiongenerator.interfaces.IAnimal;
-import com.example.evolutiongenerator.interfaces.IMap;
 import com.example.evolutiongenerator.interfaces.IReproduction;
 import com.example.evolutiongenerator.interfaces.ITerrain;
-import com.example.evolutiongenerator.maps.Globe;
-import com.example.evolutiongenerator.maps.HellishPortal;
-import com.example.evolutiongenerator.reproduction.ReproductionA;
-import com.example.evolutiongenerator.variants.MapVariant;
 
 public class World {
 

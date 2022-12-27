@@ -37,13 +37,15 @@ public class Static {
     }
 
     public static Vector2D[] generateVector2DArray(int xMin, int xMax, int yMin, int yMax) {
+        int g =0;
         if (xMax < xMin || yMax < yMin) {
             return null;
         }
         Vector2D[] resultArray = new Vector2D[(xMax - xMin + 1) * (yMax - yMin + 1)];
         for (int i = xMin; i <= xMax; i++) {
             for (int j = yMin; j <= yMax; j++) {
-                resultArray[(i * yMin) + j] = new Vector2D(i ,j);
+                resultArray[g] = new Vector2D(i ,j);
+                g++;
             }
         }
         return resultArray;
