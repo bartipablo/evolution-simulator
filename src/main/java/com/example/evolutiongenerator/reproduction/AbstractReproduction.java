@@ -20,7 +20,7 @@ public abstract class AbstractReproduction implements IReproduction {
     protected int minimumQuantityMutations;
     protected int maximumQuantityMutations;
     protected int energyUsedToReproduction;
-    protected int energy;
+    protected int childrenEnergy;
 
     protected void initialVariable(IAnimal parentA, IAnimal parentB, int genomeLength, int minimumQuantityMutations,
                                    int maximumQuantityMutations, int energyUsedToReproduction) {
@@ -68,9 +68,9 @@ public abstract class AbstractReproduction implements IReproduction {
             quantityOfEnergyFromTheParentA = (int) Math.floor((1.0 * parentA.getEnergy() / totalEnergy) * energyUsedToReproduction);
             quantityOfEnergyFromTheParentB = (int) Math.ceil((1.0 * parentB.getEnergy() / totalEnergy) * energyUsedToReproduction);
         }
-        parentA.increaseEnergy(-quantityOfEnergyFromTheParentA);
-        parentB.increaseEnergy(-quantityOfEnergyFromTheParentB);
-        energy = quantityOfEnergyFromTheParentA + quantityOfEnergyFromTheParentB;
+        parentA.changeEnergy(-quantityOfEnergyFromTheParentA);
+        parentB.changeEnergy(-quantityOfEnergyFromTheParentB);
+        childrenEnergy = quantityOfEnergyFromTheParentA + quantityOfEnergyFromTheParentB;
     }
 
     @Override
@@ -85,9 +85,9 @@ public abstract class AbstractReproduction implements IReproduction {
         Gene gene = new Gene(genome);
         Vector2D initialPosition = new Vector2D(parentA.getPosition().x, parentA.getPosition().y);
         if (parentA instanceof AnimalBehaviourA) {
-            return new AnimalBehaviourA(initialPosition, MapDirection.generateRandomDirection(), map, gene, energy);
+            return new AnimalBehaviourA(initialPosition, MapDirection.generateRandomDirection(), map, gene, childrenEnergy);
         } else if (parentA instanceof AnimalBehaviourB) {
-            return new AnimalBehaviourB(initialPosition, MapDirection.generateRandomDirection(), map, gene, energy);
+            return new AnimalBehaviourB(initialPosition, MapDirection.generateRandomDirection(), map, gene, childrenEnergy);
         }
         return null;
     }

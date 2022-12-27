@@ -100,7 +100,7 @@ public abstract class AbstractAnimal implements IAnimal {
     }
 
     @Override
-    public void increaseEnergy(int amount) {
+    public void changeEnergy(int amount) {
         energy += amount;
     }
 

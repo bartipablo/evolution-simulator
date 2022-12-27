@@ -29,7 +29,7 @@ public interface IAnimal {
 
     Gene getGene();
 
-    void increaseEnergy(int amount);
+    void changeEnergy(int amount);
 
     void move();
 
