@@ -12,8 +12,9 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-menu.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 500, 800);
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("new-simulation.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 867, 481);
+        stage.setResizable(false);
         stage.setTitle("Evolution Generator");
         stage.getIcons().add(new Image(new FileInputStream("src/main/resources/com/example/evolutiongenerator/icon.png")));
         stage.setScene(scene);

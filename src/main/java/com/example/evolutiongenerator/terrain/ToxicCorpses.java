@@ -15,12 +15,6 @@ public class ToxicCorpses extends AbstractTerrain {
         generateTerrain(initialPlantsNumber);
     }
 
-
-    @Override
-    public void dailyPlantGrowth() {
-        generateTerrain(plantsNumberGrowingDaily);
-    }
-
     @Override
     protected void setAtPreferPosition(int quantity) {
         List<Vector2D> preferPositions = map.getPositionsSortedByNumbersOfDeaths();

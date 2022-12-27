@@ -14,7 +14,7 @@ public class Population {
     private final IMap map;
     private final List<IMapElementsObserver> populationObservers = new ArrayList<>();
     private final List<IStatisticsObserver> statisticsObservers = new ArrayList<>();
-    private final List<IAnimal> aliveAnimals = new ArrayList<>();
+    private final List<IAnimal> liveAnimals = new ArrayList<>();
     private final IReproduction reproductionVariant;
     private final ITerrain terrain;
     private final int minimumEnergyToReproduction;
@@ -58,37 +58,37 @@ public class Population {
             } else {
                 animal = new AnimalBehaviourB(initialPosition, initialDirection, map, genomeLength, initialEnergy);
             }
-            addAnimal(animal);
+            addNewAnimal(animal);
             informObserversAboutNewAnimal(animal);
         }
     }
 
     //-------------------------------------------------------------------------------------------
 
-    private void addAnimal(IAnimal animal) {
-        aliveAnimals.add(animal);
+    private void addNewAnimal(IAnimal animal) {
+        liveAnimals.add(animal);
     }
 
     private void removeAnimal(IAnimal animal) {
-        aliveAnimals.remove(animal);
+        liveAnimals.remove(animal);
     }
 
     public List<int[]> getAnimalGenomes() {
         List<int[]> animalGenomes = new ArrayList<>();
-        for (IAnimal animal : aliveAnimals) {
-            animalGenomes.add(animal.getGene().getGenome());
+        for (IAnimal animal : liveAnimals) {
+            animalGenomes.add(animal.getGene().getGenomes());
         }
         return animalGenomes;
     }
 
-    public List<IAnimal> getAliveAnimals() {
-        return aliveAnimals;
+    public List<IAnimal> getLiveAnimals() {
+        return liveAnimals;
     }
 
     public void completeStatistics() {
         for (IStatisticsObserver observer : statisticsObservers) {
-            observer.setAverageEnergy(aliveAnimals);
-            observer.setPopulationSize(aliveAnimals.size());
+            observer.setAverageEnergy(liveAnimals);
+            observer.setPopulationSize(liveAnimals.size());
             observer.setFreeFieldQuantity(map);
             observer.setTheMostPopularGenotype(getAnimalGenomes());
             //observer.setAverageLifeLength();
@@ -96,15 +96,15 @@ public class Population {
     }
     //daily energy consumption---------------------------------------------------------------------
     public void dailyEnergyConsumption() {
-        for (IAnimal animal : aliveAnimals) {
-            animal.increaseEnergy(-dailyEnergyConsumption);
+        for (IAnimal animal : liveAnimals) {
+            animal.changeEnergy(-dailyEnergyConsumption);
         }
     }
     //--------------------------------------------------------------------------------------------
 
     //moving--------------------------------------------------------------------------------------
     public void dailyMoving() {
-        for (IAnimal animal : aliveAnimals) {
+        for (IAnimal animal : liveAnimals) {
             animal.move();
         }
     }
@@ -143,7 +143,7 @@ public class Population {
 
         drawsList = getAgeDrawsList(drawsList);
         sortTheAnimalsByNumberOfChildren(drawsList);
-        if (drawsList.get(1).getNumberOfChildren() > drawsList.get(2).getNumberOfChildren()) {
+        if (drawsList.get(1).getChildrenNumber() > drawsList.get(2).getChildrenNumber()) {
             return drawsList.subList(0, 1);
         }
 
@@ -154,7 +154,7 @@ public class Population {
 
     private void createNewAnimal(IAnimal animalA, IAnimal animalB) {
         IAnimal newAnimal = reproductionVariant.newAnimal(animalA, animalB, genomeLength, minimumNumberOfMutations, maximumNumberOfMutations, energyUsedToReproduction, map);
-        addAnimal(newAnimal);
+        addNewAnimal(newAnimal);
         informObserversAboutNewAnimal(newAnimal);
     }
 
@@ -162,7 +162,7 @@ public class Population {
 
     //vanishing---------------------------------------------------------------------------------------
     public void vanishing() {
-        for (IAnimal animal : aliveAnimals) {
+        for (IAnimal animal : liveAnimals) {
             if (animal.getEnergy() <= 0) {
                 totalLifeExpectancy += animal.getAge();
                 removeAnimal(animal);
@@ -179,8 +179,8 @@ public class Population {
             Plant plant = map.getPlantAtPosition(position);
             if (plant != null) {
                 IAnimal animal = chooseAnimalToConsumption(map.getAnimalsAtPosition(position));
-                animal.increaseEnergy(plant.getEnergy());
-                animal.increaseNumberOfEatenPlants(1);
+                animal.changeEnergy(plant.getEnergy());
+                animal.changeEatenPlantsNumber(1);
                 terrain.removePlant(plant);
             }
         }
@@ -239,7 +239,7 @@ public class Population {
         animalList.sort(new Comparator<IAnimal>() {
             @Override
             public int compare(IAnimal o1, IAnimal o2) {
-                return -(o1.getNumberOfChildren() - o2.getNumberOfChildren());
+                return -(o1.getChildrenNumber() - o2.getChildrenNumber());
             }
         });
     }
@@ -262,7 +262,7 @@ public class Population {
 
     private List<IAnimal> getNumberOfChildrenDrawsList(List<IAnimal> animalList) {
         int numberOfDraws = 1;
-        while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getNumberOfChildren() == animalList.get(numberOfDraws - 1).getNumberOfChildren()) {
+        while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getChildrenNumber() == animalList.get(numberOfDraws - 1).getChildrenNumber()) {
             numberOfDraws++;
         }
         return animalList.subList(0, numberOfDraws - 1);

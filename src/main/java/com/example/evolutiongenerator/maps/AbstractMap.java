@@ -19,14 +19,14 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
 
 
     //constructors-------------------------------------------------
-    AbstractMap(int mapHeight, int mapWidth) {
+    public AbstractMap(int mapHeight, int mapWidth) {
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
         initialHashMaps();
     }
 
     private void initialHashMaps() {
-        positionWithNumberOfDeath.put(0, new ArrayList<Vector2D>());
+        positionWithNumberOfDeath.put(0, new ArrayList<>());
         for (int i = 0; i < mapWidth; i++) {
             for (int j = 0; j < mapHeight; j++) {
                 numbersOfDeathsAtPosition.put(new Vector2D(i, j), 0);
@@ -81,19 +81,19 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
         if (livesAnimalsOnMap.get(animal.getPosition()) != null) {
             livesAnimalsOnMap.get(animal.getPosition()).add(animal);
         } else {
-            livesAnimalsOnMap.put(animal.getPosition(), new ArrayList<IAnimal>());
+            livesAnimalsOnMap.put(animal.getPosition(), new ArrayList<>());
             livesAnimalsOnMap.get(animal.getPosition()).add(animal);
         }
     }
 
     @Override
     public void removeAnimalFromMap(IAnimal animal) {
-        removeAliveAnimalFromHashMap(animal);
+        removeLiveAnimalFromHashMap(animal);
         updatePositionWithNumberOfDeath(animal);
         updateNumbersOfDeathsAtPosition(animal);
     }
 
-    private void removeAliveAnimalFromHashMap(IAnimal animal) {
+    private void removeLiveAnimalFromHashMap(IAnimal animal) {
         livesAnimalsOnMap.get(animal.getPosition()).remove(animal);
         if (livesAnimalsOnMap.get(animal.getPosition()).size() == 0) {
             livesAnimalsOnMap.remove(animal.getPosition());
@@ -106,9 +106,7 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
         if (positionWithNumberOfDeath.get(numberOfDeath).size() == 0) {
             positionWithNumberOfDeath.remove(numberOfDeath);
         }
-        if (positionWithNumberOfDeath.get(numberOfDeath + 1) == null) {
-            positionWithNumberOfDeath.put(numberOfDeath + 1, new ArrayList<Vector2D>());
-        }
+        positionWithNumberOfDeath.computeIfAbsent(numberOfDeath + 1, k -> new ArrayList<Vector2D>());
         positionWithNumberOfDeath.get(numberOfDeath + 1).add(animal.getPosition());
     }
 

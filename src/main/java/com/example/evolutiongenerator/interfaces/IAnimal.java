@@ -13,30 +13,30 @@ public interface IAnimal {
 
     int getAge();
 
-    int getNumberOfChildren();
+    int getChildrenNumber();
 
     int getActualGenome();
 
-    int[] getGenome();
+    int[] getGenomes();
 
-    int getNumberOfEatenPlants();
+    int getEatenPlantsNumber();
 
     int getDeathDay();
 
     void setDeathDay(int day);
 
-    void increaseNumberOfEatenPlants(int number);
+    void changeEatenPlantsNumber(int number);
 
     Gene getGene();
 
-    void increaseEnergy(int amount);
+    void changeEnergy(int amount);
 
     void move();
 
-    void increaseNumberOfChildren(int quantity);
+    void changeChildrenNumber(int quantity);
 
-    void increaseAge(int amount);
-    void addObserver(IMapElementsObserver observer);
-    void removeObserver(IMapElementsObserver observer);
+    void changeAge(int amount);
+    void addPositionObserver(IMapElementsObserver observer);
+    void removePositionObserver(IMapElementsObserver observer);
 
 }

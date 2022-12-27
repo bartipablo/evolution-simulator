@@ -14,8 +14,8 @@ public abstract class AbstractAnimal implements IAnimal {
     protected int actualGenomeIndex;
     protected int energy;
     private int age;
-    private int numberOfChildren;
-    private int numberOfEatenPlants;
+    private int childrenNumber;
+    private int eatenPlantsNumber;
     private int deathDay;
     private final List<IMapElementsObserver> positionObservers = new ArrayList<>();
     protected Vector2D position;
@@ -30,8 +30,8 @@ public abstract class AbstractAnimal implements IAnimal {
         this.map = map;
         this.gene = new Gene(genomeLength);
         this.actualGenomeIndex = 0;
-        this.numberOfEatenPlants = 0;
-        this.numberOfChildren = 0;
+        this.eatenPlantsNumber = 0;
+        this.childrenNumber = 0;
         this.age = 0;
         this.energy = initialEnergy;
     }
@@ -42,8 +42,8 @@ public abstract class AbstractAnimal implements IAnimal {
         this.map = map;
         this.gene = gene;
         this.actualGenomeIndex = 0;
-        this.numberOfEatenPlants = 0;
-        this.numberOfChildren = 0;
+        this.eatenPlantsNumber = 0;
+        this.childrenNumber = 0;
         this.age = 0;
         this.energy = initialEnergy;
     }
@@ -66,12 +66,12 @@ public abstract class AbstractAnimal implements IAnimal {
 
     @Override
     public int getActualGenome() {
-        return gene.getGenome()[actualGenomeIndex];
+        return gene.getGenomes()[actualGenomeIndex];
     }
 
     @Override
-    public int[] getGenome() {
-        return gene.getGenome();
+    public int[] getGenomes() {
+        return gene.getGenomes();
     }
 
     @Override
@@ -80,8 +80,8 @@ public abstract class AbstractAnimal implements IAnimal {
     }
 
     @Override
-    public int getNumberOfChildren() {
-        return numberOfChildren;
+    public int getChildrenNumber() {
+        return childrenNumber;
     }
 
     @Override
@@ -95,28 +95,28 @@ public abstract class AbstractAnimal implements IAnimal {
     }
 
     @Override
-    public int getNumberOfEatenPlants() {
-        return numberOfEatenPlants;
+    public int getEatenPlantsNumber() {
+        return eatenPlantsNumber;
     }
 
     @Override
-    public void increaseEnergy(int amount) {
+    public void changeEnergy(int amount) {
         energy += amount;
     }
 
     @Override
-    public void increaseNumberOfChildren(int quantity) {
-        numberOfChildren += quantity;
+    public void changeChildrenNumber(int quantity) {
+        childrenNumber += quantity;
     }
 
     @Override
-    public void increaseAge(int amount) {
-        age += amount;
+    public void changeAge(int quantity) {
+        age += quantity;
     }
 
     @Override
-    public void increaseNumberOfEatenPlants(int number) {
-        numberOfEatenPlants += number;
+    public void changeEatenPlantsNumber(int quantity) {
+        eatenPlantsNumber += quantity;
     }
 
     @Override
@@ -125,12 +125,12 @@ public abstract class AbstractAnimal implements IAnimal {
     }
 
     @Override
-    public void addObserver(IMapElementsObserver observer) {
+    public void addPositionObserver(IMapElementsObserver observer) {
         positionObservers.add(observer);
     }
 
     @Override
-    public void removeObserver(IMapElementsObserver observer) {
+    public void removePositionObserver(IMapElementsObserver observer) {
         positionObservers.remove(observer);
     }
 
@@ -139,5 +139,19 @@ public abstract class AbstractAnimal implements IAnimal {
             observer.changePositionOnMap(this, oldPosition, newPosition);
         }
     }
+
+    @Override
+    public void move() {
+        Vector2D oldPosition = new Vector2D(position.x, position.y);
+        direction = direction.rotation(gene.getGenomes()[actualGenomeIndex]);
+        Vector2D newPosition = map.calculatePositionAfterMovement(position, direction);
+        MapDirection newDirection = map.calculateDirectionAfterMovement(position, direction);
+        position = newPosition;
+        direction = newDirection;
+        informObserversAboutPositionChanges(oldPosition, newPosition);
+        updateActualGenomeIndex();
+    }
+
+    protected abstract void updateActualGenomeIndex();
 
 }

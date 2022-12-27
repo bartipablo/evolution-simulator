@@ -20,7 +20,7 @@ public abstract class AbstractReproduction implements IReproduction {
     protected int minimumQuantityMutations;
     protected int maximumQuantityMutations;
     protected int energyUsedToReproduction;
-    protected int energy;
+    protected int childrenEnergy;
 
     protected void initialVariable(IAnimal parentA, IAnimal parentB, int genomeLength, int minimumQuantityMutations,
                                    int maximumQuantityMutations, int energyUsedToReproduction) {
@@ -37,8 +37,8 @@ public abstract class AbstractReproduction implements IReproduction {
         int quantityOfGenomeFromTheParentA;
         int quantityOfGenomeFromTheParentB;
         int totalEnergy = parentA.getEnergy() + parentB.getEnergy();
-        int[] parentAGenome = parentA.getGene().getGenome();
-        int[] parentBGenome = parentB.getGene().getGenome();
+        int[] parentAGenome = parentA.getGene().getGenomes();
+        int[] parentBGenome = parentB.getGene().getGenomes();
         if (parentA.getEnergy() > parentB.getEnergy()) {
             quantityOfGenomeFromTheParentA = (int) Math.ceil((1.0 * parentA.getEnergy() / totalEnergy) * genomeLength);
             quantityOfGenomeFromTheParentB = (int) Math.floor((1.0 * parentB.getEnergy() / totalEnergy) * genomeLength);
@@ -68,16 +68,16 @@ public abstract class AbstractReproduction implements IReproduction {
             quantityOfEnergyFromTheParentA = (int) Math.floor((1.0 * parentA.getEnergy() / totalEnergy) * energyUsedToReproduction);
             quantityOfEnergyFromTheParentB = (int) Math.ceil((1.0 * parentB.getEnergy() / totalEnergy) * energyUsedToReproduction);
         }
-        parentA.increaseEnergy(-quantityOfEnergyFromTheParentA);
-        parentB.increaseEnergy(-quantityOfEnergyFromTheParentB);
-        energy = quantityOfEnergyFromTheParentA + quantityOfEnergyFromTheParentB;
+        parentA.changeEnergy(-quantityOfEnergyFromTheParentA);
+        parentB.changeEnergy(-quantityOfEnergyFromTheParentB);
+        childrenEnergy = quantityOfEnergyFromTheParentA + quantityOfEnergyFromTheParentB;
     }
 
     @Override
     public IAnimal newAnimal(IAnimal parentA, IAnimal parentB, int genomeLength, int minimumQuantityMutations, int maximumQuantityMutations,
                              int energyUsedToReproduction, IMap map) {
-        parentA.increaseNumberOfChildren(1);
-        parentB.increaseNumberOfChildren(1);
+        parentA.changeChildrenNumber(1);
+        parentB.changeChildrenNumber(1);
         initialVariable(parentA, parentB, genomeLength, minimumQuantityMutations, maximumQuantityMutations, energyUsedToReproduction);
         createNewGenome();
         calculateEnergy();
@@ -85,9 +85,9 @@ public abstract class AbstractReproduction implements IReproduction {
         Gene gene = new Gene(genome);
         Vector2D initialPosition = new Vector2D(parentA.getPosition().x, parentA.getPosition().y);
         if (parentA instanceof AnimalBehaviourA) {
-            return new AnimalBehaviourA(initialPosition, MapDirection.generateRandomDirection(), map, gene, energy);
+            return new AnimalBehaviourA(initialPosition, MapDirection.generateRandomDirection(), map, gene, childrenEnergy);
         } else if (parentA instanceof AnimalBehaviourB) {
-            return new AnimalBehaviourB(initialPosition, MapDirection.generateRandomDirection(), map, gene, energy);
+            return new AnimalBehaviourB(initialPosition, MapDirection.generateRandomDirection(), map, gene, childrenEnergy);
         }
         return null;
     }
