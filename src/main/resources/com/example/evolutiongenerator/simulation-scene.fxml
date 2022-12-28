@@ -40,7 +40,7 @@
                </yAxis>
             </LineChart>
             <Label layoutX="52.0" layoutY="450.0" prefHeight="18.0" prefWidth="205.0" text="number of all animals:" />
-            <Label layoutX="163.0" layoutY="14.0" text="Statistics" textAlignment="CENTER">
+            <Label layoutX="118.0" layoutY="14.0" text="General Statistics" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
