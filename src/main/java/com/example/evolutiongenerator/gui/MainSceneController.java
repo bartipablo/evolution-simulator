@@ -50,11 +50,15 @@ public class MainSceneController implements Initializable {
     public void setNewPane() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("simulation-scene.fxml"));
         Parent root = fxmlLoader.load();
+        SimulationSceneController simulationSceneController = fxmlLoader.getController();
+        simulationSceneController.setMainSceneController(this);
         Tab tab = new Tab("Simulation " + simulationNumber);
         simulationNumber += 1;
         tab.setContent(root);
         tabPane.getTabs().add(tab);
     }
 
-
+    public void removeTab() {
+        tabPane.getTabs().remove(0, 1);
+    }
 }

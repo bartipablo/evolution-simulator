@@ -1,12 +1,27 @@
 package com.example.evolutiongenerator.gui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
-public class SimulationSceneController {
-    @FXML
-    Pane simulationPane;
+import java.nio.Buffer;
 
+public class SimulationSceneController {
+
+    private MainSceneController mainSceneController;
+    @FXML
+    private Button deleteSimulationButton;
+
+    @FXML
+    private Pane simulationPane;
+
+    public void onDeleteSimulationButtonClicked() {
+        mainSceneController.removeTab();
+    }
+
+    public void setMainSceneController(MainSceneController mainSceneController) {
+        this.mainSceneController = mainSceneController;
+    }
 
 
 }
