@@ -231,6 +231,4 @@ public class NewSimulationController implements Initializable {
         );
     }
 
-
-
 }
