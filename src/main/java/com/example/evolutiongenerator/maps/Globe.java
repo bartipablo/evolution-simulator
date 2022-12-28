@@ -10,32 +10,24 @@ public class Globe extends AbstractMap {
     }
 
     @Override
-    public Vector2D calculatePositionAfterMovement(Vector2D position, MapDirection direction) {
-        Vector2D unitVector = direction.toUnitVector();
-        Vector2D newPosition = new Vector2D(position.x, position.y);
-        newPosition.add(unitVector);
-
-        if (newPosition.x < 0) {
-            newPosition = new Vector2D(mapWidth - 1, newPosition.y);
-        } else if (newPosition.x > mapWidth - 1) {
-            newPosition = new Vector2D(0, newPosition.y);
+    public Vector2D calculatePositionAfterMovement(Vector2D position) {
+        if (position.x < 0) {
+            position = new Vector2D(mapWidth - 1, position.y);
+        } else if (position.x > mapWidth - 1) {
+            position = new Vector2D(0, position.y);
         }
 
-        if (newPosition.y < 0) {
-            newPosition = new Vector2D(newPosition.x, 0);
-        } else if (newPosition.x > mapWidth - 1) {
-            newPosition = new Vector2D(newPosition.x, mapHeight - 1);
+        if (position.y < 0) {
+            position = new Vector2D(position.x, 0);
+        } else if (position.x > mapWidth - 1) {
+            position = new Vector2D(position.x, mapHeight - 1);
         }
-        return newPosition;
+        return position;
     }
 
     @Override
     public MapDirection calculateDirectionAfterMovement(Vector2D position, MapDirection direction) {
-        Vector2D unitVector = direction.toUnitVector();
-        Vector2D newPosition = new Vector2D(position.x, position.y);
-        newPosition.add(unitVector);
-
-        if (newPosition.y < 0 || newPosition.x > mapHeight - 1) {
+        if (position.y < 0 || position.x > mapHeight - 1) {
             return direction.opposite();
         }
         return direction;
