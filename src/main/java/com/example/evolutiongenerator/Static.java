@@ -60,7 +60,7 @@ public class Static {
 
     public static Vector2D[] concatTwoVector2DArrays(Vector2D[] array1, Vector2D[] array2) {
         Vector2D[] result = new Vector2D[array1.length + array2.length];
-        System.arraycopy(array1, 0, result, 0, array1.length - 1);
+        System.arraycopy(array1, 0, result, 0, array1.length);
         System.arraycopy(array2, 0, result, array1.length, array2.length);
         return result;
     }

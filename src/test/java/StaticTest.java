@@ -89,6 +89,48 @@ public class StaticTest {
         assertArrayEquals(expected4, result4);
 
     }
+    @Test
+    public void ConcatTwoVector2DArraysTest(){
+        //testConcat Two NonEmpty Arrays
+            Vector2D[] array1 = {new Vector2D(1, 2), new Vector2D(3, 4)};
+            Vector2D[] array2 = {new Vector2D(5, 6), new Vector2D(7, 8)};
+            Vector2D[] expected = {new Vector2D(1, 2), new Vector2D(3, 4), new Vector2D(5, 6), new Vector2D(7, 8)};
+            Vector2D[] result = concatTwoVector2DArrays(array1, array2);
+            assertArrayEquals(expected, result);
+
+
+        //testConcat Two Empty Arrays
+            Vector2D[] array3 = {};
+            Vector2D[] array4 = {};
+            Vector2D[] expected1 = {};
+            Vector2D[] result1 = concatTwoVector2DArrays(array3, array4);
+            assertArrayEquals(expected1, result1);
+
+
+        //testConcat Empty Array And NonEmpty Array
+            Vector2D[] array5 = {};
+            Vector2D[] array6 = {new Vector2D(1, 2), new Vector2D(3, 4)};
+            Vector2D[] expected2 = {new Vector2D(1, 2), new Vector2D(3, 4)};
+            Vector2D[] result2 = concatTwoVector2DArrays(array5, array6);
+            assertArrayEquals(expected2, result2);
+
+            Vector2D[] array7 = {new Vector2D(1, 2), new Vector2D(3, 4)};
+            Vector2D[] array8 = {};
+            Vector2D[] expected3 = {new Vector2D(1, 2), new Vector2D(3, 4)};
+            Vector2D[] result3 = concatTwoVector2DArrays(array7, array8);
+            assertArrayEquals(expected3, result3);
+
+
+
+        //testConcatTwoArrays With Single Element Each
+            Vector2D[] array9 = {new Vector2D(1, 2)};
+            Vector2D[] array0 = {new Vector2D(3, 4)};
+            Vector2D[] expected4 = {new Vector2D(1, 2), new Vector2D(3, 4)};
+            Vector2D[] result4 = concatTwoVector2DArrays(array9, array0);
+            assertArrayEquals(expected4, result4);
+
+
+    }
 
 }
 
