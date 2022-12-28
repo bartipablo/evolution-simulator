@@ -36,6 +36,7 @@ public class Constant {
     //-------------------------------------------------------------
 
     //others ------------------------------------------------------
+
     public static final int MIN_REFRESH_TIME = 10;
     public static final int MAX_REFRESH_TIME = 100;
     public static final int MIN_MUTATION_NUMBER = 10;

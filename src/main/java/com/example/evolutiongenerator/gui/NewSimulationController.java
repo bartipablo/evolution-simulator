@@ -6,7 +6,6 @@ import com.example.evolutiongenerator.variants.BehaviourVariant;
 import com.example.evolutiongenerator.variants.MapVariant;
 import com.example.evolutiongenerator.variants.MutationVariant;
 import com.example.evolutiongenerator.variants.TerrainVariant;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -14,7 +13,9 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -22,7 +23,12 @@ import static com.example.evolutiongenerator.Constant.*;
 
 public class NewSimulationController implements Initializable {
 
+    //controllers---------------------------------------------
+    private MainSceneController mainSceneController;
+
+    //--------------------------------------------------------
     private Configuration configuration;
+    private Stage stage;
 
     //choice boxes----------------------------------------------
     @FXML
@@ -106,11 +112,9 @@ public class NewSimulationController implements Initializable {
     //check boxes------------------------------------------------
     private CheckBox saveCSVCheckBox;
     @FXML
-    private CheckBox removeExcessAnimals;
+    private CheckBox removeExcessAnimalsCheckBox;
 
     //-----------------------------------------------------------
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -124,16 +128,25 @@ public class NewSimulationController implements Initializable {
         growingVariantChoiceBox.setValue("Forested equators");
     }
 
-    @FXML
-    protected void onCancelSimulationButtonClick() {
-        Platform.exit();
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void setControllers(MainSceneController mainSceneController) {
+        this.mainSceneController = mainSceneController;
     }
 
     @FXML
-    protected void onCreateNewSimulationButtonClick() {
+    protected void onCancelButtonClicked() {
+        stage.close();
+    }
+
+    @FXML
+    protected void onCreateNewSimulationButtonClicked() throws IOException {
         if (validateAllUserArguments()) {
             getConfigurationFromUserArguments();
-            App.createNewSimulation(configuration);
+            stage.close();
+            mainSceneController.setNewPane();
         }
     }
 
@@ -227,7 +240,7 @@ public class NewSimulationController implements Initializable {
                 Integer.parseInt(plantEachDaySpawningTextField.getText()),
                 Integer.parseInt(plantsEnergyProfitTextField.getText()),
                 mapVariant, behaviourVariant, mutationVariant, terrainVariant,
-                saveCSVCheckBox.isSelected(), removeExcessAnimals.isSelected()
+                saveCSVCheckBox.isSelected(), removeExcessAnimalsCheckBox.isSelected()
         );
     }
 

@@ -99,7 +99,7 @@ public class Configuration {
         return mutationVariant;
     }
 
-    public TerrainVariant terrainVariant() {
+    public TerrainVariant getTerrainVariant() {
         return terrainVariant;
     }
 
