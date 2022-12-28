@@ -16,10 +16,8 @@ public class World {
     private final IReproduction reproduction;
     Statistics statistics;
 
-    public World(Population population, ITerrain terrain, IReproduction reproduction, Statistics statistics) {
-        this.population = population;
-        this.terrain = terrain;
-        this.reproduction = reproduction;
+    public World(Configuration configuration) {
+        population = new Population()
     }
 
     public void run() {

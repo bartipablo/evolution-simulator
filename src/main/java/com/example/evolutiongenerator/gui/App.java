@@ -2,6 +2,7 @@ package com.example.evolutiongenerator.gui;
 
 import com.example.evolutiongenerator.Configuration;
 import com.example.evolutiongenerator.Main;
+import com.example.evolutiongenerator.World;
 import com.example.evolutiongenerator.variants.BehaviourVariant;
 import com.example.evolutiongenerator.variants.MapVariant;
 import com.example.evolutiongenerator.variants.MutationVariant;
@@ -14,8 +15,12 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class App extends Application {
+
+    private final List<World> worlds = new ArrayList<>();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -28,7 +33,7 @@ public class App extends Application {
         stage.show();
     }
 
-    public static void runSimulation(Configuration configuration) {
+    public static void createNewSimulation(Configuration configuration) {
 
     }
 

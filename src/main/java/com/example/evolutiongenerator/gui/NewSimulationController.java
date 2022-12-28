@@ -133,7 +133,7 @@ public class NewSimulationController implements Initializable {
     protected void onCreateNewSimulationButtonClick() {
         if (validateAllUserArguments()) {
             getConfigurationFromUserArguments();
-
+            App.createNewSimulation(configuration);
         }
     }
 
