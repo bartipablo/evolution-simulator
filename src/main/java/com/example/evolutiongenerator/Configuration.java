@@ -14,8 +14,6 @@ public class Configuration {
     private final int initialAnimalsEnergy;
     private final int energyRequiredForReproduction;
     private final int energyUsedForReproduction;
-    private final int minimumNumberOfMutations;
-    private final int maximumNumberOfMutations;
     private final int genomeLength;
     private final int numberOfPlantGrowingDaily;
     private final int plantsEnergy;
@@ -24,20 +22,17 @@ public class Configuration {
     private final MutationVariant mutationVariant;
     private final TerrainVariant terrainVariant;
 
-    Configuration(int mapHeight, int mapWidth, int energyOfOneMove, int initialPlantsNumber, int initialAnimalsNumber, int initialAnimalsEnergy,
-                  int energyRequiredForReproduction, int energyUsedForReproduction, int minimumNumberOfMutations, int maximumNumberOfMutations,
-                  int genomeLength, int numberOfPlantGrowingDaily, int plantEnergy, MapVariant mapVariant, BehaviourVariant behaviourVariant,
-                  MutationVariant mutationVariant, TerrainVariant terrainVariant) {
+    public Configuration(int mapHeight, int mapWidth, int dailyEnergyConsumption, int initialPlantsNumber, int initialAnimalsNumber, int initialAnimalsEnergy,
+                         int energyRequiredForReproduction, int energyUsedForReproduction, int genomeLength, int numberOfPlantGrowingDaily, int plantEnergy,
+                         MapVariant mapVariant, BehaviourVariant behaviourVariant, MutationVariant mutationVariant, TerrainVariant terrainVariant) {
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
-        this.dailyEnergyConsumption = energyOfOneMove;
+        this.dailyEnergyConsumption = dailyEnergyConsumption;
         this.initialPlantsNumber = initialPlantsNumber;
         this.initialAnimalsNumber = initialAnimalsNumber;
         this.initialAnimalsEnergy = initialAnimalsEnergy;
         this.energyRequiredForReproduction = energyRequiredForReproduction;
         this.energyUsedForReproduction = energyUsedForReproduction;
-        this.minimumNumberOfMutations = minimumNumberOfMutations;
-        this.maximumNumberOfMutations = maximumNumberOfMutations;
         this.genomeLength = genomeLength;
         this.numberOfPlantGrowingDaily = numberOfPlantGrowingDaily;
         this.plantsEnergy = plantEnergy;
@@ -77,14 +72,6 @@ public class Configuration {
 
     public int getEnergyUsedForReproduction() {
         return energyUsedForReproduction;
-    }
-
-    public int getMinimumNumberOfMutations() {
-        return minimumNumberOfMutations;
-    }
-
-    public int getMaximumNumberOfMutations() {
-        return maximumNumberOfMutations;
     }
 
     public int getGenomeLength() {
