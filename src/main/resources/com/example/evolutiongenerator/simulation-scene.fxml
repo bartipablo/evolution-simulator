@@ -63,8 +63,8 @@
          <children>
             <Separator orientation="VERTICAL" prefHeight="716.0" prefWidth="20.0" />
             <Separator layoutX="20.0" layoutY="642.0" prefHeight="36.0" prefWidth="292.0" />
-            <Button layoutX="233.0" layoutY="672.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="61.0" text="Start" />
-            <Button layoutX="160.0" layoutY="673.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="61.0" text="Stop" />
+            <Button fx:id="startButton" layoutX="233.0" layoutY="672.0" mnemonicParsing="false" onAction="#onStartButtonClicked" prefHeight="26.0" prefWidth="61.0" text="Start" />
+            <Button fx:id="stopButton" disable="true" layoutX="160.0" layoutY="673.0" mnemonicParsing="false" onAction="#onStopButtonClicked" prefHeight="26.0" prefWidth="61.0" text="Stop" />
             <Button fx:id="deleteSimulationButton" layoutX="17.0" layoutY="673.0" mnemonicParsing="false" onAction="#onDeleteSimulationButtonClicked" text="Delete Simulation" />
             <Label layoutX="135.0" layoutY="17.0" text="Animals" textAlignment="CENTER">
                <font>

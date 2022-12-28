@@ -2,7 +2,6 @@ package com.example.evolutiongenerator.gui;
 
 import com.example.evolutiongenerator.interfaces.IMapElement;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -19,8 +18,6 @@ public class GuiElementBox {
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(40);
             imageView.setFitWidth(40);
-
-
             vBox.getChildren().add(imageView);
             vBox.setAlignment(Pos.BASELINE_CENTER);
         } catch (FileNotFoundException ex) {

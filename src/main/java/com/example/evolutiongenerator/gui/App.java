@@ -26,7 +26,6 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-scene.fxml"));
         mainSceneController = fxmlLoader.getController();
-        //mainSceneController.setApp(this);
         Scene scene = new Scene(fxmlLoader.load(), 1530, 790);
         stage.setResizable(false);
         stage.setTitle("Evolution Generator");
