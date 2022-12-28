@@ -21,10 +21,13 @@ public class Configuration {
     private final BehaviourVariant behaviourVariant;
     private final MutationVariant mutationVariant;
     private final TerrainVariant terrainVariant;
+    private final boolean saveToCSV;
+    private final boolean removeExcessAnimals;
 
     public Configuration(int mapHeight, int mapWidth, int dailyEnergyConsumption, int initialPlantsNumber, int initialAnimalsNumber, int initialAnimalsEnergy,
                          int energyRequiredForReproduction, int energyUsedForReproduction, int genomeLength, int numberOfPlantGrowingDaily, int plantEnergy,
-                         MapVariant mapVariant, BehaviourVariant behaviourVariant, MutationVariant mutationVariant, TerrainVariant terrainVariant) {
+                         MapVariant mapVariant, BehaviourVariant behaviourVariant, MutationVariant mutationVariant, TerrainVariant terrainVariant,
+                         boolean saveToCSV, boolean removeExcessAnimals) {
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
         this.dailyEnergyConsumption = dailyEnergyConsumption;
@@ -40,6 +43,8 @@ public class Configuration {
         this.behaviourVariant = behaviourVariant;
         this.mutationVariant = mutationVariant;
         this.terrainVariant = terrainVariant;
+        this.saveToCSV = saveToCSV;
+        this.removeExcessAnimals = removeExcessAnimals;
     }
 
     public int getMapHeight() {
@@ -100,5 +105,13 @@ public class Configuration {
 
     public int getPlantsEnergy() {
         return plantsEnergy;
+    }
+
+    public boolean isSaveToCSV() {
+        return saveToCSV;
+    }
+
+    public boolean isRemoveExcessAnimals() {
+        return removeExcessAnimals;
     }
 }

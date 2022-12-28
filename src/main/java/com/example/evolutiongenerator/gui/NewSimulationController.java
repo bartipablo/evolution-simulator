@@ -9,6 +9,7 @@ import com.example.evolutiongenerator.variants.TerrainVariant;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -99,6 +100,14 @@ public class NewSimulationController implements Initializable {
     private TextField plantEachDaySpawningTextField;
     @FXML
     private TextField refreshTimeTextField;
+    @FXML
+    //-----------------------------------------------------------
+
+    //check boxes------------------------------------------------
+    private CheckBox saveCSVCheckBox;
+    @FXML
+    private CheckBox removeExcessAnimals;
+
     //-----------------------------------------------------------
 
 
@@ -217,7 +226,8 @@ public class NewSimulationController implements Initializable {
                 Integer.parseInt(genomeLengthTextField.getText()),
                 Integer.parseInt(plantEachDaySpawningTextField.getText()),
                 Integer.parseInt(plantsEnergyProfitTextField.getText()),
-                mapVariant, behaviourVariant, mutationVariant, terrainVariant
+                mapVariant, behaviourVariant, mutationVariant, terrainVariant,
+                saveCSVCheckBox.isSelected(), removeExcessAnimals.isSelected()
         );
     }
 
