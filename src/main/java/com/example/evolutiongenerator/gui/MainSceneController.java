@@ -14,19 +14,22 @@ import javafx.stage.Stage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainSceneController implements Initializable {
 
-    //controllers------------------
+    //controllers---------------------------------------
     @FXML
     private NewSimulationController newSimulationController;
-    //----------------------------
+    @FXML
+    private List<SimulationSceneController> simulationSceneControllerList = new ArrayList<>();
+    //---------------------------------------------------
 
     private int simulationNumber = 1;
     @FXML
     private TabPane tabPane;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -52,13 +55,19 @@ public class MainSceneController implements Initializable {
         Parent root = fxmlLoader.load();
         SimulationSceneController simulationSceneController = fxmlLoader.getController();
         simulationSceneController.setMainSceneController(this);
+        simulationSceneControllerList.add(simulationSceneController);
         Tab tab = new Tab("Simulation " + simulationNumber);
         simulationNumber += 1;
         tab.setContent(root);
         tabPane.getTabs().add(tab);
     }
 
-    public void removeTab() {
-        tabPane.getTabs().remove(0, 1);
+    public void removeTab(SimulationSceneController simulationSceneController) {
+        if (simulationSceneControllerList.size() == 0) return;
+        int i = simulationSceneControllerList.indexOf(simulationSceneController);
+        tabPane.getTabs().remove(i + 1, i + 2);
+        simulationSceneControllerList.remove(i);
     }
+
+
 }

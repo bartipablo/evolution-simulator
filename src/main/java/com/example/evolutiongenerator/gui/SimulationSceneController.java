@@ -16,7 +16,7 @@ public class SimulationSceneController {
     private Pane simulationPane;
 
     public void onDeleteSimulationButtonClicked() {
-        mainSceneController.removeTab();
+        mainSceneController.removeTab(this);
     }
 
     public void setMainSceneController(MainSceneController mainSceneController) {
