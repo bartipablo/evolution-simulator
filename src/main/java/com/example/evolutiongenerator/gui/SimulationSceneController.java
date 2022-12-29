@@ -1,5 +1,6 @@
 package com.example.evolutiongenerator.gui;
 
+import com.example.evolutiongenerator.World;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,6 +13,7 @@ import java.util.ResourceBundle;
 
 public class SimulationSceneController {
 
+    //FXML---------------------------------------------------
     private MainSceneController mainSceneController;
     @FXML
     private Button startButton;
@@ -25,6 +27,12 @@ public class SimulationSceneController {
     private ChoiceBox liveAnimalsChoiceBox;
     @FXML
     private ChoiceBox deadAnimalsChoiceBox;
+    //------------------------------------------------------
+
+    //simulation--------------------------------------------
+    private World world;
+
+    //------------------------------------------------------
 
     public void onDeleteSimulationButtonClicked() {
         mainSceneController.removeTab(this);
@@ -48,6 +56,10 @@ public class SimulationSceneController {
         stopButton.setDisable(true);
         liveAnimalsChoiceBox.setDisable(false);
         deadAnimalsChoiceBox.setDisable(false);
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
     }
 
 

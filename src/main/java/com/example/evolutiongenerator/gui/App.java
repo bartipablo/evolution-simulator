@@ -19,13 +19,11 @@ import java.util.List;
 
 public class App extends Application {
 
-    private MainSceneController mainSceneController;
     private final static List<World> worlds = new ArrayList<>();
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-scene.fxml"));
-        mainSceneController = fxmlLoader.getController();
         Scene scene = new Scene(fxmlLoader.load(), 1530, 790);
         stage.setResizable(false);
         stage.setTitle("Evolution Generator");
@@ -34,16 +32,5 @@ public class App extends Application {
         stage.show();
     }
 
-    public void createNewSimulation(Configuration configuration) throws IOException {
-        World world = new World(configuration);
-        worlds.add(world);
-        mainSceneController.setNewPane();
-    }
-
-    private Scene prepareSimulationScene(int mapHeight, int mapWidth) {
-        GridPane gridPane = new GridPane();
-        Scene scene = new Scene(gridPane, mapHeight, mapWidth);
-        return scene;
-    }
 
 }

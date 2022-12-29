@@ -40,10 +40,10 @@ public class Static {
         if (xMax < xMin || yMax < yMin) {
             return null;
         }
-        Vector2D[] resultArray = new Vector2D[(xMax - xMin + 1) * (yMax - yMin + 1)];
-        for (int i = xMin; i <= xMax; i++) {
-            for (int j = yMin; j <= yMax; j++) {
-                resultArray[(i * yMin) + j] = new Vector2D(i ,j);
+        Vector2D[] resultArray = new Vector2D[(xMax - xMin) * (yMax - yMin)];
+        for (int i = 0; i < ( xMax - xMin); i++) {
+            for (int j = 0; j < (yMax - yMin); j++) {
+                resultArray[i * (yMax - yMin) + j] = new Vector2D(i ,j);
             }
         }
         return resultArray;

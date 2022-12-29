@@ -1,6 +1,8 @@
 package com.example.evolutiongenerator.gui;
 
+import com.example.evolutiongenerator.Configuration;
 import com.example.evolutiongenerator.Main;
+import com.example.evolutiongenerator.World;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -50,11 +52,12 @@ public class MainSceneController implements Initializable {
         stage.show();
     }
 
-    public void setNewPane() throws IOException {
+    public void createNewSimulation(Configuration configuration) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("simulation-scene.fxml"));
         Parent root = fxmlLoader.load();
         SimulationSceneController simulationSceneController = fxmlLoader.getController();
         simulationSceneController.setMainSceneController(this);
+        simulationSceneController.setWorld(new World(configuration));
         simulationSceneControllerList.add(simulationSceneController);
         Tab tab = new Tab("Simulation " + simulationNumber);
         simulationNumber += 1;

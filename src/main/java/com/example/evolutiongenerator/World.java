@@ -11,7 +11,7 @@ import com.example.evolutiongenerator.terrain.ForestedEquators;
 import com.example.evolutiongenerator.terrain.ToxicCorpses;
 import com.example.evolutiongenerator.variants.BehaviourVariant;
 
-public class World {
+public class World extends Thread {
     private final Population population;
     private IReproduction reproduction;
     private ITerrain terrain;
@@ -20,6 +20,7 @@ public class World {
 
 
     //constructors------------------------------------------------------------------------------------------------------
+
     public World(Configuration configuration) {
         initializeVariants(configuration);
         behaviourVariant = configuration.getBehaviourVariant();
@@ -55,6 +56,7 @@ public class World {
     }
     //------------------------------------------------------------------------------------------------------------------
 
+    @Override
     public void run() {
         terrain.dailyPlantGrowth();
         population.dailyMoving();

@@ -146,7 +146,7 @@ public class NewSimulationController implements Initializable {
         if (validateAllUserArguments()) {
             getConfigurationFromUserArguments();
             stage.close();
-            mainSceneController.setNewPane();
+            mainSceneController.createNewSimulation(configuration);
         }
     }
 
