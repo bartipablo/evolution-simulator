@@ -1,4 +1,4 @@
-package com.example.evolutiongenerator.interfaces.maps;
+package com.example.evolutiongenerator.maps;
 
 import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.Plant;
