@@ -4,21 +4,70 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class Vector2DTest {
-
+public class Vector2DTest {
     @Test
-    void generateRandomVector2D() {
+    public void testConstructor() {
+        Vector2D v1 = new Vector2D(1, 2);
+        assertEquals(1, v1.x);
+        assertEquals(2, v1.y);
     }
 
     @Test
-    void add() {
-        Vector2D vec = new Vector2D(0,1);
-        assertEquals(new Vector2D(1,2),vec.add(new Vector2D(1,1)));
+    public void testGenerateRandomVector2D() {
+        for (int i = 0; i < 100; i++) {
+            Vector2D v1 = Vector2D.generateRandomVector2D(-10, 10, -10, 10);
+            assertTrue(v1.x >= -10 && v1.x < 10);
+            assertTrue(v1.y >= -10 && v1.y < 10);
+        }
     }
 
     @Test
-    void subtract() {
-        Vector2D vec = new Vector2D(0,1);
-        assertEquals(new Vector2D(1,2),vec.subtract(new Vector2D(-1,-1)));
+    public void testToString() {
+        Vector2D v1 = new Vector2D(1, 2);
+        assertEquals("(1, 2)", v1.toString());
+    }
+
+    @Test
+    public void testAdd() {
+        Vector2D v1 = new Vector2D(1, 2);
+        Vector2D v2 = new Vector2D(3, 4);
+        Vector2D v3 = v1.add(v2);
+        assertEquals(4, v3.x);
+        assertEquals(6, v3.y);
+    }
+
+    @Test
+    public void testSubtract() {
+        Vector2D v1 = new Vector2D(1, 2);
+        Vector2D v2 = new Vector2D(3, 4);
+        Vector2D v3 = v1.subtract(v2);
+        assertEquals(-2, v3.x);
+        assertEquals(-2, v3.y);
+    }
+
+    @Test
+    public void testUpperRight() {
+        Vector2D v1 = new Vector2D(1, 2);
+        Vector2D v2 = new Vector2D(3, 4);
+        Vector2D v3 = v1.upperRight(v2);
+        assertEquals(3, v3.x);
+        assertEquals(4, v3.y);
+    }
+
+    @Test
+    public void testLowerLeft() {
+        Vector2D v1 = new Vector2D(1, 2);
+        Vector2D v2 = new Vector2D(3, 4);
+        Vector2D v3 = v1.lowerLeft(v2);
+        assertEquals(1, v3.x);
+        assertEquals(2, v3.y);
+    }
+
+    @Test
+    public void testOpposite() {
+        Vector2D v1 = new Vector2D(1, 2);
+        Vector2D v2 = v1.opposite();
+        assertEquals(-1, v2.x);
+        assertEquals(-2, v2.y);
     }
 }
