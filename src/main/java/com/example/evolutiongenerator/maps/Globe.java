@@ -19,7 +19,7 @@ public class Globe extends AbstractMap {
 
         if (position.y < 0) {
             position = new Vector2D(position.x, 0);
-        } else if (position.x > mapWidth - 1) {
+        } else if (position.y > mapHeight - 1) {
             position = new Vector2D(position.x, mapHeight - 1);
         }
         return position;
@@ -27,7 +27,7 @@ public class Globe extends AbstractMap {
 
     @Override
     public MapDirection calculateDirectionAfterMovement(Vector2D position, MapDirection direction) {
-        if (position.y < 0 || position.x > mapHeight - 1) {
+        if (position.y < 0 || position.y > mapHeight - 1) {
             return direction.opposite();
         }
         return direction;

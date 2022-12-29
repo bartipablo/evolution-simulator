@@ -73,7 +73,12 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
     @Override
     public void changePositionOnMap(IAnimal animal, Vector2D oldPosition, Vector2D newPosition) {
         livesAnimalsOnMap.get(oldPosition).remove(animal);
-        livesAnimalsOnMap.get(newPosition).add(animal);
+        if (livesAnimalsOnMap.get(newPosition) != null) {
+            livesAnimalsOnMap.get(newPosition).add(animal);
+        } else {
+            livesAnimalsOnMap.put(newPosition, new ArrayList<>());
+            livesAnimalsOnMap.get(newPosition).add(animal);
+        }
     }
 
     @Override
