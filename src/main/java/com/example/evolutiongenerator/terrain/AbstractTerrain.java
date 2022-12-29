@@ -5,7 +5,6 @@ import com.example.evolutiongenerator.interfaces.IMap;
 import com.example.evolutiongenerator.interfaces.IMapElementsObserver;
 import com.example.evolutiongenerator.interfaces.IStatisticsObserver;
 import com.example.evolutiongenerator.interfaces.ITerrain;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
