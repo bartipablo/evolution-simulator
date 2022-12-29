@@ -61,7 +61,7 @@ public class Statistics implements IStatisticsObserver {
         if (extinctAnimals.size() > 0) {
             int totalLifeLength = 0;
             for (int i = 0; i < extinctAnimals.size(); i++) {
-                totalLifeLength += extinctAnimals.get(0).getAge();
+                totalLifeLength += extinctAnimals.get(i).getAge();
             }
             averageLifeLength = (double) (totalLifeLength / extinctAnimals.size());
         } else {
@@ -79,7 +79,7 @@ public class Statistics implements IStatisticsObserver {
         if (aliveAnimals.size() > 0) {
             int totalEnergy = 0;
             for (int i = 0; i < aliveAnimals.size(); i++) {
-                totalEnergy += aliveAnimals.get(0).getEnergy();
+                totalEnergy += aliveAnimals.get(i).getEnergy();
             }
             averageEnergy = (double) (totalEnergy / aliveAnimals.size());
         } else {
