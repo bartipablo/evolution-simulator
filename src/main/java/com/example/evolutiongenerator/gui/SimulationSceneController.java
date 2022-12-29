@@ -84,7 +84,6 @@ public class SimulationSceneController implements IGuiObserver {
         thread.wait();
     }
 
-
     public void setWorld(World world) {
         this.world = world;
         world.getMap().addGuiObserver(this);
@@ -92,15 +91,15 @@ public class SimulationSceneController implements IGuiObserver {
         this.mapVisualizer = new MapVisualizer(world.getMap());
     }
 
-    private void prepareSimulationGridPane() {
-        IMap map = world.getMap();
-        mapGridPane.getRowConstraints().add(new RowConstraints(map.getMapHeight()));
-        mapGridPane.getColumnConstraints().add(new ColumnConstraints(map.getMapWidth()));
-    }
-
     @Override
     public void changed() {
         mapGridPane = mapVisualizer.visualizeMap();
     }
+
+    @Override
+    public void generalStatisticsChanged() {
+
+    }
+
 
 }
