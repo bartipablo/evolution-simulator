@@ -77,7 +77,6 @@ public class SimulationSceneController implements IGuiObserver {
             firstStart = false;
         } else {
             thread.notify();
-            thread.start();
         }
     }
 
