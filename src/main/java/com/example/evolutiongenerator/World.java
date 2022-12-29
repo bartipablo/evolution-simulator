@@ -67,4 +67,8 @@ public class World extends Thread {
         population.completeStatistics();
     }
 
+    public IMap getMap() {
+        return map;
+    }
+
 }
