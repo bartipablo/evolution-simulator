@@ -23,7 +23,6 @@ public abstract class AbstractAnimal implements IAnimal {
     protected final IMap map;
     protected Gene gene;
 
-    //constructors------------------------------------------
     AbstractAnimal(Vector2D initialPosition, MapDirection initialDirection, IMap map, int genomeLength, int initialEnergy) {
         this.position = initialPosition;
         this.direction = initialDirection;
@@ -47,7 +46,6 @@ public abstract class AbstractAnimal implements IAnimal {
         this.age = 0;
         this.energy = initialEnergy;
     }
-    //---------------------------------------------------
 
     @Override
     public Vector2D getPosition() {
@@ -144,7 +142,8 @@ public abstract class AbstractAnimal implements IAnimal {
     public void move() {
         Vector2D oldPosition = new Vector2D(position.x, position.y);
         direction = direction.rotation(gene.getGenomes()[actualGenomeIndex]);
-        Vector2D newPosition = map.calculatePositionAfterMovement(position, direction);
+        position = position.add(direction.toUnitVector());
+        Vector2D newPosition = map.calculatePositionAfterMovement(position);
         MapDirection newDirection = map.calculateDirectionAfterMovement(position, direction);
         position = newPosition;
         direction = newDirection;

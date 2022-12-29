@@ -12,21 +12,17 @@ public class Vector2D {
     public final int x;
     public final int y;
 
-    //constructor----------------------------------
     public Vector2D(int x, int y) {
         this.x = x;
         this.y = y;
     }
-    //--------------------------------------------
 
-    //static methods------------------------------
     public static Vector2D generateRandomVector2D(int xMin, int xMax, int yMin, int yMax) {
         Random random = new Random();
         int x = random.nextInt(xMin, xMax);
         int y = random.nextInt(yMin, yMax);
         return new Vector2D(x, y);
     }
-    //-------------------------------------------
 
     public String toString() {
         return "(%d, %d)".formatted(this.x, this.y);

@@ -1,4 +1,4 @@
-package com.example.evolutiongenerator.interfaces.maps;
+package com.example.evolutiongenerator.maps;
 
 import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.direction.MapDirection;
@@ -10,7 +10,7 @@ public class HellishPortal extends AbstractMap {
     }
 
     @Override
-    public Vector2D calculatePositionAfterMovement(Vector2D position, MapDirection direction) {
+    public Vector2D calculatePositionAfterMovement(Vector2D position) {
         if (position.x < 0 || position.x > mapWidth - 1 || position.y < 0 || position.y > mapHeight - 1) {
             return Vector2D.generateRandomVector2D(0, mapWidth, 0, mapHeight);
         }

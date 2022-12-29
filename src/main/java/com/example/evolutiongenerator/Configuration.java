@@ -14,8 +14,6 @@ public class Configuration {
     private final int initialAnimalsEnergy;
     private final int energyRequiredForReproduction;
     private final int energyUsedForReproduction;
-    private final int minimumNumberOfMutations;
-    private final int maximumNumberOfMutations;
     private final int genomeLength;
     private final int numberOfPlantGrowingDaily;
     private final int plantsEnergy;
@@ -23,21 +21,21 @@ public class Configuration {
     private final BehaviourVariant behaviourVariant;
     private final MutationVariant mutationVariant;
     private final TerrainVariant terrainVariant;
+    private final boolean saveToCSV;
+    private final boolean removeExcessAnimals;
 
-    Configuration(int mapHeight, int mapWidth, int energyOfOneMove, int initialPlantsNumber, int initialAnimalsNumber, int initialAnimalsEnergy,
-                  int energyRequiredForReproduction, int energyUsedForReproduction, int minimumNumberOfMutations, int maximumNumberOfMutations,
-                  int genomeLength, int numberOfPlantGrowingDaily, int plantEnergy, MapVariant mapVariant, BehaviourVariant behaviourVariant,
-                  MutationVariant mutationVariant, TerrainVariant terrainVariant) {
+    public Configuration(int mapHeight, int mapWidth, int dailyEnergyConsumption, int initialPlantsNumber, int initialAnimalsNumber, int initialAnimalsEnergy,
+                         int energyRequiredForReproduction, int energyUsedForReproduction, int genomeLength, int numberOfPlantGrowingDaily, int plantEnergy,
+                         MapVariant mapVariant, BehaviourVariant behaviourVariant, MutationVariant mutationVariant, TerrainVariant terrainVariant,
+                         boolean saveToCSV, boolean removeExcessAnimals) {
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
-        this.dailyEnergyConsumption = energyOfOneMove;
+        this.dailyEnergyConsumption = dailyEnergyConsumption;
         this.initialPlantsNumber = initialPlantsNumber;
         this.initialAnimalsNumber = initialAnimalsNumber;
         this.initialAnimalsEnergy = initialAnimalsEnergy;
         this.energyRequiredForReproduction = energyRequiredForReproduction;
         this.energyUsedForReproduction = energyUsedForReproduction;
-        this.minimumNumberOfMutations = minimumNumberOfMutations;
-        this.maximumNumberOfMutations = maximumNumberOfMutations;
         this.genomeLength = genomeLength;
         this.numberOfPlantGrowingDaily = numberOfPlantGrowingDaily;
         this.plantsEnergy = plantEnergy;
@@ -45,6 +43,8 @@ public class Configuration {
         this.behaviourVariant = behaviourVariant;
         this.mutationVariant = mutationVariant;
         this.terrainVariant = terrainVariant;
+        this.saveToCSV = saveToCSV;
+        this.removeExcessAnimals = removeExcessAnimals;
     }
 
     public int getMapHeight() {
@@ -79,14 +79,6 @@ public class Configuration {
         return energyUsedForReproduction;
     }
 
-    public int getMinimumNumberOfMutations() {
-        return minimumNumberOfMutations;
-    }
-
-    public int getMaximumNumberOfMutations() {
-        return maximumNumberOfMutations;
-    }
-
     public int getGenomeLength() {
         return genomeLength;
     }
@@ -107,11 +99,19 @@ public class Configuration {
         return mutationVariant;
     }
 
-    public TerrainVariant terrainVariant() {
+    public TerrainVariant getTerrainVariant() {
         return terrainVariant;
     }
 
     public int getPlantsEnergy() {
         return plantsEnergy;
+    }
+
+    public boolean isSaveToCSV() {
+        return saveToCSV;
+    }
+
+    public boolean isRemoveExcessAnimals() {
+        return removeExcessAnimals;
     }
 }

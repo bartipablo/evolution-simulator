@@ -1,4 +1,4 @@
-package com.example.evolutiongenerator.interfaces.maps;
+package com.example.evolutiongenerator.maps;
 
 import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.Plant;
@@ -37,6 +37,22 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
     //-----------------------------------------------------------------
 
     @Override
+    public Object objectAt(Vector2D position) {
+        if (livesAnimalsOnMap.get(position) != null && livesAnimalsOnMap.get(position).size() > 0) {
+            return livesAnimalsOnMap.get(position).get(0);
+        }
+        return plantsOnMap.get(position);
+    }
+
+    @Override
+    public boolean isOccupied(Vector2D position) {
+        if (livesAnimalsOnMap.get(position) != null && livesAnimalsOnMap.get(position).size() > 0) {
+            return true;
+        }
+        return plantsOnMap.get(position) != null;
+    }
+
+    @Override
     public int getMapHeight() {
         return mapHeight;
     }
@@ -73,7 +89,12 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
     @Override
     public void changePositionOnMap(IAnimal animal, Vector2D oldPosition, Vector2D newPosition) {
         livesAnimalsOnMap.get(oldPosition).remove(animal);
-        livesAnimalsOnMap.get(newPosition).add(animal);
+        if (livesAnimalsOnMap.get(newPosition) != null) {
+            livesAnimalsOnMap.get(newPosition).add(animal);
+        } else {
+            livesAnimalsOnMap.put(newPosition, new ArrayList<>());
+            livesAnimalsOnMap.get(newPosition).add(animal);
+        }
     }
 
     @Override
