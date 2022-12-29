@@ -42,9 +42,4 @@ public class Constant {
     public static final int MIN_MUTATION_NUMBER = 10;
     public static final int MAX_MUTATION_NUMBER = 100;
     //-------------------------------------------------------------
-
-    //grid pane in simulation scene
-    public static final int GRID_PANE_HEIGHT_PX = 715;
-    public static final int GRID_PANE_WIDTH_PX = 867;
-    //
 }
