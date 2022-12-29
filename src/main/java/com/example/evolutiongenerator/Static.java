@@ -37,15 +37,13 @@ public class Static {
     }
 
     public static Vector2D[] generateVector2DArray(int xMin, int xMax, int yMin, int yMax) {
-        int g =0;
         if (xMax < xMin || yMax < yMin) {
             return null;
         }
-        Vector2D[] resultArray = new Vector2D[(xMax - xMin + 1) * (yMax - yMin + 1)];
-        for (int i = xMin; i <= xMax; i++) {
-            for (int j = yMin; j <= yMax; j++) {
-                resultArray[g] = new Vector2D(i ,j);
-                g++;
+        Vector2D[] resultArray = new Vector2D[(xMax - xMin) * (yMax - yMin)];
+        for (int i = 0; i < ( xMax - xMin); i++) {
+            for (int j = 0; j < (yMax - yMin); j++) {
+                resultArray[i * (yMax - yMin) + j] = new Vector2D(i ,j);
             }
         }
         return resultArray;
@@ -63,6 +61,15 @@ public class Static {
         System.arraycopy(array1, 0, result, 0, array1.length - 1);
         System.arraycopy(array2, 0, result, array1.length, array2.length);
         return result;
+    }
+
+    public static boolean isStringInt(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
     }
 
 }
