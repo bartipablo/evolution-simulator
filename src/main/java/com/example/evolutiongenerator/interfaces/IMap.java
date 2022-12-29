@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface IMap {
 
+    Object objectAt(Vector2D position);
+
+    boolean isOccupied(Vector2D position);
+
     int getMapHeight();
 
     int getMapWidth();
