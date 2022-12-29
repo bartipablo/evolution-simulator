@@ -3,10 +3,10 @@ package com.example.evolutiongenerator.maps;
 import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.Plant;
 import com.example.evolutiongenerator.direction.Vector2D;
+import com.example.evolutiongenerator.interfaces.IGuiObserver;
 import com.example.evolutiongenerator.interfaces.IMap;
 import com.example.evolutiongenerator.interfaces.IMapElementsObserver;
 
-import java.security.InvalidParameterException;
 import java.util.*;
 
 public abstract class AbstractMap implements IMap, IMapElementsObserver {
@@ -17,6 +17,7 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
     private final Map<Vector2D, Integer> numbersOfDeathsAtPosition = new HashMap<>();
     private final TreeMap<Integer, List<Vector2D>> positionWithNumberOfDeath = new TreeMap<>();
     private final Map<Vector2D, Plant> plantsOnMap = new HashMap<>();
+    private final List<IGuiObserver> guiObservers = new ArrayList<>();
 
 
     //constructors-------------------------------------------------
@@ -36,6 +37,22 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
         }
     }
     //-----------------------------------------------------------------
+
+    @Override
+    public Object objectAt(Vector2D position) {
+        if (livesAnimalsOnMap.get(position) != null && livesAnimalsOnMap.get(position).size() > 0) {
+            return livesAnimalsOnMap.get(position).get(0);
+        }
+        return plantsOnMap.get(position);
+    }
+
+    @Override
+    public boolean isOccupied(Vector2D position) {
+        if (livesAnimalsOnMap.get(position) != null && livesAnimalsOnMap.get(position).size() > 0) {
+            return true;
+        }
+        return plantsOnMap.get(position) != null;
+    }
 
     @Override
     public int getMapHeight() {
@@ -80,6 +97,7 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
             livesAnimalsOnMap.put(newPosition, new ArrayList<>());
             livesAnimalsOnMap.get(newPosition).add(animal);
         }
+        informObserversAboutChanges();
     }
 
     @Override
@@ -92,6 +110,7 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
             livesAnimalsOnMap.put(animal.getPosition(), new ArrayList<>());
             livesAnimalsOnMap.get(animal.getPosition()).add(animal);
         }
+        informObserversAboutChanges();
     }
 
     @Override
@@ -99,6 +118,7 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
         removeLiveAnimalFromHashMap(animal);
         updatePositionWithNumberOfDeath(animal);
         updateNumbersOfDeathsAtPosition(animal);
+        informObserversAboutChanges();
     }
 
     private void removeLiveAnimalFromHashMap(IAnimal animal) {
@@ -131,13 +151,24 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
             throw new IllegalArgumentException("Plant's position is invalid");
         } else {
             plantsOnMap.put(plant.getPosition(), plant);
+            informObserversAboutChanges();
         }
-
-    }
 
     @Override
     public void removePlantFromMap(Plant plant) {
         plantsOnMap.remove(plant.getPosition());
+        informObserversAboutChanges();
+    }
+
+    @Override
+    public void addGuiObserver(IGuiObserver observer) {
+        guiObservers.add(observer);
+    }
+
+    private void informObserversAboutChanges() {
+        for (IGuiObserver guiObserver : guiObservers) {
+            guiObserver.changed();
+        }
     }
 
 }

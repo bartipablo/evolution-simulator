@@ -58,6 +58,7 @@ public class Population {
             } else {
                 animal = new AnimalBehaviourB(initialPosition, initialDirection, map, genomeLength, initialEnergy);
             }
+            animal.addPositionObserver((IMapElementsObserver) map);
             addNewAnimal(animal);
             informObserversAboutNewAnimal(animal);
         }
@@ -154,6 +155,7 @@ public class Population {
 
     private void createNewAnimal(IAnimal animalA, IAnimal animalB) {
         IAnimal newAnimal = reproductionVariant.newAnimal(animalA, animalB, genomeLength, minimumNumberOfMutations, maximumNumberOfMutations, energyUsedToReproduction, map);
+        newAnimal.addPositionObserver((IMapElementsObserver) map);
         addNewAnimal(newAnimal);
         informObserversAboutNewAnimal(newAnimal);
     }
@@ -162,7 +164,11 @@ public class Population {
 
     //vanishing---------------------------------------------------------------------------------------
     public void vanishing() {
-        for (IAnimal animal : liveAnimals) {
+        // Make a copy of the liveAnimals list
+        List<IAnimal> liveAnimalsCopy = new ArrayList<>(liveAnimals);
+
+        // Iterate over the copy of the list
+        for (IAnimal animal : liveAnimalsCopy) {
             if (animal.getEnergy() <= 0) {
                 totalLifeExpectancy += animal.getAge();
                 removeAnimal(animal);

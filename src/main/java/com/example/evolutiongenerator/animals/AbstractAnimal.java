@@ -5,12 +5,13 @@ import com.example.evolutiongenerator.direction.MapDirection;
 import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.interfaces.IMap;
+import com.example.evolutiongenerator.interfaces.IMapElement;
 import com.example.evolutiongenerator.interfaces.IMapElementsObserver;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractAnimal implements IAnimal {
+public abstract class AbstractAnimal implements IAnimal, IMapElement {
     protected int actualGenomeIndex;
     protected int energy;
     private int age;

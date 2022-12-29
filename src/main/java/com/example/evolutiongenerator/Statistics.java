@@ -1,9 +1,12 @@
 package com.example.evolutiongenerator;
 
+import com.almasb.fxgl.core.collection.Array;
 import com.example.evolutiongenerator.interfaces.IAnimal;
+import com.example.evolutiongenerator.interfaces.IGuiObserver;
 import com.example.evolutiongenerator.interfaces.IMap;
 import com.example.evolutiongenerator.interfaces.IStatisticsObserver;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,6 +19,7 @@ public class Statistics implements IStatisticsObserver {
     private int freeFieldQuantity;
     private int mostPopularGenotypeQuantity;
     private int[] theMostPopularGenotype;
+    private final List<IGuiObserver> guiObservers = new ArrayList<>();
 
     Statistics(int populationSize, int numberOfPlants) {
         this.populationSize = populationSize;
@@ -35,6 +39,7 @@ public class Statistics implements IStatisticsObserver {
     @Override
     public void setPopulationSize(int size) {
         this.populationSize = size;
+        informGuiObserverAboutChanges();
     }
 
     public int getPlantsQuantity() {
@@ -44,6 +49,7 @@ public class Statistics implements IStatisticsObserver {
     @Override
     public void setPlantsQuantity(int quantity) {
         this.plantsQuantity += quantity;
+        informGuiObserverAboutChanges();
     }
 
     public double getAverageLifeLength() {
@@ -55,12 +61,13 @@ public class Statistics implements IStatisticsObserver {
         if (extinctAnimals.size() > 0) {
             int totalLifeLength = 0;
             for (int i = 0; i < extinctAnimals.size(); i++) {
-                totalLifeLength += extinctAnimals.get(0).getAge();
+                totalLifeLength += extinctAnimals.get(i).getAge();
             }
             averageLifeLength = (double) (totalLifeLength / extinctAnimals.size());
         } else {
             averageLifeLength = 0;
         }
+        informGuiObserverAboutChanges();
     }
 
     public double getAverageEnergy() {
@@ -72,12 +79,13 @@ public class Statistics implements IStatisticsObserver {
         if (aliveAnimals.size() > 0) {
             int totalEnergy = 0;
             for (int i = 0; i < aliveAnimals.size(); i++) {
-                totalEnergy += aliveAnimals.get(0).getEnergy();
+                totalEnergy += aliveAnimals.get(i).getEnergy();
             }
             averageEnergy = (double) (totalEnergy / aliveAnimals.size());
         } else {
             averageEnergy = 0;
         }
+        informGuiObserverAboutChanges();
     }
 
     public int getFreeFieldQuantity() {
@@ -87,6 +95,7 @@ public class Statistics implements IStatisticsObserver {
     @Override
     public void setFreeFieldQuantity(IMap map) {
         freeFieldQuantity = (map.getMapHeight() * map.getMapWidth()) + map.getAnimalsPositions().length;
+        informGuiObserverAboutChanges();
     }
 
     public int[] getTheMostPopularGenotype() {
@@ -109,6 +118,18 @@ public class Statistics implements IStatisticsObserver {
         }
         this.theMostPopularGenotype = theMostPopularGenotype;
         this.mostPopularGenotypeQuantity = quantityOfTheMostPopularGenotypes;
+        informGuiObserverAboutChanges();
     }
+
+    public void addGuiObserver(IGuiObserver observer) {
+        guiObservers.add(observer);
+    }
+
+    public void informGuiObserverAboutChanges() {
+        for (IGuiObserver observer : guiObservers) {
+            observer.generalStatisticsChanged();
+        }
+    }
+
 
 }

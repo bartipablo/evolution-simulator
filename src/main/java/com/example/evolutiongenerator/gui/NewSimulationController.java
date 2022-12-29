@@ -243,5 +243,4 @@ public class NewSimulationController implements Initializable {
                 saveCSVCheckBox.isSelected(), removeExcessAnimalsCheckBox.isSelected()
         );
     }
-
 }

@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface IMap {
 
+    Object objectAt(Vector2D position);
+    boolean isOccupied(Vector2D position);
+
     int getMapHeight();
 
     int getMapWidth();
@@ -23,5 +26,6 @@ public interface IMap {
     Vector2D calculatePositionAfterMovement(Vector2D position);
 
     MapDirection calculateDirectionAfterMovement(Vector2D position, MapDirection direction);
+    void addGuiObserver(IGuiObserver guiObserver);
 
 }

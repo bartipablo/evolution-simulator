@@ -32,4 +32,9 @@ public class AnimalBehaviourB extends AbstractAnimal {
         }
     }
 
+    @Override
+    public String getImagePath() {
+        String str = "resources\\com\\example\\evolutiongenerator\\icon.png";
+        return str;
+    }
 }
