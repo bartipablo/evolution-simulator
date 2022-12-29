@@ -164,7 +164,11 @@ public class Population {
 
     //vanishing---------------------------------------------------------------------------------------
     public void vanishing() {
-        for (IAnimal animal : liveAnimals) {
+        // Make a copy of the liveAnimals list
+        List<IAnimal> liveAnimalsCopy = new ArrayList<>(liveAnimals);
+
+        // Iterate over the copy of the list
+        for (IAnimal animal : liveAnimalsCopy) {
             if (animal.getEnergy() <= 0) {
                 totalLifeExpectancy += animal.getAge();
                 removeAnimal(animal);
