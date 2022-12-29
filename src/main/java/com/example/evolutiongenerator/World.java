@@ -1,6 +1,7 @@
 package com.example.evolutiongenerator;
 
 import com.example.evolutiongenerator.interfaces.IMap;
+import com.example.evolutiongenerator.interfaces.IMapElementsObserver;
 import com.example.evolutiongenerator.interfaces.IReproduction;
 import com.example.evolutiongenerator.interfaces.ITerrain;
 import com.example.evolutiongenerator.maps.Globe;
@@ -17,6 +18,7 @@ public class World extends Thread {
     private ITerrain terrain;
     private IMap map;
     private final BehaviourVariant behaviourVariant;
+    private final Statistics statistics;
 
 
     //constructors------------------------------------------------------------------------------------------------------
@@ -24,6 +26,7 @@ public class World extends Thread {
     public World(Configuration configuration) {
         initializeVariants(configuration);
         behaviourVariant = configuration.getBehaviourVariant();
+        statistics = new Statistics(configuration.getInitialAnimalsNumber(), configuration.getInitialPlantsNumber());
         population = new Population(
                 configuration.getInitialAnimalsNumber(),
                 configuration.getEnergyRequiredForReproduction(),
@@ -34,7 +37,16 @@ public class World extends Thread {
                 configuration.getDailyEnergyConsumption(),
                 configuration.getInitialAnimalsEnergy()
         );
+        setObservators();
     }
+
+    private void setObservators() {
+        population.addNewStatisticsObserver(statistics);
+        population.addNewPopulationObserver((IMapElementsObserver) map);
+        terrain.addStatisticsObserver(statistics);
+        terrain.addTerrainObserver((IMapElementsObserver) map);
+    }
+
 
     private void initializeVariants(Configuration configuration) {
         switch (configuration.getMapVariant()) {
@@ -54,10 +66,18 @@ public class World extends Thread {
                     configuration.getPlantsEnergy(), configuration.getInitialPlantsNumber());
         }
     }
+
+
     //------------------------------------------------------------------------------------------------------------------
 
     @Override
     public void run() {
+        while (population.getLiveAnimals().size() > 0) {
+            simulate();
+        }
+    }
+
+    private void simulate() {
         terrain.dailyPlantGrowth();
         population.dailyMoving();
         population.dailyEnergyConsumption();

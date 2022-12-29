@@ -9,4 +9,7 @@ public interface ITerrain {
     void removePlant(Plant plant);
     List<Plant> getPlants();
 
+    void addTerrainObserver(IMapElementsObserver mapElementsObserver);
+
+    void addStatisticsObserver(IStatisticsObserver observer);
 }
