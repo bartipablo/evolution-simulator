@@ -26,5 +26,6 @@ public interface IMap {
     Vector2D calculatePositionAfterMovement(Vector2D position);
 
     MapDirection calculateDirectionAfterMovement(Vector2D position, MapDirection direction);
+    void addGuiObserver(IGuiObserver guiObserver);
 
 }

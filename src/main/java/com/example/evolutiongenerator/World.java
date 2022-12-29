@@ -58,6 +58,12 @@ public class World extends Thread {
 
     @Override
     public void run() {
+        while (population.getLiveAnimals().size() > 0) {
+            simulate();
+        }
+    }
+
+    private void simulate() {
         terrain.dailyPlantGrowth();
         population.dailyMoving();
         population.dailyEnergyConsumption();

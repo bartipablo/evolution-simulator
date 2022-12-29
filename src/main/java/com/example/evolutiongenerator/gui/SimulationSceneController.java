@@ -1,6 +1,7 @@
 package com.example.evolutiongenerator.gui;
 
 import com.example.evolutiongenerator.World;
+import com.example.evolutiongenerator.interfaces.IGuiObserver;
 import com.example.evolutiongenerator.interfaces.IMap;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,7 +16,7 @@ import java.net.URL;
 import java.nio.Buffer;
 import java.util.ResourceBundle;
 
-public class SimulationSceneController {
+public class SimulationSceneController implements IGuiObserver {
 
     //FXML---------------------------------------------------
     private MainSceneController mainSceneController;
@@ -38,8 +39,11 @@ public class SimulationSceneController {
     //simulation--------------------------------------------
     private World world;
     private MapVisualizer mapVisualizer;
+    private Thread thread;
 
     //------------------------------------------------------
+    private boolean firstStart = true;
+
 
     public void onDeleteSimulationButtonClicked() {
         mainSceneController.removeTab(this);
@@ -50,6 +54,7 @@ public class SimulationSceneController {
     }
 
     public void onStartButtonClicked() {
+        startSimulation();
         deleteSimulationButton.setDisable(true);
         startButton.setDisable(true);
         stopButton.setDisable(false);
@@ -57,16 +62,34 @@ public class SimulationSceneController {
         deadAnimalsChoiceBox.setDisable(true);
     }
 
-    public void onStopButtonClicked() {
+    public void onStopButtonClicked() throws InterruptedException {
         deleteSimulationButton.setDisable(false);
         startButton.setDisable(false);
         stopButton.setDisable(true);
         liveAnimalsChoiceBox.setDisable(false);
         deadAnimalsChoiceBox.setDisable(false);
+        pauseSimulation();
     }
+
+    private void startSimulation() {
+        if (firstStart) {
+            thread.start();
+            firstStart = false;
+        } else {
+            thread.notify();
+            thread.start();
+        }
+    }
+
+    private void pauseSimulation() throws InterruptedException {
+        thread.wait();
+    }
+
 
     public void setWorld(World world) {
         this.world = world;
+        world.getMap().addGuiObserver(this);
+        this.thread = world;
         this.mapVisualizer = new MapVisualizer(world.getMap());
     }
 
@@ -76,7 +99,9 @@ public class SimulationSceneController {
         mapGridPane.getColumnConstraints().add(new ColumnConstraints(map.getMapWidth()));
     }
 
-
-
+    @Override
+    public void changed() {
+        mapGridPane = mapVisualizer.visualizeMap();
+    }
 
 }
