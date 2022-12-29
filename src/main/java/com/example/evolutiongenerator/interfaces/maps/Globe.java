@@ -1,4 +1,4 @@
-package com.example.evolutiongenerator.maps;
+package com.example.evolutiongenerator.interfaces.maps;
 
 import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.direction.MapDirection;
