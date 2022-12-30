@@ -133,19 +133,19 @@ public class Population {
         }
 
         sortTheAnimalsByEnergy(animalsAtPosition);
-        if (animalsAtPosition.get(1).getEnergy() > animalsAtPosition.get(2).getEnergy()) {
+        if (animalsAtPosition.get(0).getEnergy() > animalsAtPosition.get(1).getEnergy()) {
             return animalsAtPosition.subList(0, 1);
         }
 
         drawsList = getEnergyDrawsList(animalsAtPosition);
         sortTheAnimalsByAge(drawsList);
-        if (drawsList.get(1).getAge() > drawsList.get(2).getAge()) {
+        if (drawsList.get(0).getAge() > drawsList.get(1).getAge()) {
             return drawsList.subList(0, 1);
         }
 
         drawsList = getAgeDrawsList(drawsList);
         sortTheAnimalsByNumberOfChildren(drawsList);
-        if (drawsList.get(1).getChildrenNumber() > drawsList.get(2).getChildrenNumber()) {
+        if (drawsList.get(0).getChildrenNumber() > drawsList.get(1).getChildrenNumber()) {
             return drawsList.subList(0, 1);
         }
 
