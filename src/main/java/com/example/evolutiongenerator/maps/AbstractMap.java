@@ -104,13 +104,15 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
     public void addAnimalToMap(IAnimal animal) {
         if (animal.getPosition().y >= mapHeight || animal.getPosition().y < 0 || animal.getPosition().x >= mapWidth || animal.getPosition().x < 0) {
             throw new IllegalArgumentException("Animal's position is invalid");
-        } else if (livesAnimalsOnMap.get(animal.getPosition()) != null) {
-            livesAnimalsOnMap.get(animal.getPosition()).add(animal);
         } else {
-            livesAnimalsOnMap.put(animal.getPosition(), new ArrayList<>());
-            livesAnimalsOnMap.get(animal.getPosition()).add(animal);
+            if (livesAnimalsOnMap.get(animal.getPosition()) != null) {
+                livesAnimalsOnMap.get(animal.getPosition()).add(animal);
+            } else {
+                livesAnimalsOnMap.put(animal.getPosition(), new ArrayList<>());
+                livesAnimalsOnMap.get(animal.getPosition()).add(animal);
+            }
+            informObserversAboutChanges();
         }
-        informObserversAboutChanges();
     }
 
     @Override

@@ -68,14 +68,10 @@ public class Population {
 
     private void addNewAnimal(IAnimal animal) {
         liveAnimals.add(animal);
-        IMapElementsObserver mapElementsObserver = (IMapElementsObserver) map;
-        mapElementsObserver.addAnimalToMap(animal);
     }
 
     private void removeAnimal(IAnimal animal) {
         liveAnimals.remove(animal);
-        IMapElementsObserver mapElementsObserver = (IMapElementsObserver) map;
-        mapElementsObserver.removeAnimalFromMap(animal);
     }
 
     public List<int[]> getAnimalGenomes() {
