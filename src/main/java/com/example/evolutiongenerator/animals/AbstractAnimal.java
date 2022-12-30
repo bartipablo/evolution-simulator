@@ -143,12 +143,12 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
     public void move() {
         Vector2D oldPosition = new Vector2D(position.x, position.y);
         direction = direction.rotation(gene.getGenomes()[actualGenomeIndex]);
-        position = position.add(direction.toUnitVector());
-        Vector2D newPosition = map.calculatePositionAfterMovement(position);
-        MapDirection newDirection = map.calculateDirectionAfterMovement(position, direction);
+        Vector2D pos = position.add(direction.toUnitVector());
+        Vector2D newPosition = map.calculatePositionAfterMovement(pos);
+        MapDirection newDirection = map.calculateDirectionAfterMovement(pos, direction);
+        informObserversAboutPositionChanges(oldPosition, newPosition);
         position = newPosition;
         direction = newDirection;
-        informObserversAboutPositionChanges(oldPosition, newPosition);
         updateActualGenomeIndex();
     }
 

@@ -18,15 +18,15 @@ public class ForestedEquators extends AbstractTerrain {
 
     @Override
     protected void setAtPreferPosition(int quantity) {
-        Vector2D[] positions = Static.generateVector2DArray(0, map.getMapHeight(), minEquatorIndex, maxEquatorIndex);
+        Vector2D[] positions = Static.generateVector2DArray(0, map.getMapHeight()-1, minEquatorIndex, maxEquatorIndex);
         setAtPositions(positions, quantity);
 
     }
 
     @Override
     protected void setOutsidePreferPosition(int quantity) {
-        Vector2D[] positions1 = Static.generateVector2DArray(0, map.getMapHeight(), 0, minEquatorIndex - 1);
-        Vector2D[] positions2 = Static.generateVector2DArray(0, map.getMapHeight(), maxEquatorIndex + 1, map.getMapHeight());
+        Vector2D[] positions1 = Static.generateVector2DArray(0, map.getMapHeight()-1, 0, minEquatorIndex - 1);
+        Vector2D[] positions2 = Static.generateVector2DArray(0, map.getMapHeight()-1, maxEquatorIndex + 1, map.getMapHeight()-1);
         Vector2D[] positions = Static.concatTwoVector2DArrays(positions1, positions2);
         setAtPositions(positions, quantity);
 
