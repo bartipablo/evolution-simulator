@@ -26,6 +26,7 @@ public class Population {
     private final int initialEnergy;
     private int totalLifeExpectancy;
     private final BehaviourVariant behaviourVariant;
+    private final int initialPopulationSize;
 
 
     //constructors-------------------------------------------------------------------------
@@ -44,12 +45,12 @@ public class Population {
         this.dailyEnergyConsumption = dailyEnergyConsumption;
         this.initialEnergy = initialEnergy;
         this.totalLifeExpectancy = 0;
-        generateNewPopulation(populationSize);
+        this.initialPopulationSize = populationSize;
     }
 
-    private void generateNewPopulation(int populationSize) {
+    public void generateNewPopulation() {
         Random random = new Random();
-        for (int i = 0; i < populationSize; i++) {
+        for (int i = 0; i < initialPopulationSize; i++) {
             Vector2D initialPosition = Vector2D.generateRandomVector2D(0, map.getMapWidth(), 0, map.getMapHeight());
             MapDirection initialDirection = MapDirection.generateRandomDirection();
             IAnimal animal;
@@ -68,14 +69,10 @@ public class Population {
 
     private void addNewAnimal(IAnimal animal) {
         liveAnimals.add(animal);
-        IMapElementsObserver mapElementsObserver = (IMapElementsObserver) map;
-        mapElementsObserver.addAnimalToMap(animal);
     }
 
     private void removeAnimal(IAnimal animal) {
         liveAnimals.remove(animal);
-        IMapElementsObserver mapElementsObserver = (IMapElementsObserver) map;
-        mapElementsObserver.removeAnimalFromMap(animal);
     }
 
     public List<int[]> getAnimalGenomes() {
@@ -259,7 +256,7 @@ public class Population {
         while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getEnergy() == animalList.get(numberOfDraws - 1).getEnergy()) {
             numberOfDraws++;
         }
-        return animalList.subList(0, numberOfDraws - 1);
+        return animalList.subList(0, numberOfDraws);
     }
 
     private List<IAnimal> getAgeDrawsList(List<IAnimal> animalList) {
@@ -267,7 +264,7 @@ public class Population {
         while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getAge() == animalList.get(numberOfDraws - 1).getAge()) {
             numberOfDraws++;
         }
-        return animalList.subList(0, numberOfDraws - 1);
+        return animalList.subList(0, numberOfDraws);
     }
 
     private List<IAnimal> getNumberOfChildrenDrawsList(List<IAnimal> animalList) {
@@ -275,7 +272,7 @@ public class Population {
         while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getChildrenNumber() == animalList.get(numberOfDraws - 1).getChildrenNumber()) {
             numberOfDraws++;
         }
-        return animalList.subList(0, numberOfDraws - 1);
+        return animalList.subList(0, numberOfDraws);
     }
     //-----------------------------------------------------------------------------------------------
 
