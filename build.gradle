@@ -37,7 +37,7 @@ dependencies {
     implementation('com.github.almasb:fxgl:17') {
         exclude(group: 'org.openjfx')
     }
-
+    implementation group: 'com.opencsv', name: 'opencsv', version: '5.7.0'
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
     testImplementation 'org.mockito:mockito-inline:4.0.0'

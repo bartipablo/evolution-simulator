@@ -3,6 +3,7 @@ module com.example.evolutiongenerator {
     requires javafx.fxml;
 
     requires com.almasb.fxgl.all;
+    requires com.opencsv;
 
     opens com.example.evolutiongenerator to javafx.fxml;
     exports com.example.evolutiongenerator;

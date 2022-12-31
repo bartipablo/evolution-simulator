@@ -1,6 +1,9 @@
 import com.example.evolutiongenerator.direction.Vector2D;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.example.evolutiongenerator.Static.*;
 import static com.example.evolutiongenerator.Static.generateIntArray;
 import static org.junit.jupiter.api.Assertions.*;
@@ -129,7 +132,15 @@ public class StaticTest {
             Vector2D[] result4 = concatTwoVector2DArrays(array9, array0);
             assertArrayEquals(expected4, result4);
 
+    }
 
+    @Test
+    void generateFileTest(){
+        List<String[]> data = new ArrayList<String[]>();
+        data.add(new String[]{"1","2","3","4","5"});
+        data.add(new String[]{"11","21","31","41","51"});
+        data.add(new String[]{"11","12","13","14","15"});
+        writeDataToCSV(data);
     }
 
 }

@@ -2,7 +2,15 @@ package com.example.evolutiongenerator;
 
 import com.example.evolutiongenerator.direction.Vector2D;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
 import java.util.Random;
+
+import com.opencsv.*;
+
+import static com.example.evolutiongenerator.Constant.FILE_NAME;
 
 public class Static {
     public static void shuffleIntArray(int[] array) {
@@ -37,14 +45,14 @@ public class Static {
     }
 
     public static Vector2D[] generateVector2DArray(int xMin, int xMax, int yMin, int yMax) {
-        int g =0;
+        int g = 0;
         if (xMax < xMin || yMax < yMin) {
             return null;
         }
         Vector2D[] resultArray = new Vector2D[(xMax - xMin + 1) * (yMax - yMin + 1)];
         for (int i = xMin; i <= xMax; i++) {
             for (int j = yMin; j <= yMax; j++) {
-                resultArray[g] = new Vector2D(i ,j);
+                resultArray[g] = new Vector2D(i, j);
                 g++;
             }
         }
@@ -74,4 +82,17 @@ public class Static {
         }
     }
 
+    //------------------------------------------------------------------------------------------------------------
+    // CSV file methods
+    public static void writeDataToCSV(List<String[]> data) {
+        File file = new File(FILE_NAME);
+        try {
+            FileWriter outputfile = new FileWriter(file);
+            CSVWriter writer = new CSVWriter(outputfile);
+            writer.writeAll(data);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
