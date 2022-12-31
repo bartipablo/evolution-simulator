@@ -76,18 +76,18 @@ public class SimulationSceneController implements IGuiObserver {
             thread.start();
             firstStart = false;
         } else {
-            thread.notify();
+            thread.resume();
         }
     }
 
     private void pauseSimulation() throws InterruptedException {
-        thread.wait();
+        thread.suspend();
     }
 
     public void setWorld(World world) {
         this.world = world;
         world.getMap().addGuiObserver(this);
-        this.thread = world;
+        this.thread = new Thread(world);
         this.mapVisualizer = new MapVisualizer(world.getMap());
     }
 
