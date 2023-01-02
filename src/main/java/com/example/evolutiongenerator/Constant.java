@@ -27,7 +27,7 @@ public class Constant {
     //-------------------------------------------------
 
     //spawn properties---------------------------------
-    public static final int MIN_ANIMALS_SPAWNING_AT_START = 10;
+    public static final int MIN_ANIMALS_SPAWNING_AT_START = 5;
     public static final int MAX_ANIMALS_SPAWNING_AT_START = 100;
     public static final int MIN_PLANTS_SPAWNING_AT_THE_START = 10;
     public static final int MAX_PLANTS_SPAWNING_AT_THE_START = 100;

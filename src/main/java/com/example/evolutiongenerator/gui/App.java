@@ -20,17 +20,14 @@ import java.util.List;
 public class App extends Application {
 
     private final static List<World> worlds = new ArrayList<>();
-
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-scene.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1530, 790);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setTitle("Evolution Generator");
         stage.getIcons().add(new Image(new FileInputStream("src/main/resources/com/example/evolutiongenerator/icon.png")));
         stage.setScene(scene);
         stage.show();
     }
-
-
 }

@@ -78,7 +78,7 @@ public class World extends Thread {
     }
 
     private void simulate() {
-        terrain.dailyPlantGrowth();
+        terrain.dailyPlantGrowth(); //psuje sie
         population.dailyMoving();
         population.dailyEnergyConsumption();
         population.consumptions();
