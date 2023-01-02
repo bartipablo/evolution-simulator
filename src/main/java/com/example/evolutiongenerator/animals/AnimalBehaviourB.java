@@ -31,10 +31,4 @@ public class AnimalBehaviourB extends AbstractAnimal {
             actualGenomeIndex = random.nextInt(0, gene.getGenomeLength());
         }
     }
-
-    @Override
-    public String getImagePath() {
-        String str = "resources\\com\\example\\evolutiongenerator\\icon.png";
-        return str;
-    }
 }

@@ -152,6 +152,11 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
         updateActualGenomeIndex();
     }
 
+    @Override
+    public String getImagePath() {
+        return "src/main/resources/animal.png";
+    }
+
     protected abstract void updateActualGenomeIndex();
 
 }
