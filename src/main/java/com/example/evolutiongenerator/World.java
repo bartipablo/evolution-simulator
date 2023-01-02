@@ -38,6 +38,7 @@ public class World extends Thread {
                 configuration.getInitialAnimalsEnergy()
         );
         setObservators();
+        population.generateNewPopulation();
     }
 
     private void setObservators() {

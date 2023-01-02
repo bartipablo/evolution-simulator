@@ -25,11 +25,12 @@ public class ReproductionB extends AbstractReproduction {
         Static.shuffleIntArray(indexToMutation);
         int quantityMutations = random.nextInt(minimumQuantityMutations, maximumQuantityMutations + 1);
         for (int i = 0; i < quantityMutations; i++) {
-            genome[indexToMutation[i]] += mutationValue[random.nextInt(0, 2)];
-            if (genome[indexToMutation[i]] == 8) {
-                genome[indexToMutation[i]] = 0;
-            } else if (genome[indexToMutation[i]] == -1) {
-                 genome[indexToMutation[i]] = 7;
+            int j = i%genomeLength;
+            genome[indexToMutation[j]] += mutationValue[random.nextInt(0, 2)];
+            if (genome[indexToMutation[j]] == 8) {
+                genome[indexToMutation[j]] = 0;
+            } else if (genome[indexToMutation[j]] == -1) {
+                 genome[indexToMutation[j]] = 7;
             }
         }
     }

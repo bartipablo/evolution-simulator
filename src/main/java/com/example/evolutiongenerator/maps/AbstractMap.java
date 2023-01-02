@@ -90,7 +90,7 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
 
     @Override
     public void changePositionOnMap(IAnimal animal, Vector2D oldPosition, Vector2D newPosition) {
-        livesAnimalsOnMap.get(oldPosition).remove(animal);
+        removeLiveAnimalFromHashMap(animal);
         if (livesAnimalsOnMap.get(newPosition) != null) {
             livesAnimalsOnMap.get(newPosition).add(animal);
         } else {
@@ -102,13 +102,17 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
 
     @Override
     public void addAnimalToMap(IAnimal animal) {
-        if (livesAnimalsOnMap.get(animal.getPosition()) != null) {
-            livesAnimalsOnMap.get(animal.getPosition()).add(animal);
+        if (animal.getPosition().y >= mapHeight || animal.getPosition().y < 0 || animal.getPosition().x >= mapWidth || animal.getPosition().x < 0) {
+            throw new IllegalArgumentException("Animal's position is invalid");
         } else {
-            livesAnimalsOnMap.put(animal.getPosition(), new ArrayList<>());
-            livesAnimalsOnMap.get(animal.getPosition()).add(animal);
+            if (livesAnimalsOnMap.get(animal.getPosition()) != null) {
+                livesAnimalsOnMap.get(animal.getPosition()).add(animal);
+            } else {
+                livesAnimalsOnMap.put(animal.getPosition(), new ArrayList<>());
+                livesAnimalsOnMap.get(animal.getPosition()).add(animal);
+            }
+            informObserversAboutChanges();
         }
-        informObserversAboutChanges();
     }
 
     @Override
@@ -143,8 +147,14 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
 
     @Override
     public void addPlantToMap(Plant plant) {
-        plantsOnMap.put(plant.getPosition(), plant);
-        informObserversAboutChanges();
+        if (plant.getPosition().y >= mapHeight || plant.getPosition().y < 0 || plant.getPosition().x >= mapWidth || plant.getPosition().x < 0){
+            throw new IllegalArgumentException("Plant's position is invalid");
+        } else if (getPlantAtPosition(plant.getPosition()) != null) {
+            throw new IllegalArgumentException("Plant's position is invalid");
+        } else {
+            plantsOnMap.put(plant.getPosition(), plant);
+            informObserversAboutChanges();
+        }
     }
 
     @Override

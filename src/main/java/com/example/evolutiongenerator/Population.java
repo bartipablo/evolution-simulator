@@ -26,6 +26,7 @@ public class Population {
     private final int initialEnergy;
     private int totalLifeExpectancy;
     private final BehaviourVariant behaviourVariant;
+    private final int initialPopulationSize;
 
 
     //constructors-------------------------------------------------------------------------
@@ -44,12 +45,12 @@ public class Population {
         this.dailyEnergyConsumption = dailyEnergyConsumption;
         this.initialEnergy = initialEnergy;
         this.totalLifeExpectancy = 0;
-        generateNewPopulation(populationSize);
+        this.initialPopulationSize = populationSize;
     }
 
-    private void generateNewPopulation(int populationSize) {
+    public void generateNewPopulation() {
         Random random = new Random();
-        for (int i = 0; i < populationSize; i++) {
+        for (int i = 0; i < initialPopulationSize; i++) {
             Vector2D initialPosition = Vector2D.generateRandomVector2D(0, map.getMapWidth(), 0, map.getMapHeight());
             MapDirection initialDirection = MapDirection.generateRandomDirection();
             IAnimal animal;
@@ -136,19 +137,19 @@ public class Population {
         }
 
         sortTheAnimalsByEnergy(animalsAtPosition);
-        if (animalsAtPosition.get(1).getEnergy() > animalsAtPosition.get(2).getEnergy()) {
+        if (animalsAtPosition.get(0).getEnergy() > animalsAtPosition.get(1).getEnergy()) {
             return animalsAtPosition.subList(0, 1);
         }
 
         drawsList = getEnergyDrawsList(animalsAtPosition);
         sortTheAnimalsByAge(drawsList);
-        if (drawsList.get(1).getAge() > drawsList.get(2).getAge()) {
+        if (drawsList.get(0).getAge() > drawsList.get(1).getAge()) {
             return drawsList.subList(0, 1);
         }
 
         drawsList = getAgeDrawsList(drawsList);
         sortTheAnimalsByNumberOfChildren(drawsList);
-        if (drawsList.get(1).getChildrenNumber() > drawsList.get(2).getChildrenNumber()) {
+        if (drawsList.get(0).getChildrenNumber() > drawsList.get(1).getChildrenNumber()) {
             return drawsList.subList(0, 1);
         }
 
@@ -259,7 +260,7 @@ public class Population {
         while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getEnergy() == animalList.get(numberOfDraws - 1).getEnergy()) {
             numberOfDraws++;
         }
-        return animalList.subList(0, numberOfDraws - 1);
+        return animalList.subList(0, numberOfDraws);
     }
 
     private List<IAnimal> getAgeDrawsList(List<IAnimal> animalList) {
@@ -267,7 +268,7 @@ public class Population {
         while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getAge() == animalList.get(numberOfDraws - 1).getAge()) {
             numberOfDraws++;
         }
-        return animalList.subList(0, numberOfDraws - 1);
+        return animalList.subList(0, numberOfDraws);
     }
 
     private List<IAnimal> getNumberOfChildrenDrawsList(List<IAnimal> animalList) {
@@ -275,7 +276,7 @@ public class Population {
         while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getChildrenNumber() == animalList.get(numberOfDraws - 1).getChildrenNumber()) {
             numberOfDraws++;
         }
-        return animalList.subList(0, numberOfDraws - 1);
+        return animalList.subList(0, numberOfDraws);
     }
     //-----------------------------------------------------------------------------------------------
 

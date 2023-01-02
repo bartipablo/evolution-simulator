@@ -24,7 +24,8 @@ public class ReproductionA extends AbstractReproduction {
         Static.shuffleIntArray(indexToMutation);
         int quantityMutations = random.nextInt(minimumQuantityMutations, maximumQuantityMutations + 1);
         for (int i = 0; i < quantityMutations; i++) {
-            genome[indexToMutation[i]] = random.nextInt(0, 8);
+            int j = i%genomeLength;
+            genome[indexToMutation[j]] = random.nextInt(0, 8);
         }
     }
 

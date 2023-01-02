@@ -5,12 +5,13 @@ import com.example.evolutiongenerator.direction.MapDirection;
 import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.interfaces.IMap;
+import com.example.evolutiongenerator.interfaces.IMapElement;
 import com.example.evolutiongenerator.interfaces.IMapElementsObserver;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractAnimal implements IAnimal {
+public abstract class AbstractAnimal implements IAnimal, IMapElement {
     protected int actualGenomeIndex;
     protected int energy;
     private int age;
@@ -142,12 +143,12 @@ public abstract class AbstractAnimal implements IAnimal {
     public void move() {
         Vector2D oldPosition = new Vector2D(position.x, position.y);
         direction = direction.rotation(gene.getGenomes()[actualGenomeIndex]);
-        position = position.add(direction.toUnitVector());
-        Vector2D newPosition = map.calculatePositionAfterMovement(position);
-        MapDirection newDirection = map.calculateDirectionAfterMovement(position, direction);
+        Vector2D pos = position.add(direction.toUnitVector());
+        Vector2D newPosition = map.calculatePositionAfterMovement(pos);
+        MapDirection newDirection = map.calculateDirectionAfterMovement(pos, direction);
+        informObserversAboutPositionChanges(oldPosition, newPosition);
         position = newPosition;
         direction = newDirection;
-        informObserversAboutPositionChanges(oldPosition, newPosition);
         updateActualGenomeIndex();
     }
 
