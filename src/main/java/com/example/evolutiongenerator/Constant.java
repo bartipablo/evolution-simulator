@@ -46,5 +46,8 @@ public class Constant {
     //grid pane in simulation scene
     public static final int GRID_PANE_HEIGHT_PX = 715;
     public static final int GRID_PANE_WIDTH_PX = 867;
-    //
+
+    //-------------------------------------------------------------
+    public static final String FILE_NAME = "C:\\Users\\adas8\\OneDrive\\Pulpit\\file.csv";
+
 }
