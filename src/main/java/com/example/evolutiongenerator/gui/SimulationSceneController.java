@@ -117,7 +117,7 @@ public class SimulationSceneController implements IGuiObserver {
         try {
             Platform.runLater(this::updateMapRepresentation);
             Platform.runLater(this::updateGeneralStatistics);
-            Thread.sleep(300);
+           Thread.sleep(1000);
         } catch (InterruptedException ex) {
             System.out.println(ex.getMessage());
         }

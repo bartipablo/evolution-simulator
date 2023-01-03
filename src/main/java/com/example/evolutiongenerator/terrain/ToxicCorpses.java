@@ -12,7 +12,7 @@ public class ToxicCorpses extends AbstractTerrain {
 
     public ToxicCorpses(IMap map, int numberOfPlantsGrowingDaily, int plantEnergy, int initialPlantsNumber) {
         super(map, numberOfPlantsGrowingDaily, plantEnergy, initialPlantsNumber);
-        generateTerrain(initialPlantsNumber);
+        //generateTerrain(initialPlantsNumber);
     }
 
     @Override

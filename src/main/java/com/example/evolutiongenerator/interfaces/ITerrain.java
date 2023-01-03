@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ITerrain {
     void dailyPlantGrowth();
+    void generateInitialTerrain();
     void removePlant(Plant plant);
     List<Plant> getPlants();
 
@@ -13,5 +14,4 @@ public interface ITerrain {
 
     void addStatisticsObserver(IStatisticsObserver observer);
 
-    void generateInitialTerrain();
 }

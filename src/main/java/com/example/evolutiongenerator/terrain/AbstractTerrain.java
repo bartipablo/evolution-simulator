@@ -35,6 +35,7 @@ public abstract class AbstractTerrain implements ITerrain {
     public void removePlant(Plant plant) {
         plants.remove(plant);
         informObserverAboutRemovedPlats(plant);
+        completeStatistics();
     }
 
     @Override

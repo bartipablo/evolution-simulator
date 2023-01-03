@@ -140,10 +140,10 @@ public abstract class AbstractAnimal implements IAnimal {
     @Override
     public void move() {
         Vector2D oldPosition = new Vector2D(position.x, position.y);
-        MapDirection directionAfterMovement = direction.rotation(gene.getGenomes()[actualGenomeIndex]);
-        Vector2D positionAfterMovement = position.add(directionAfterMovement.toUnitVector());
+        direction = this.direction.rotation(gene.getGenomes()[actualGenomeIndex]);
+        Vector2D positionAfterMovement = position.add(direction.toUnitVector());
         Vector2D realPosition = map.calculatePositionAfterMovement(positionAfterMovement);
-        MapDirection realDirection = map.calculateDirectionAfterMovement(positionAfterMovement, directionAfterMovement);
+        MapDirection realDirection = map.calculateDirectionAfterMovement(positionAfterMovement, direction);
         informObserversAboutPositionChanges(oldPosition, realPosition);
         this.position = realPosition;
         this.direction = realDirection;

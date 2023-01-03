@@ -87,7 +87,7 @@ public class Statistics implements IStatisticsObserver {
 
     @Override
     public void setFreeFieldQuantity(IMap map) {
-        freeFieldQuantity = (map.getMapHeight() * map.getMapWidth()) + map.getAnimalsPositions().length;
+        freeFieldQuantity = (map.getMapHeight() * map.getMapWidth()) - map.getAnimalsPositions().length;
     }
 
     public int[] getTheMostPopularGenotype() {
