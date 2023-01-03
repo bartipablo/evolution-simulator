@@ -82,9 +82,12 @@ public class World extends Thread {
     private void simulate() {
         terrain.dailyPlantGrowth();
         population.dailyMoving();
+        refreshGui();
         population.dailyEnergyConsumption();
         population.consumptions();
+        refreshGui();
         population.vanishing();
+        refreshGui();
         population.reproduction();
         population.completeStatistics();
         refreshGui();

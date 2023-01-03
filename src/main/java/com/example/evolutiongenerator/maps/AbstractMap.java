@@ -160,29 +160,29 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
     @Override
     public String getPathImageAtPosition(Vector2D position) {
         if (livesAnimalsOnMap.get(position) == null && plantsOnMap.get(position) == null) {
-            return "src/main/resources/com/example/evolutiongenerator/animals0plants0.png";
+            return "src/main/resources/com/example/evolutiongenerator/emptyPosition.png";
         } else if (livesAnimalsOnMap.get(position) == null && plantsOnMap.get(position) != null) {
-            return "src/main/resources/com/example/evolutiongenerator/animals0plants1.png";
+            return "src/main/resources/com/example/evolutiongenerator/emptyPositionWithPlant.png";
         } else if (livesAnimalsOnMap.get(position).size() == 0 && plantsOnMap.get(position) == null) {
-            return "src/main/resources/com/example/evolutiongenerator/animals0plants0.png";
+            return "src/main/resources/com/example/evolutiongenerator/emptyPosition.png";
         } else if (livesAnimalsOnMap.get(position).size() == 1 && plantsOnMap.get(position) == null) {
-            return "src/main/resources/com/example/evolutiongenerator/animals1plants0.png";
+            return "src/main/resources/com/example/evolutiongenerator/oneAnimalsPosition.png";
         } else if (livesAnimalsOnMap.get(position).size() == 2 && plantsOnMap.get(position) == null) {
-            return "src/main/resources/com/example/evolutiongenerator/animals2plants0.png";
+            return "src/main/resources/com/example/evolutiongenerator/twoAnimalsPosition.png";
         } else if (livesAnimalsOnMap.get(position).size() == 3 && plantsOnMap.get(position) == null) {
-            return "src/main/resources/com/example/evolutiongenerator/animals3plants0.png";
+            return "src/main/resources/com/example/evolutiongenerator/threeAnimalsPosition.png";
         } else if (livesAnimalsOnMap.get(position).size() > 3 && plantsOnMap.get(position) == null) {
-            return "src/main/resources/com/example/evolutiongenerator/animalsabove3plants0.png";
+            return "src/main/resources/com/example/evolutiongenerator/fourAnimalsPosition.png";
         } else if (livesAnimalsOnMap.get(position).size() == 0 && plantsOnMap.get(position) != null) {
-            return "src/main/resources/com/example/evolutiongenerator/animals0plants1.png";
+            return "src/main/resources/com/example/evolutiongenerator/emptyPositionWithPlant";
         } else if (livesAnimalsOnMap.get(position).size() == 1 && plantsOnMap.get(position) != null) {
-            return "src/main/resources/com/example/evolutiongenerator/animals1plants1.png";
+            return "src/main/resources/com/example/evolutiongenerator/oneAnimalsPositionWithPlant.png";
         } else if (livesAnimalsOnMap.get(position).size() == 2 && plantsOnMap.get(position) != null) {
-            return "src/main/resources/com/example/evolutiongenerator/animals2plants1.png";
+            return "src/main/resources/com/example/evolutiongenerator/twoAnimalsPositionWithPlant.png";
         } else if (livesAnimalsOnMap.get(position).size() == 3 && plantsOnMap.get(position) != null) {
-            return "src/main/resources/com/example/evolutiongenerator/animals3plants1.png";
+            return "src/main/resources/com/example/evolutiongenerator/threeAnimalsPositionWithPlant.png";
         } else if (livesAnimalsOnMap.get(position).size() > 3 && plantsOnMap.get(position) != null) {
-            return "src/main/resources/com/example/evolutiongenerator/animalsabove3plants1.png";
+            return "src/main/resources/com/example/evolutiongenerator/fourAnimalsPositionWithPlant.png";
         } else {
             return "src/main/resources/error.png";
         }
