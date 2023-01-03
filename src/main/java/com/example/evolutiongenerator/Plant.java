@@ -1,9 +1,8 @@
 package com.example.evolutiongenerator;
 
 import com.example.evolutiongenerator.direction.Vector2D;
-import com.example.evolutiongenerator.interfaces.IMapElement;
 
-public class Plant implements IMapElement {
+public class Plant {
 
     private final Vector2D position;
     private final int energy;
@@ -23,9 +22,4 @@ public class Plant implements IMapElement {
         return energy;
     }
 
-    @Override
-    public String getImagePath() {
-        String str = "resources\\com\\example\\evolutiongenerator\\icon.png";
-        return str;
-    }
 }

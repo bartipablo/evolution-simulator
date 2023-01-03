@@ -28,4 +28,6 @@ public interface IMap {
     MapDirection calculateDirectionAfterMovement(Vector2D position, MapDirection direction);
     void addGuiObserver(IGuiObserver guiObserver);
 
+    String getPathImageAtPosition(Vector2D position);
+
 }

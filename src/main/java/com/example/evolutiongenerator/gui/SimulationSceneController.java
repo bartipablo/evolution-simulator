@@ -3,6 +3,7 @@ package com.example.evolutiongenerator.gui;
 import com.example.evolutiongenerator.World;
 import com.example.evolutiongenerator.interfaces.IGuiObserver;
 import com.example.evolutiongenerator.interfaces.IMap;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.nio.Buffer;
 import java.util.ResourceBundle;
@@ -73,6 +75,7 @@ public class SimulationSceneController implements IGuiObserver {
 
     private void startSimulation() {
         if (firstStart) {
+            world.getMap().addGuiObserver(this);
             thread.start();
             firstStart = false;
         } else {
@@ -89,12 +92,23 @@ public class SimulationSceneController implements IGuiObserver {
         world.getMap().addGuiObserver(this);
         this.thread = new Thread(world);
         this.mapVisualizer = new MapVisualizer(world.getMap());
+        this.mapGridPane = new GridPane();
     }
 
     @Override
     public void changed() {
+        try {
+            Platform.runLater(this::updateScene);
+            Thread.sleep(300);
+        } catch (InterruptedException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void updateScene() {
         mapGridPane = mapVisualizer.visualizeMap();
     }
+
 
     @Override
     public void generalStatisticsChanged() {
