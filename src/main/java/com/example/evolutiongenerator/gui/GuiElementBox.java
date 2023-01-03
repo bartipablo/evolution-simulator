@@ -13,12 +13,12 @@ import java.io.FileNotFoundException;
 public class GuiElementBox {
     private final VBox vBox = new VBox();
 
-    GuiElementBox(IMap map, Vector2D position) {
+    GuiElementBox(IMap map, Vector2D position, int sideLengthOfSquarePx) {
         try {
             Image image = new Image(new FileInputStream(map.getPathImageAtPosition(position)));
             ImageView imageView = new ImageView(image);
-            imageView.setFitHeight(40);
-            imageView.setFitWidth(40);
+            imageView.setFitHeight(sideLengthOfSquarePx);
+            imageView.setFitWidth(sideLengthOfSquarePx);
             vBox.getChildren().add(imageView);
             vBox.setAlignment(Pos.BASELINE_CENTER);
         } catch (FileNotFoundException ex) {

@@ -3,9 +3,9 @@ package com.example.evolutiongenerator;
 public class Constant {
     //map properties-----------------------------------
 
-    public static final int MIN_MAP_HEIGHT = 10;
+    public static final int MIN_MAP_HEIGHT = 5;
     public static final int MAX_MAP_HEIGHT = 100;
-    public static final int MIN_MAP_WIDTH = 10;
+    public static final int MIN_MAP_WIDTH = 5;
     public static final int MAX_MAP_WIDTH = 100;
 
     //-------------------------------------------------

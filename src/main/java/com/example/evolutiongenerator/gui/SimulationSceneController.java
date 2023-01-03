@@ -91,8 +91,7 @@ public class SimulationSceneController implements IGuiObserver {
         this.world = world;
         world.getMap().addGuiObserver(this);
         this.thread = new Thread(world);
-        this.mapVisualizer = new MapVisualizer(world.getMap());
-        this.mapGridPane = new GridPane();
+        this.mapVisualizer = new MapVisualizer(world.getMap(), mapGridPane);
     }
 
     @Override
@@ -106,7 +105,7 @@ public class SimulationSceneController implements IGuiObserver {
     }
 
     private void updateScene() {
-        mapGridPane = mapVisualizer.visualizeMap();
+        mapVisualizer.visualizeMap();
     }
 
 
