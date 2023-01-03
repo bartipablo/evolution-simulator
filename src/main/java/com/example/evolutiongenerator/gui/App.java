@@ -25,6 +25,7 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-scene.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1530, 790);
         stage.setResizable(true);
+        stage.setMaximized(true);
         stage.setTitle("Evolution Generator");
         stage.getIcons().add(new Image(new FileInputStream("src/main/resources/com/example/evolutiongenerator/icon.png")));
         stage.setScene(scene);

@@ -1,9 +1,6 @@
 package com.example.evolutiongenerator;
 
-import com.example.evolutiongenerator.interfaces.IMap;
-import com.example.evolutiongenerator.interfaces.IMapElementsObserver;
-import com.example.evolutiongenerator.interfaces.IReproduction;
-import com.example.evolutiongenerator.interfaces.ITerrain;
+import com.example.evolutiongenerator.interfaces.*;
 import com.example.evolutiongenerator.maps.Globe;
 import com.example.evolutiongenerator.maps.HellishPortal;
 import com.example.evolutiongenerator.reproduction.ReproductionA;
@@ -12,6 +9,9 @@ import com.example.evolutiongenerator.terrain.ForestedEquators;
 import com.example.evolutiongenerator.terrain.ToxicCorpses;
 import com.example.evolutiongenerator.variants.BehaviourVariant;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class World extends Thread {
     private final Population population;
     private IReproduction reproduction;
@@ -19,6 +19,7 @@ public class World extends Thread {
     private IMap map;
     private final BehaviourVariant behaviourVariant;
     private final Statistics statistics;
+    private final List<IGuiObserver> guiObservers = new ArrayList<>();
 
 
     //constructors------------------------------------------------------------------------------------------------------
@@ -86,10 +87,22 @@ public class World extends Thread {
         population.vanishing();
         population.reproduction();
         population.completeStatistics();
+        refreshGui();
     }
 
     public IMap getMap() {
         return map;
+    }
+
+    //observers---------------------------------------------------------------------------------------------------------
+    public void addObserver(IGuiObserver guiObserver) {
+        guiObservers.add(guiObserver);
+    }
+
+    private void refreshGui() {
+        for (IGuiObserver guiObserver : guiObservers) {
+            guiObserver.updateGui();
+        }
     }
 
 }

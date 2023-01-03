@@ -2,21 +2,14 @@ package com.example.evolutiongenerator.gui;
 
 import com.example.evolutiongenerator.World;
 import com.example.evolutiongenerator.interfaces.IGuiObserver;
-import com.example.evolutiongenerator.interfaces.IMap;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
-
-import java.io.FileNotFoundException;
-import java.net.URL;
-import java.nio.Buffer;
-import java.util.ResourceBundle;
 
 public class SimulationSceneController implements IGuiObserver {
 
@@ -36,6 +29,8 @@ public class SimulationSceneController implements IGuiObserver {
     private ChoiceBox deadAnimalsChoiceBox;
     @FXML
     private GridPane mapGridPane;
+    @FXML
+    private HBox MainHBox;
     //------------------------------------------------------
 
     //simulation--------------------------------------------
@@ -75,7 +70,6 @@ public class SimulationSceneController implements IGuiObserver {
 
     private void startSimulation() {
         if (firstStart) {
-            world.getMap().addGuiObserver(this);
             thread.start();
             firstStart = false;
         } else {
@@ -89,27 +83,28 @@ public class SimulationSceneController implements IGuiObserver {
 
     public void setWorld(World world) {
         this.world = world;
-        world.getMap().addGuiObserver(this);
+        world.addObserver(this);
         this.thread = new Thread(world);
         this.mapVisualizer = new MapVisualizer(world.getMap(), mapGridPane);
+        mapGridPane.setAlignment(Pos.CENTER);
+        updateGui();
     }
 
-    @Override
-    public void changed() {
+
+    public void updateGui() {
         try {
-            Platform.runLater(this::updateScene);
+            Platform.runLater(this::updateMap);
             Thread.sleep(300);
         } catch (InterruptedException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
-    private void updateScene() {
+    public void updateMap() {
         mapVisualizer.visualizeMap();
     }
 
 
-    @Override
     public void generalStatisticsChanged() {
 
     }

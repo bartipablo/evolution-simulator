@@ -28,7 +28,8 @@ public class MapVisualizer {
         this.sideLengthOfSquarePx = Math.min(squareWidth, squareHeight);
         gridPane.getColumnConstraints().add(new ColumnConstraints(sideLengthOfSquarePx));
         gridPane.getRowConstraints().add(new RowConstraints(sideLengthOfSquarePx));
-        gridPane.setGridLinesVisible(true);
+        //gridPane.resize(squareWidth * map.getMapWidth(), squareHeight * map.getMapHeight());
+        //gridPane.setGridLinesVisible(true);
     }
 
     public void  visualizeMap() {
