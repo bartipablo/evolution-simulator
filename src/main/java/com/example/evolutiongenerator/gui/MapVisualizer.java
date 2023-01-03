@@ -25,7 +25,7 @@ public class MapVisualizer {
     private void calculateColumnsAndRowsSize() {
         int squareHeight = (int) Math.ceil(1.0 * Constant.GRID_PANE_HEIGHT_PX / map.getMapHeight());
         int squareWidth  = (int) Math.ceil(1.0 * Constant.GRID_PANE_WIDTH_PX / map.getMapWidth());
-        this.sideLengthOfSquarePx = Math.max(40, Math.max(squareWidth, squareHeight));//Math.min(squareWidth, squareHeight);
+        this.sideLengthOfSquarePx = Math.max(40, Math.max(squareWidth, squareHeight));
         gridPane.getColumnConstraints().add(new ColumnConstraints(sideLengthOfSquarePx));
         gridPane.getRowConstraints().add(new RowConstraints(sideLengthOfSquarePx));
     }

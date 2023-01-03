@@ -1,5 +1,6 @@
 package com.example.evolutiongenerator.gui;
 
+import com.example.evolutiongenerator.Statistics;
 import com.example.evolutiongenerator.World;
 import com.example.evolutiongenerator.interfaces.IGuiObserver;
 import javafx.application.Platform;
@@ -7,9 +8,12 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+
+import java.util.Arrays;
 
 public class SimulationSceneController implements IGuiObserver {
 
@@ -32,6 +36,24 @@ public class SimulationSceneController implements IGuiObserver {
     @FXML
     private HBox MainHBox;
     //------------------------------------------------------
+
+    //Labels------------------------------------------------
+    @FXML
+    private Label numberOfAllAnimalsLabel;
+    @FXML
+    private Label numberOfAllPlantsLabel;
+    @FXML
+    private Label numberOfFreeFieldLabel;
+    @FXML
+    private Label theMostPopularGenomeLabel;
+    @FXML
+    private Label averageEnergyLevelLabel;
+    @FXML
+    private Label lifeExpectancyLabel;
+    @FXML
+    private Label dayLabel;
+
+    //-----------------------------------------------------
 
     //simulation--------------------------------------------
     private World world;
@@ -93,20 +115,28 @@ public class SimulationSceneController implements IGuiObserver {
 
     public void updateGui() {
         try {
-            Platform.runLater(this::updateMap);
+            Platform.runLater(this::updateMapRepresentation);
+            Platform.runLater(this::updateGeneralStatistics);
             Thread.sleep(300);
         } catch (InterruptedException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
-    public void updateMap() {
+    private void updateMapRepresentation() {
         mapVisualizer.visualizeMap();
     }
 
 
-    public void generalStatisticsChanged() {
-
+    private void updateGeneralStatistics() {
+        Statistics statistics = world.getStatistics();
+        numberOfAllAnimalsLabel.setText("Number of all animals: " + statistics.getPopulationSize());
+        numberOfAllPlantsLabel.setText("Number of all plants: " + statistics.getPlantsQuantity());
+        numberOfFreeFieldLabel.setText("Number of free field: " + statistics.getFreeFieldQuantity());
+        theMostPopularGenomeLabel.setText("The most popular genome: " + Arrays.toString(statistics.getTheMostPopularGenotype()));
+        averageEnergyLevelLabel.setText("Average energy level: " + statistics.getAverageEnergy());
+        lifeExpectancyLabel.setText("Life expectancy: " + statistics.getAverageLifeLength());
+        dayLabel.setText("Day: " + world.getSimulationDay());
     }
 
 

@@ -44,7 +44,7 @@ public class MainSceneController implements Initializable {
         Stage stage = new Stage();
         newSimulationController = fxmlLoader.getController();
         newSimulationController.setStage(stage);
-        newSimulationController.setControllers(this);
+        newSimulationController.setMainSceneController(this);
         stage.setResizable(false);
         stage.setTitle("New simulation");
         stage.getIcons().add(new Image(new FileInputStream("src/main/resources/com/example/evolutiongenerator/icon.png")));

@@ -76,11 +76,17 @@ public abstract class AbstractTerrain implements ITerrain {
         generateTerrain(plantsNumberGrowingDaily);
     }
 
+    @Override
+    public void generateInitialTerrain() {
+        generateTerrain(initialPlantsNumber);
+    }
+
     protected void generateTerrain(int quantityOfPlants) {
         int quantityOfPlantsOnPreferPosition = (int) Math.ceil(0.8 * quantityOfPlants);
         int quantityOfPlantsOutsidePreferPosition = quantityOfPlants - quantityOfPlantsOnPreferPosition;
         setAtPreferPosition(quantityOfPlantsOnPreferPosition);
         setOutsidePreferPosition(quantityOfPlantsOutsidePreferPosition);
+        completeStatistics();
     }
 
     protected abstract void setAtPreferPosition(int quantityOfPlants);

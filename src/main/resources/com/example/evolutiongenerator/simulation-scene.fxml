@@ -20,7 +20,7 @@
    <children>
       <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="359.0">
          <children>
-            <Label layoutX="52.0" layoutY="476.0" prefHeight="18.0" prefWidth="205.0" text="number of all plants:" />
+            <Label fx:id="numberOfAllPlantsLabel" layoutX="52.0" layoutY="476.0" prefHeight="18.0" prefWidth="205.0" text="number of all plants:" />
             <Separator layoutX="345.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="716.0" prefWidth="0.0" />
             <LineChart layoutX="38.0" layoutY="31.0" prefHeight="214.0" prefWidth="279.0">
                <xAxis>
@@ -38,17 +38,17 @@
                   <NumberAxis side="LEFT" />
                </yAxis>
             </LineChart>
-            <Label layoutX="52.0" layoutY="450.0" prefHeight="18.0" prefWidth="205.0" text="number of all animals:" />
+            <Label fx:id="numberOfAllAnimalsLabel" layoutX="52.0" layoutY="450.0" prefHeight="18.0" prefWidth="205.0" text="number of all animals:" />
             <Label layoutX="118.0" layoutY="14.0" text="General Statistics" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="52.0" layoutY="502.0" text="number of free fields:" />
-            <Label layoutX="52.0" layoutY="528.0" text="most popular genotype:" />
-            <Label layoutX="53.0" layoutY="553.0" text="average energy level:" />
-            <Label layoutX="52.0" layoutY="581.0" text="life expectancy:" />
-            <Label layoutX="52.0" layoutY="606.0" text="day:" />
+            <Label fx:id="numberOfFreeFieldLabel" layoutX="52.0" layoutY="502.0" text="number of free fields:" />
+            <Label fx:id="theMostPopularGenomeLabel" layoutX="52.0" layoutY="528.0" text="most popular genotype:" />
+            <Label fx:id="averageEnergyLevelLabel" layoutX="53.0" layoutY="553.0" text="average energy level:" />
+            <Label fx:id="lifeExpectancyLabel" layoutX="52.0" layoutY="581.0" text="life expectancy:" />
+            <Label fx:id="dayLabel" layoutX="52.0" layoutY="606.0" text="day:" />
          </children>
       </AnchorPane>
       <ScrollPane prefHeight="716.0" prefWidth="857.0">

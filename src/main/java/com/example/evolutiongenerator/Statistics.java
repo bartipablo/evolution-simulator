@@ -44,7 +44,7 @@ public class Statistics implements IStatisticsObserver {
 
     @Override
     public void setPlantsQuantity(int quantity) {
-        this.plantsQuantity += quantity;
+        this.plantsQuantity = quantity;
     }
 
     public double getAverageLifeLength() {
@@ -52,13 +52,13 @@ public class Statistics implements IStatisticsObserver {
     }
 
     @Override
-    public void setAverageLifeLength(List<IAnimal> extinctAnimals) {
-        if (extinctAnimals.size() > 0) {
+    public void setAverageLifeLength(List<IAnimal> deadAnimals) {
+        if (deadAnimals.size() > 0) {
             int totalLifeLength = 0;
-            for (int i = 0; i < extinctAnimals.size(); i++) {
-                totalLifeLength += extinctAnimals.get(i).getAge();
+            for (IAnimal extinctAnimal : deadAnimals) {
+                totalLifeLength += extinctAnimal.getAge();
             }
-            averageLifeLength = (double) (totalLifeLength / extinctAnimals.size());
+            averageLifeLength = (double) (totalLifeLength / deadAnimals.size());
         } else {
             averageLifeLength = 0;
         }

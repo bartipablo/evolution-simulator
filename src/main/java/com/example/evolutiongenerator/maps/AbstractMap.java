@@ -17,7 +17,6 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
     private final Map<Vector2D, Integer> numbersOfDeathsAtPosition = new HashMap<>();
     private final TreeMap<Integer, List<Vector2D>> positionWithNumberOfDeath = new TreeMap<>();
     private final Map<Vector2D, Plant> plantsOnMap = new HashMap<>();
-    private SimulationSceneController simulationSceneController;
 
     //constructors-------------------------------------------------
     public AbstractMap(int mapHeight, int mapWidth) {

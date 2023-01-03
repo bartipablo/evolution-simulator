@@ -12,4 +12,6 @@ public interface ITerrain {
     void addTerrainObserver(IMapElementsObserver mapElementsObserver);
 
     void addStatisticsObserver(IStatisticsObserver observer);
+
+    void generateInitialTerrain();
 }
