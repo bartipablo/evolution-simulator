@@ -3,6 +3,7 @@ package com.example.evolutiongenerator.interfaces;
 import com.example.evolutiongenerator.Plant;
 import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.direction.MapDirection;
+import com.example.evolutiongenerator.gui.SimulationSceneController;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ public interface IMap {
     Vector2D calculatePositionAfterMovement(Vector2D position);
 
     MapDirection calculateDirectionAfterMovement(Vector2D position, MapDirection direction);
-    void addGuiObserver(IGuiObserver guiObserver);
+
+    String getPathImageAtPosition(Vector2D position);
+
 
 }

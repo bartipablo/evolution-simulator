@@ -59,6 +59,10 @@ public class Population {
             } else {
                 animal = new AnimalBehaviourB(initialPosition, initialDirection, map, genomeLength, initialEnergy);
             }
+
+            IMapElementsObserver mapElementsObserver = (IMapElementsObserver) map;
+            mapElementsObserver.addAnimalToMap(animal);
+
             animal.addPositionObserver((IMapElementsObserver) map);
             addNewAnimal(animal);
             informObserversAboutNewAnimal(animal);

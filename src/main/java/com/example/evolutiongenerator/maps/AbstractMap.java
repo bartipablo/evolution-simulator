@@ -1,9 +1,9 @@
 package com.example.evolutiongenerator.maps;
 
+import com.example.evolutiongenerator.gui.SimulationSceneController;
 import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.Plant;
 import com.example.evolutiongenerator.direction.Vector2D;
-import com.example.evolutiongenerator.interfaces.IGuiObserver;
 import com.example.evolutiongenerator.interfaces.IMap;
 import com.example.evolutiongenerator.interfaces.IMapElementsObserver;
 
@@ -17,8 +17,7 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
     private final Map<Vector2D, Integer> numbersOfDeathsAtPosition = new HashMap<>();
     private final TreeMap<Integer, List<Vector2D>> positionWithNumberOfDeath = new TreeMap<>();
     private final Map<Vector2D, Plant> plantsOnMap = new HashMap<>();
-    private final List<IGuiObserver> guiObservers = new ArrayList<>();
-
+    private SimulationSceneController simulationSceneController;
 
     //constructors-------------------------------------------------
     public AbstractMap(int mapHeight, int mapWidth) {
@@ -97,7 +96,6 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
             livesAnimalsOnMap.put(newPosition, new ArrayList<>());
             livesAnimalsOnMap.get(newPosition).add(animal);
         }
-        informObserversAboutChanges();
     }
 
     @Override
@@ -111,7 +109,6 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
                 livesAnimalsOnMap.put(animal.getPosition(), new ArrayList<>());
                 livesAnimalsOnMap.get(animal.getPosition()).add(animal);
             }
-            informObserversAboutChanges();
         }
     }
 
@@ -120,7 +117,6 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
         removeLiveAnimalFromHashMap(animal);
         updatePositionWithNumberOfDeath(animal);
         updateNumbersOfDeathsAtPosition(animal);
-        informObserversAboutChanges();
     }
 
     private void removeLiveAnimalFromHashMap(IAnimal animal) {
@@ -153,24 +149,42 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
             throw new IllegalArgumentException("Plant's position is invalid");
         } else {
             plantsOnMap.put(plant.getPosition(), plant);
-            informObserversAboutChanges();
         }
     }
 
     @Override
     public void removePlantFromMap(Plant plant) {
         plantsOnMap.remove(plant.getPosition());
-        informObserversAboutChanges();
     }
 
     @Override
-    public void addGuiObserver(IGuiObserver observer) {
-        guiObservers.add(observer);
-    }
-
-    private void informObserversAboutChanges() {
-        for (IGuiObserver guiObserver : guiObservers) {
-            guiObserver.changed();
+    public String getPathImageAtPosition(Vector2D position) {
+        if (livesAnimalsOnMap.get(position) == null && plantsOnMap.get(position) == null) {
+            return "src/main/resources/com/example/evolutiongenerator/emptyPosition.png";
+        } else if (livesAnimalsOnMap.get(position) == null && plantsOnMap.get(position) != null) {
+            return "src/main/resources/com/example/evolutiongenerator/emptyPositionWithPlant.png";
+        } else if (livesAnimalsOnMap.get(position).size() == 0 && plantsOnMap.get(position) == null) {
+            return "src/main/resources/com/example/evolutiongenerator/emptyPosition.png";
+        } else if (livesAnimalsOnMap.get(position).size() == 1 && plantsOnMap.get(position) == null) {
+            return "src/main/resources/com/example/evolutiongenerator/oneAnimalsPosition.png";
+        } else if (livesAnimalsOnMap.get(position).size() == 2 && plantsOnMap.get(position) == null) {
+            return "src/main/resources/com/example/evolutiongenerator/twoAnimalsPosition.png";
+        } else if (livesAnimalsOnMap.get(position).size() == 3 && plantsOnMap.get(position) == null) {
+            return "src/main/resources/com/example/evolutiongenerator/threeAnimalsPosition.png";
+        } else if (livesAnimalsOnMap.get(position).size() > 3 && plantsOnMap.get(position) == null) {
+            return "src/main/resources/com/example/evolutiongenerator/fourAnimalsPosition.png";
+        } else if (livesAnimalsOnMap.get(position).size() == 0 && plantsOnMap.get(position) != null) {
+            return "src/main/resources/com/example/evolutiongenerator/emptyPositionWithPlant";
+        } else if (livesAnimalsOnMap.get(position).size() == 1 && plantsOnMap.get(position) != null) {
+            return "src/main/resources/com/example/evolutiongenerator/oneAnimalsPositionWithPlant.png";
+        } else if (livesAnimalsOnMap.get(position).size() == 2 && plantsOnMap.get(position) != null) {
+            return "src/main/resources/com/example/evolutiongenerator/twoAnimalsPositionWithPlant.png";
+        } else if (livesAnimalsOnMap.get(position).size() == 3 && plantsOnMap.get(position) != null) {
+            return "src/main/resources/com/example/evolutiongenerator/threeAnimalsPositionWithPlant.png";
+        } else if (livesAnimalsOnMap.get(position).size() > 3 && plantsOnMap.get(position) != null) {
+            return "src/main/resources/com/example/evolutiongenerator/fourAnimalsPositionWithPlant.png";
+        } else {
+            return "src/main/resources/error.png";
         }
     }
 
