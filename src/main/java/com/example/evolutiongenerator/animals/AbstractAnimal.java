@@ -6,7 +6,6 @@ import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.interfaces.IMap;
 import com.example.evolutiongenerator.interfaces.IMapElementsObserver;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -141,13 +140,13 @@ public abstract class AbstractAnimal implements IAnimal {
     @Override
     public void move() {
         Vector2D oldPosition = new Vector2D(position.x, position.y);
-        direction = direction.rotation(gene.getGenomes()[actualGenomeIndex]);
-        Vector2D pos = position.add(direction.toUnitVector());
-        Vector2D newPosition = map.calculatePositionAfterMovement(pos);
-        MapDirection newDirection = map.calculateDirectionAfterMovement(pos, direction);
-        informObserversAboutPositionChanges(oldPosition, newPosition);
-        position = newPosition;
-        direction = newDirection;
+        MapDirection directionAfterMovement = direction.rotation(gene.getGenomes()[actualGenomeIndex]);
+        Vector2D positionAfterMovement = position.add(directionAfterMovement.toUnitVector());
+        Vector2D realPosition = map.calculatePositionAfterMovement(positionAfterMovement);
+        MapDirection realDirection = map.calculateDirectionAfterMovement(positionAfterMovement, directionAfterMovement);
+        informObserversAboutPositionChanges(oldPosition, realPosition);
+        this.position = realPosition;
+        this.direction = realDirection;
         updateActualGenomeIndex();
     }
 

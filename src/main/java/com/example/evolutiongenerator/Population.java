@@ -15,6 +15,7 @@ public class Population {
     private final List<IMapElementsObserver> populationObservers = new ArrayList<>();
     private final List<IStatisticsObserver> statisticsObservers = new ArrayList<>();
     private final List<IAnimal> liveAnimals = new ArrayList<>();
+    private final List<IAnimal> deadAnimals = new ArrayList<>();
     private final IReproduction reproductionVariant;
     private final ITerrain terrain;
     private final int minimumEnergyToReproduction;
@@ -77,6 +78,7 @@ public class Population {
 
     private void removeAnimal(IAnimal animal) {
         liveAnimals.remove(animal);
+        deadAnimals.add(animal);
     }
 
     public List<int[]> getAnimalGenomes() {
@@ -97,7 +99,7 @@ public class Population {
             observer.setPopulationSize(liveAnimals.size());
             observer.setFreeFieldQuantity(map);
             observer.setTheMostPopularGenotype(getAnimalGenomes());
-            //observer.setAverageLifeLength();
+            observer.setAverageLifeLength(deadAnimals);
         }
     }
     //daily energy consumption---------------------------------------------------------------------
@@ -225,6 +227,11 @@ public class Population {
     }
 
     //----------------------------------------------------------------------------------------------
+    public void ageIncrease() {
+        for (IAnimal animal : liveAnimals) {
+            animal.changeAge(1);
+        }
+    }
 
 
     //sorting and comparing-------------------------------------------------------------------------

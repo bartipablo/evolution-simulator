@@ -132,7 +132,7 @@ public class NewSimulationController implements Initializable {
         this.stage = stage;
     }
 
-    public void setControllers(MainSceneController mainSceneController) {
+    public void setMainSceneController(MainSceneController mainSceneController) {
         this.mainSceneController = mainSceneController;
     }
 

@@ -20,6 +20,7 @@ public class World extends Thread {
     private final BehaviourVariant behaviourVariant;
     private final Statistics statistics;
     private final List<IGuiObserver> guiObservers = new ArrayList<>();
+    private int simulationDay = 0;
 
 
     //constructors------------------------------------------------------------------------------------------------------
@@ -40,6 +41,7 @@ public class World extends Thread {
         );
         setObservators();
         population.generateNewPopulation();
+        terrain.generateInitialTerrain();
     }
 
     private void setObservators() {
@@ -69,7 +71,6 @@ public class World extends Thread {
         }
     }
 
-
     //------------------------------------------------------------------------------------------------------------------
 
     @Override
@@ -80,6 +81,7 @@ public class World extends Thread {
     }
 
     private void simulate() {
+        population.ageIncrease();
         terrain.dailyPlantGrowth();
         population.dailyMoving();
         refreshGui();
@@ -90,11 +92,20 @@ public class World extends Thread {
         refreshGui();
         population.reproduction();
         population.completeStatistics();
+        simulationDay++;
         refreshGui();
     }
 
     public IMap getMap() {
         return map;
+    }
+
+    public Statistics getStatistics() {
+        return statistics;
+    }
+
+    public int getSimulationDay() {
+        return simulationDay;
     }
 
     //observers---------------------------------------------------------------------------------------------------------
