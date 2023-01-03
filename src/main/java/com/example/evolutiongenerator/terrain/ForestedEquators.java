@@ -13,14 +13,14 @@ public class ForestedEquators extends AbstractTerrain {
     public ForestedEquators(IMap map, int numberOfPlantsGrowingDaily, int plantEnergy, int initialPlantsNumber) {
         super(map, numberOfPlantsGrowingDaily, plantEnergy, initialPlantsNumber);
         calculateEquatorIndexes();
-        generateTerrain(initialPlantsNumber);
+        //generateTerrain(initialPlantsNumber);
     }
 
     @Override
     protected void setAtPreferPosition(int quantity) {
-        Vector2D[] positions = Static.generateVector2DArray(0, map.getMapHeight()-1, minEquatorIndex, maxEquatorIndex);
+        Vector2D[] positions = Static.generateVector2DArray(0, map.getMapWidth()-1, minEquatorIndex, maxEquatorIndex);
+        Static.shuffleVector2DArray(positions);
         setAtPositions(positions, quantity);
-
     }
 
     @Override
@@ -28,6 +28,7 @@ public class ForestedEquators extends AbstractTerrain {
         Vector2D[] positions1 = Static.generateVector2DArray(0, map.getMapHeight()-1, 0, minEquatorIndex - 1);
         Vector2D[] positions2 = Static.generateVector2DArray(0, map.getMapHeight()-1, maxEquatorIndex + 1, map.getMapHeight()-1);
         Vector2D[] positions = Static.concatTwoVector2DArrays(positions1, positions2);
+        Static.shuffleVector2DArray(positions);
         setAtPositions(positions, quantity);
 
     }
