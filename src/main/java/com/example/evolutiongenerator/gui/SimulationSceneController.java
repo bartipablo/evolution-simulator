@@ -6,6 +6,8 @@ import com.example.evolutiongenerator.interfaces.IGuiObserver;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -54,6 +56,15 @@ public class SimulationSceneController implements IGuiObserver {
     private Label dayLabel;
 
     //-----------------------------------------------------
+
+    //chart-------------------------------------------------
+    @FXML
+    private LineChart<?, ?> populationChart;
+    @FXML
+    private LineChart<?, ?> plantsChart;
+    private XYChart.Series seriesA = new XYChart.Series();
+    private XYChart.Series seriesB = new XYChart.Series();
+    //------------------------------------------------------
 
     //simulation--------------------------------------------
     private World world;
@@ -109,11 +120,11 @@ public class SimulationSceneController implements IGuiObserver {
         this.thread = new Thread(world);
         this.mapVisualizer = new MapVisualizer(world.getMap(), mapGridPane);
         mapGridPane.setAlignment(Pos.CENTER);
-        updateGui();
+        updateGuiViews();
     }
 
 
-    public void updateGui() {
+    public void updateGuiViews() {
         try {
             Platform.runLater(this::updateMapRepresentation);
             Platform.runLater(this::updateGeneralStatistics);
@@ -121,6 +132,10 @@ public class SimulationSceneController implements IGuiObserver {
         } catch (InterruptedException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    public void updateGuiCharts() {
+        Platform.runLater(this::updateCharts);
     }
 
     private void updateMapRepresentation() {
@@ -139,5 +154,17 @@ public class SimulationSceneController implements IGuiObserver {
         dayLabel.setText("Day: " + world.getSimulationDay());
     }
 
+    private void updateCharts() {
+        Statistics statistics = world.getStatistics();
+        seriesA.setName("Day");
+        seriesB.setName("Day");
+        seriesA.getData().add(new XYChart.Data(Integer.toString(world.getSimulationDay()), statistics.getPopulationSize()));
+        seriesB.getData().add(new XYChart.Data(Integer.toString(world.getSimulationDay()), statistics.getPlantsQuantity()));
+        populationChart.getData().add(seriesA);
+        plantsChart.getData().add(seriesB);
+    }
 
+    private void completeLiveAnimalsChoiceBox() {
+
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.evolutiongenerator.interfaces;
 
 public interface IGuiObserver {
-    void updateGui();
 
+    void updateGuiViews();
+    void updateGuiCharts();
 }

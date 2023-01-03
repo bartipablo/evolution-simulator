@@ -16,6 +16,7 @@ public abstract class AbstractAnimal implements IAnimal {
     private int childrenNumber;
     private int eatenPlantsNumber;
     private int deathDay;
+    private String name;
     private final List<IMapElementsObserver> positionObservers = new ArrayList<>();
     protected Vector2D position;
     protected MapDirection direction;

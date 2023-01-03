@@ -81,11 +81,13 @@ public class World extends Thread {
     }
 
     private void simulate() {
+        refreshGuiCharts();
         population.ageIncrease();
         terrain.dailyPlantGrowth();
         population.dailyMoving();
         refreshGui();
         population.dailyEnergyConsumption();
+        refreshGui();
         population.consumptions();
         refreshGui();
         population.vanishing();
@@ -115,7 +117,13 @@ public class World extends Thread {
 
     private void refreshGui() {
         for (IGuiObserver guiObserver : guiObservers) {
-            guiObserver.updateGui();
+            guiObserver.updateGuiViews();
+        }
+    }
+
+    private void refreshGuiCharts() {
+        for (IGuiObserver guiObserver : guiObservers) {
+            guiObserver.updateGuiCharts();
         }
     }
 

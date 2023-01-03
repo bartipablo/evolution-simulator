@@ -13,6 +13,14 @@ import com.opencsv.*;
 import static com.example.evolutiongenerator.Constant.FILE_NAME;
 
 public class Static {
+    public static int animalNumber = 0;
+
+    public static String getAnimalIdentifier() {
+        animalNumber++;
+        return "Animal" + animalNumber;
+    }
+
+
     public static void shuffleIntArray(int[] array) {
         Random random = new Random();
         for (int i = array.length - 1; i > 0; i--) {
