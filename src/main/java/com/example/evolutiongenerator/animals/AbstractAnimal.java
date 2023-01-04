@@ -1,6 +1,7 @@
 package com.example.evolutiongenerator.animals;
 
 import com.example.evolutiongenerator.Gene;
+import com.example.evolutiongenerator.Static;
 import com.example.evolutiongenerator.direction.MapDirection;
 import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.interfaces.IAnimal;
@@ -33,6 +34,7 @@ public abstract class AbstractAnimal implements IAnimal {
         this.childrenNumber = 0;
         this.age = 0;
         this.energy = initialEnergy;
+        setName();
     }
 
     public AbstractAnimal(Vector2D initialPosition, MapDirection initialDirection, IMap map, Gene gene, int initialEnergy) {
@@ -45,6 +47,16 @@ public abstract class AbstractAnimal implements IAnimal {
         this.childrenNumber = 0;
         this.age = 0;
         this.energy = initialEnergy;
+        setName();
+    }
+
+    private void setName() {
+        name = Static.getAnimalIdentifier();
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override

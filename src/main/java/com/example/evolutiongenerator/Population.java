@@ -92,6 +92,10 @@ public class Population {
         return liveAnimals;
     }
 
+    public List<IAnimal> getDeadAnimals() {
+        return deadAnimals;
+    }
+
     public void completeStatistics() {
         for (IStatisticsObserver observer : statisticsObservers) {
             observer.setAverageEnergy(liveAnimals);

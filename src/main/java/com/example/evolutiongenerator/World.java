@@ -106,6 +106,10 @@ public class World extends Thread {
         return statistics;
     }
 
+    public Population getPopulation() {
+        return population;
+    }
+
     public int getSimulationDay() {
         return simulationDay;
     }

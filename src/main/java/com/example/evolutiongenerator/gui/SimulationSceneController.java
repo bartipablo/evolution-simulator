@@ -2,6 +2,7 @@ package com.example.evolutiongenerator.gui;
 
 import com.example.evolutiongenerator.Statistics;
 import com.example.evolutiongenerator.World;
+import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.interfaces.IGuiObserver;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -11,11 +12,16 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.List;
 
 public class SimulationSceneController implements IGuiObserver {
 
@@ -25,6 +31,8 @@ public class SimulationSceneController implements IGuiObserver {
     private Button startButton;
     @FXML
     private Button stopButton;
+    @FXML
+    private Button selectAnimalButton;
     @FXML
     private Button deleteSimulationButton;
     @FXML
@@ -54,6 +62,10 @@ public class SimulationSceneController implements IGuiObserver {
     private Label lifeExpectancyLabel;
     @FXML
     private Label dayLabel;
+    @FXML
+    private Label animalNameLabel;
+    @FXML
+    private ImageView animalPictureView;
 
     //-----------------------------------------------------
 
@@ -83,11 +95,32 @@ public class SimulationSceneController implements IGuiObserver {
         this.mainSceneController = mainSceneController;
     }
 
+    public void onSelectAnimalButtonClicked() throws FileNotFoundException {
+        String animalName = null;
+        if (liveAnimalsChoiceBox.getValue() != null) animalName = (String) liveAnimalsChoiceBox.getValue();
+        if (deadAnimalsChoiceBox.getValue() != null) animalName = (String) deadAnimalsChoiceBox.getValue();
+        if (animalName != null) {
+            animalNameLabel.setText(animalName);
+            Image image = new Image(new FileInputStream("src/main/resources/com/example/evolutiongenerator/animal.png"));
+            animalPictureView.setImage(image);
+        }
+
+    }
+
+    public void onChoiceLiveAnimalClicked() {
+        deadAnimalsChoiceBox.setValue(null);
+    }
+
+    public void onChoiceDeadAnimalClicked() {
+        liveAnimalsChoiceBox.setValue(null);
+    }
+
     public void onStartButtonClicked() {
         startSimulation();
         deleteSimulationButton.setDisable(true);
         startButton.setDisable(true);
         stopButton.setDisable(false);
+        selectAnimalButton.setDisable(true);
         liveAnimalsChoiceBox.setDisable(true);
         deadAnimalsChoiceBox.setDisable(true);
     }
@@ -96,9 +129,12 @@ public class SimulationSceneController implements IGuiObserver {
         deleteSimulationButton.setDisable(false);
         startButton.setDisable(false);
         stopButton.setDisable(true);
+        selectAnimalButton.setDisable(false);
         liveAnimalsChoiceBox.setDisable(false);
         deadAnimalsChoiceBox.setDisable(false);
         pauseSimulation();
+        completeLiveAnimalsChoiceBox();
+        completeDeadAnimalsChoiceBox();
     }
 
     private void startSimulation() {
@@ -121,6 +157,7 @@ public class SimulationSceneController implements IGuiObserver {
         this.mapVisualizer = new MapVisualizer(world.getMap(), mapGridPane);
         mapGridPane.setAlignment(Pos.CENTER);
         updateGuiViews();
+        completeLiveAnimalsChoiceBox();
     }
 
 
@@ -165,6 +202,18 @@ public class SimulationSceneController implements IGuiObserver {
     }
 
     private void completeLiveAnimalsChoiceBox() {
+        liveAnimalsChoiceBox.getItems().clear();
+        List<IAnimal> liveAnimals = world.getPopulation().getLiveAnimals();
+        for (IAnimal animal : liveAnimals) {
+            liveAnimalsChoiceBox.getItems().add(animal.getName());
+        }
+    }
 
+    private void completeDeadAnimalsChoiceBox() {
+        deadAnimalsChoiceBox.getItems().clear();
+        List<IAnimal> deadAnimals = world.getPopulation().getDeadAnimals();
+        for (IAnimal animal : deadAnimals) {
+            deadAnimalsChoiceBox.getItems().add(animal.getName());
+        }
     }
 }
