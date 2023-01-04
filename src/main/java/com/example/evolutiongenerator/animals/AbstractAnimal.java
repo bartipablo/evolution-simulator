@@ -14,7 +14,7 @@ public abstract class AbstractAnimal implements IAnimal {
     protected int actualGenomeIndex;
     protected int energy;
     private int age;
-    private int childrenNumber;
+    private int numberOfChildren;
     private int eatenPlantsNumber;
     private int deathDay;
     private String name;
@@ -31,7 +31,7 @@ public abstract class AbstractAnimal implements IAnimal {
         this.gene = new Gene(genomeLength);
         this.actualGenomeIndex = 0;
         this.eatenPlantsNumber = 0;
-        this.childrenNumber = 0;
+        this.numberOfChildren = 0;
         this.age = 0;
         this.energy = initialEnergy;
         setName();
@@ -44,7 +44,7 @@ public abstract class AbstractAnimal implements IAnimal {
         this.gene = gene;
         this.actualGenomeIndex = 0;
         this.eatenPlantsNumber = 0;
-        this.childrenNumber = 0;
+        this.numberOfChildren = 0;
         this.age = 0;
         this.energy = initialEnergy;
         setName();
@@ -90,8 +90,8 @@ public abstract class AbstractAnimal implements IAnimal {
     }
 
     @Override
-    public int getChildrenNumber() {
-        return childrenNumber;
+    public int getNumberOfChildren() {
+        return numberOfChildren;
     }
 
     @Override
@@ -116,7 +116,7 @@ public abstract class AbstractAnimal implements IAnimal {
 
     @Override
     public void changeChildrenNumber(int quantity) {
-        childrenNumber += quantity;
+        numberOfChildren += quantity;
     }
 
     @Override

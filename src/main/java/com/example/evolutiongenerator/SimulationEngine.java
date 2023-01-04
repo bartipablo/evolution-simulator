@@ -13,7 +13,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class World extends Thread {
+public class SimulationEngine extends Thread {
     private final Population population;
     private IReproduction reproduction;
     private ITerrain terrain;
@@ -26,7 +26,7 @@ public class World extends Thread {
 
     //constructors------------------------------------------------------------------------------------------------------
 
-    public World(Configuration configuration) throws FileNotFoundException {
+    public SimulationEngine(Configuration configuration) throws FileNotFoundException {
         initializeVariants(configuration);
         behaviourVariant = configuration.getBehaviourVariant();
         statistics = new Statistics(configuration.getInitialAnimalsNumber(), configuration.getInitialPlantsNumber());

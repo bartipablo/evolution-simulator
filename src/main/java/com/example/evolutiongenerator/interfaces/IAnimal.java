@@ -10,7 +10,7 @@ public interface IAnimal {
     MapDirection getDirection();
     int getEnergy();
     int getAge();
-    int getChildrenNumber();
+    int getNumberOfChildren();
     int getActualGenome();
     int[] getGenomes();
     int getEatenPlantsNumber();

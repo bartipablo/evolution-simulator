@@ -1,7 +1,7 @@
 package com.example.evolutiongenerator.gui;
 
 import com.example.evolutiongenerator.Statistics;
-import com.example.evolutiongenerator.World;
+import com.example.evolutiongenerator.SimulationEngine;
 import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.interfaces.IGuiObserver;
 import javafx.application.Platform;
@@ -93,7 +93,7 @@ public class SimulationSceneController implements IGuiObserver {
     //------------------------------------------------------
 
     //simulation--------------------------------------------
-    private World world;
+    private SimulationEngine world;
     private MapVisualizer mapVisualizer;
     private Thread thread;
     private IAnimal observedAnimal;
@@ -181,7 +181,7 @@ public class SimulationSceneController implements IGuiObserver {
         thread.suspend();
     }
 
-    public void setWorld(World world) {
+    public void setWorld(SimulationEngine world) {
         this.world = world;
         world.addObserver(this);
         this.thread = new Thread(world);
@@ -238,7 +238,7 @@ public class SimulationSceneController implements IGuiObserver {
         activeGenomeLabel.setText("active genome: " + observedAnimal.getActualGenome());
         animalEnergyLabel.setText("animal energy: " + observedAnimal.getEnergy());
         numberOfPlantsEatenLabel.setText("The number of plants eaten: " + observedAnimal.getEatenPlantsNumber());
-        numberOfChildrenLabel.setText("Number of children: " + observedAnimal.getChildrenNumber());
+        numberOfChildrenLabel.setText("Number of children: " + observedAnimal.getNumberOfChildren());
         ageLabel.setText("Age: " + observedAnimal.getAge());
         dateOfDeathLabel.setText("Date of death: " + observedAnimal.getDeathDay());
 

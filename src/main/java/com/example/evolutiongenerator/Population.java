@@ -28,13 +28,13 @@ public class Population {
     private int totalLifeExpectancy;
     private final BehaviourVariant behaviourVariant;
     private final int initialPopulationSize;
-    private final World world;
+    private final SimulationEngine world;
     private final boolean isDeletedExcessAnimals;
 
     //constructors-------------------------------------------------------------------------
     public Population(int populationSize, int minimumEnergyToReproduction, int genomeLength, int energyUsedToReproduction,
                int minimumNumberOfMutations, int maximumNumberOfMutations, IMap map, IReproduction reproductionVariant,
-               ITerrain terrain, BehaviourVariant behaviourVariant, int dailyEnergyConsumption, int initialEnergy, World world,
+               ITerrain terrain, BehaviourVariant behaviourVariant, int dailyEnergyConsumption, int initialEnergy, SimulationEngine world,
                Boolean isDeletedExcessAnimals) {
         this.reproductionVariant = reproductionVariant;
         this.minimumEnergyToReproduction = minimumEnergyToReproduction;
@@ -156,7 +156,7 @@ public class Population {
 
         drawsList = getAgeDrawsList(drawsList);
         sortTheAnimalsByNumberOfChildren(drawsList);
-        if (drawsList.get(0).getChildrenNumber() > drawsList.get(1).getChildrenNumber()) {
+        if (drawsList.get(0).getNumberOfChildren() > drawsList.get(1).getNumberOfChildren()) {
             return drawsList.subList(0, 1);
         }
 
@@ -290,7 +290,7 @@ public class Population {
         animalList.sort(new Comparator<IAnimal>() {
             @Override
             public int compare(IAnimal o1, IAnimal o2) {
-                return -(o1.getChildrenNumber() - o2.getChildrenNumber());
+                return -(o1.getNumberOfChildren() - o2.getNumberOfChildren());
             }
         });
     }
@@ -313,7 +313,7 @@ public class Population {
 
     private List<IAnimal> getNumberOfChildrenDrawsList(List<IAnimal> animalList) {
         int numberOfDraws = 1;
-        while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getChildrenNumber() == animalList.get(numberOfDraws - 1).getChildrenNumber()) {
+        while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getNumberOfChildren() == animalList.get(numberOfDraws - 1).getNumberOfChildren()) {
             numberOfDraws++;
         }
         return animalList.subList(0, numberOfDraws);

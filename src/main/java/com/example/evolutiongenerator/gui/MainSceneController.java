@@ -2,7 +2,7 @@ package com.example.evolutiongenerator.gui;
 
 import com.example.evolutiongenerator.Configuration;
 import com.example.evolutiongenerator.Main;
-import com.example.evolutiongenerator.World;
+import com.example.evolutiongenerator.SimulationEngine;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -55,7 +55,7 @@ public class MainSceneController implements Initializable {
         Parent root = fxmlLoader.load();
         SimulationSceneController simulationSceneController = fxmlLoader.getController();
         simulationSceneController.setMainSceneController(this);
-        simulationSceneController.setWorld(new World(configuration));
+        simulationSceneController.setWorld(new SimulationEngine(configuration));
         simulationSceneControllerList.add(simulationSceneController);
         Tab tab = new Tab(configuration.getSimulationName());
         tab.setContent(root);
