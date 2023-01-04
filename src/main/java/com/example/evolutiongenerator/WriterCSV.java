@@ -46,7 +46,7 @@ public class WriterCSV {
     }
 
     private void writeDataToCSV(String[] data, String fileName) throws FileNotFoundException {
-        File file = new File("E:\\Projekty AGH\\The first project\\evolution-generator\\src\\main\\java\\csvFile\\" + fileName + ".csv");
+        File file = new File("E:\\Projekty AGH\\The first project\\evolution-generator\\src\\main\\resources\\com\\example\\evolutiongenerator\\csvFiles\\" + fileName + ".csv");
         try {
             FileWriter writer = new FileWriter(file, true);
             for (String text : data) {

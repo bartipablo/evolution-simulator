@@ -102,6 +102,7 @@ public class World extends Thread {
         population.reproduction();
         population.completeStatistics();
         simulationDay++;
+        statistics.setSimulationDay(simulationDay);
         refreshGui();
         writerCSV.saveStatisticsToCSV();
     }
