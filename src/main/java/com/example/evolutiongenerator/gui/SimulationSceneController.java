@@ -65,6 +65,20 @@ public class SimulationSceneController implements IGuiObserver {
     @FXML
     private Label animalNameLabel;
     @FXML
+    private Label animalGenomeLabel;
+    @FXML
+    private Label activeGenomeLabel;
+    @FXML
+    private Label animalEnergyLabel;
+    @FXML
+    private Label numberOfPlantsEatenLabel;
+    @FXML
+    private Label numberOfChildrenLabel;
+    @FXML
+    private Label ageLabel;
+    @FXML
+    private Label dateOfDeathLabel;
+    @FXML
     private ImageView animalPictureView;
 
     //-----------------------------------------------------
@@ -82,6 +96,7 @@ public class SimulationSceneController implements IGuiObserver {
     private World world;
     private MapVisualizer mapVisualizer;
     private Thread thread;
+    private IAnimal observedAnimal;
 
     //------------------------------------------------------
     private boolean firstStart = true;
@@ -97,14 +112,30 @@ public class SimulationSceneController implements IGuiObserver {
 
     public void onSelectAnimalButtonClicked() throws FileNotFoundException {
         String animalName = null;
-        if (liveAnimalsChoiceBox.getValue() != null) animalName = (String) liveAnimalsChoiceBox.getValue();
-        if (deadAnimalsChoiceBox.getValue() != null) animalName = (String) deadAnimalsChoiceBox.getValue();
-        if (animalName != null) {
-            animalNameLabel.setText(animalName);
-            Image image = new Image(new FileInputStream("src/main/resources/com/example/evolutiongenerator/animal.png"));
-            animalPictureView.setImage(image);
+        if (liveAnimalsChoiceBox.getValue() != null) {
+            selectObservedAnimal((String) liveAnimalsChoiceBox.getValue(), true);
+        } else if (deadAnimalsChoiceBox.getValue() != null) {
+            selectObservedAnimal((String) deadAnimalsChoiceBox.getValue(), false);
         }
+    }
 
+    private void selectObservedAnimal(String name, boolean isLive) throws FileNotFoundException {
+        animalNameLabel.setText(name);
+        Image image = new Image(new FileInputStream("src/main/resources/com/example/evolutiongenerator/animal.png"));
+        animalPictureView.setImage(image);
+        List<IAnimal> animalList;
+        if (isLive) {
+            animalList = world.getPopulation().getLiveAnimals();
+        } else {
+            animalList = world.getPopulation().getDeadAnimals();
+        }
+        for (IAnimal animal : animalList) {
+            if (animal.getName().equals(name)) {
+                observedAnimal = animal;
+                updateAnimalStatistics();
+                break;
+            }
+        }
     }
 
     public void onChoiceLiveAnimalClicked() {
@@ -165,6 +196,7 @@ public class SimulationSceneController implements IGuiObserver {
         try {
             Platform.runLater(this::updateMapRepresentation);
             Platform.runLater(this::updateGeneralStatistics);
+            if (observedAnimal != null) Platform.runLater(this::updateAnimalStatistics);
            Thread.sleep(1000);
         } catch (InterruptedException ex) {
             System.out.println(ex.getMessage());
@@ -199,6 +231,17 @@ public class SimulationSceneController implements IGuiObserver {
         seriesB.getData().add(new XYChart.Data(Integer.toString(world.getSimulationDay()), statistics.getPlantsQuantity()));
         populationChart.getData().add(seriesA);
         plantsChart.getData().add(seriesB);
+    }
+
+    private void updateAnimalStatistics() {
+        animalGenomeLabel.setText("animal's genome: " + Arrays.toString(observedAnimal.getGenomes()));
+        activeGenomeLabel.setText("active genome: " + observedAnimal.getActualGenome());
+        animalEnergyLabel.setText("animal energy: " + observedAnimal.getEnergy());
+        numberOfPlantsEatenLabel.setText("The number of plants eaten: " + observedAnimal.getEatenPlantsNumber());
+        numberOfChildrenLabel.setText("Number of children: " + observedAnimal.getChildrenNumber());
+        ageLabel.setText("Age: " + observedAnimal.getAge());
+        dateOfDeathLabel.setText("Date of death: " + observedAnimal.getDeathDay());
+
     }
 
     private void completeLiveAnimalsChoiceBox() {

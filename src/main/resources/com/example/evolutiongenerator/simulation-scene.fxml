@@ -75,13 +75,13 @@
             <ChoiceBox fx:id="deadAnimalsChoiceBox" layoutX="85.0" layoutY="147.0" onAction="#onChoiceDeadAnimalClicked" prefHeight="26.0" prefWidth="150.0" />
             <VBox layoutX="12.0" layoutY="451.0" prefHeight="200.0" prefWidth="282.0" spacing="6.0">
                <children>
-                  <Label text="animal's genome:" />
-                  <Label text="active genome:" />
-                  <Label text="animal energy:" />
-                  <Label text="The number of plants eaten:" />
-                  <Label text="Number of children:" />
-                  <Label text="Life expectancy:" />
-                  <Label text="Date of death:" />
+                  <Label fx:id="animalGenomeLabel" text="animal's genome:" />
+                  <Label fx:id="activeGenomeLabel" text="active genome:" />
+                  <Label fx:id="animalEnergyLabel" text="animal energy:" />
+                  <Label fx:id="numberOfPlantsEatenLabel" text="The number of plants eaten:" />
+                  <Label fx:id="numberOfChildrenLabel" text="Number of children:" />
+                  <Label fx:id="ageLabel" text="Age:" />
+                  <Label fx:id="dateOfDeathLabel" text="Date of death:" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -104,8 +104,8 @@
             <Separator layoutX="11.0" layoutY="215.0" prefHeight="36.0" prefWidth="292.0" />
             <Label layoutX="118.0" layoutY="262.0" text="animal name:" />
             <Label layoutX="136.0" layoutY="316.0" text="picture:" />
-            <ImageView fx:id="animalPictureView" fitHeight="89.0" fitWidth="90.0" layoutX="102.0" layoutY="333.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="selectAnimalButton" layoutX="117.0" layoutY="190.0" mnemonicParsing="false" onAction="#onSelectAnimalButtonClicked" text="Select animal" />
+            <ImageView fx:id="animalPictureView" fitHeight="89.0" fitWidth="90.0" layoutX="108.0" layoutY="333.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="selectAnimalButton" layoutX="121.0" layoutY="190.0" mnemonicParsing="false" onAction="#onSelectAnimalButtonClicked" text="Select animal" />
             <Label fx:id="animalNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="279.0" prefHeight="26.0" prefWidth="93.0" text="-" textAlignment="CENTER" textFill="#f8a602">
                <font>
                   <Font name="System Bold" size="12.0" />
