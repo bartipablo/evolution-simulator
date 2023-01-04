@@ -1,6 +1,7 @@
 package com.example.evolutiongenerator.animals;
 
 import com.example.evolutiongenerator.Gene;
+import com.example.evolutiongenerator.Static;
 import com.example.evolutiongenerator.direction.MapDirection;
 import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.interfaces.IAnimal;
@@ -13,9 +14,10 @@ public abstract class AbstractAnimal implements IAnimal {
     protected int actualGenomeIndex;
     protected int energy;
     private int age;
-    private int childrenNumber;
+    private int numberOfChildren;
     private int eatenPlantsNumber;
     private int deathDay;
+    private String name;
     private final List<IMapElementsObserver> positionObservers = new ArrayList<>();
     protected Vector2D position;
     protected MapDirection direction;
@@ -29,9 +31,10 @@ public abstract class AbstractAnimal implements IAnimal {
         this.gene = new Gene(genomeLength);
         this.actualGenomeIndex = 0;
         this.eatenPlantsNumber = 0;
-        this.childrenNumber = 0;
+        this.numberOfChildren = 0;
         this.age = 0;
         this.energy = initialEnergy;
+        setName();
     }
 
     public AbstractAnimal(Vector2D initialPosition, MapDirection initialDirection, IMap map, Gene gene, int initialEnergy) {
@@ -41,9 +44,19 @@ public abstract class AbstractAnimal implements IAnimal {
         this.gene = gene;
         this.actualGenomeIndex = 0;
         this.eatenPlantsNumber = 0;
-        this.childrenNumber = 0;
+        this.numberOfChildren = 0;
         this.age = 0;
         this.energy = initialEnergy;
+        setName();
+    }
+
+    private void setName() {
+        name = Static.getAnimalIdentifier();
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -77,8 +90,8 @@ public abstract class AbstractAnimal implements IAnimal {
     }
 
     @Override
-    public int getChildrenNumber() {
-        return childrenNumber;
+    public int getNumberOfChildren() {
+        return numberOfChildren;
     }
 
     @Override
@@ -103,7 +116,7 @@ public abstract class AbstractAnimal implements IAnimal {
 
     @Override
     public void changeChildrenNumber(int quantity) {
-        childrenNumber += quantity;
+        numberOfChildren += quantity;
     }
 
     @Override

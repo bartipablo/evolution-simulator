@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static com.example.evolutiongenerator.Constant.*;
+import static com.example.evolutiongenerator.Properties.*;
 
 public class NewSimulationController implements Initializable {
 
@@ -77,6 +77,8 @@ public class NewSimulationController implements Initializable {
     private Label refreshTimeLabel;
     @FXML
     private Label errorMessagesLabel;
+    @FXML
+    private Label simulationNameLabel;
     //-----------------------------------------------------------
 
     //Text fields------------------------------------------------
@@ -107,9 +109,11 @@ public class NewSimulationController implements Initializable {
     @FXML
     private TextField refreshTimeTextField;
     @FXML
+    private TextField simulationNameTextField;
     //-----------------------------------------------------------
 
     //check boxes------------------------------------------------
+    @FXML
     private CheckBox saveCSVCheckBox;
     @FXML
     private CheckBox removeExcessAnimalsCheckBox;
@@ -163,6 +167,7 @@ public class NewSimulationController implements Initializable {
                 && validateArgument(plantsStartSpawningLabel, plantStartSpawningTextField, MIN_PLANTS_SPAWNING_AT_THE_START, MAX_PLANTS_SPAWNING_AT_THE_START)
                 && validateArgument(plantsEachDaySpawningLabel, plantEachDaySpawningTextField, MIN_PLANTS_SPAWNED_AT_EACH_DAY, MAX_PLANTS_SPAWNED_AT_EACH_DAY)
                 && validateArgument(refreshTimeLabel, refreshTimeTextField, MIN_REFRESH_TIME, MAX_REFRESH_TIME)
+                && validateSimulationName(simulationNameLabel, simulationNameTextField)
                 && validateTwoArguments(minEnergyToCopulationLabel, minEnergyToCopulationTextField, energyUsedToCopulationLabel, energyUsedToCopulationTextField);
     }
 
@@ -202,6 +207,16 @@ public class NewSimulationController implements Initializable {
         return true;
     }
 
+    private boolean validateSimulationName(Label label, TextField textField) {
+        String simulationName = textField.getText();
+        if (simulationName.length() == 0) {
+            label.setTextFill(Color.RED);
+            errorMessagesLabel.setText("ERROR: The simulation name field must not be empty!");
+            return false;
+        }
+        return true;
+    }
+
     private void getConfigurationFromUserArguments() {
         BehaviourVariant behaviourVariant = null;
         switch (behaviourVariantChoiceBox.getValue()) {
@@ -227,6 +242,7 @@ public class NewSimulationController implements Initializable {
             case "Toxic corpses"      -> terrainVariant = TerrainVariant.TOXIC_CORPSES;
         }
 
+
         configuration = new Configuration(
                 Integer.parseInt(mapHeightTextField.getText()),
                 Integer.parseInt(mapWidthTextField.getText()),
@@ -240,7 +256,8 @@ public class NewSimulationController implements Initializable {
                 Integer.parseInt(plantEachDaySpawningTextField.getText()),
                 Integer.parseInt(plantsEnergyProfitTextField.getText()),
                 mapVariant, behaviourVariant, mutationVariant, terrainVariant,
-                saveCSVCheckBox.isSelected(), removeExcessAnimalsCheckBox.isSelected()
+                saveCSVCheckBox.isSelected(), removeExcessAnimalsCheckBox.isSelected(),
+                simulationNameTextField.getText()
         );
     }
 }

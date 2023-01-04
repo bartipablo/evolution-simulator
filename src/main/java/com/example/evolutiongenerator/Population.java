@@ -28,12 +28,14 @@ public class Population {
     private int totalLifeExpectancy;
     private final BehaviourVariant behaviourVariant;
     private final int initialPopulationSize;
-
+    private final SimulationEngine world;
+    private final boolean isDeletedExcessAnimals;
 
     //constructors-------------------------------------------------------------------------
     public Population(int populationSize, int minimumEnergyToReproduction, int genomeLength, int energyUsedToReproduction,
                int minimumNumberOfMutations, int maximumNumberOfMutations, IMap map, IReproduction reproductionVariant,
-               ITerrain terrain, BehaviourVariant behaviourVariant, int dailyEnergyConsumption, int initialEnergy) {
+               ITerrain terrain, BehaviourVariant behaviourVariant, int dailyEnergyConsumption, int initialEnergy, SimulationEngine world,
+               Boolean isDeletedExcessAnimals) {
         this.reproductionVariant = reproductionVariant;
         this.minimumEnergyToReproduction = minimumEnergyToReproduction;
         this.map = map;
@@ -47,6 +49,8 @@ public class Population {
         this.initialEnergy = initialEnergy;
         this.totalLifeExpectancy = 0;
         this.initialPopulationSize = populationSize;
+        this.world = world;
+        this.isDeletedExcessAnimals = isDeletedExcessAnimals;
     }
 
     public void generateNewPopulation() {
@@ -60,8 +64,6 @@ public class Population {
             } else {
                 animal = new AnimalBehaviourB(initialPosition, initialDirection, map, genomeLength, initialEnergy);
             }
-            //IMapElementsObserver mapElementsObserver = (IMapElementsObserver) map;
-            //mapElementsObserver.addAnimalToMap(animal);
 
             animal.addPositionObserver((IMapElementsObserver) map);
             addNewAnimal(animal);
@@ -90,6 +92,10 @@ public class Population {
 
     public List<IAnimal> getLiveAnimals() {
         return liveAnimals;
+    }
+
+    public List<IAnimal> getDeadAnimals() {
+        return deadAnimals;
     }
 
     public void completeStatistics() {
@@ -150,7 +156,7 @@ public class Population {
 
         drawsList = getAgeDrawsList(drawsList);
         sortTheAnimalsByNumberOfChildren(drawsList);
-        if (drawsList.get(0).getChildrenNumber() > drawsList.get(1).getChildrenNumber()) {
+        if (drawsList.get(0).getNumberOfChildren() > drawsList.get(1).getNumberOfChildren()) {
             return drawsList.subList(0, 1);
         }
 
@@ -178,6 +184,7 @@ public class Population {
             if (animal.getEnergy() <= 0) {
                 totalLifeExpectancy += animal.getAge();
                 removeAnimal(animal);
+                animal.setDeathDay(world.getSimulationDay());
                 informObserversAboutDeathAnimal(animal);
             }
         }
@@ -232,6 +239,33 @@ public class Population {
         }
     }
 
+    //remove excess animals-------------------------------------------------------------------------
+    public void removeExcessAnimals() {
+        int maxAnimalsNumber = (map.getMapHeight() * map.getMapWidth()) * 4;
+        if (liveAnimals.size() > maxAnimalsNumber && isDeletedExcessAnimals) removeExcessLiveAnimals(liveAnimals.size() - maxAnimalsNumber);
+        if (deadAnimals.size() > maxAnimalsNumber && isDeletedExcessAnimals) removeExcessDeadAnimals(liveAnimals.size() - maxAnimalsNumber);
+
+    }
+
+    private void removeExcessLiveAnimals(int quantity) {
+        Random random = new Random();
+        for (int i = 0; i < quantity; i++) {
+            int index = random.nextInt(0, liveAnimals.size());
+            IAnimal animal = liveAnimals.get(index);
+            removeAnimal(animal);
+        }
+    }
+
+    private void removeExcessDeadAnimals(int quantity) {
+        Random random = new Random();
+        for (int i = 0; i < quantity; i++) {
+            int index = random.nextInt(0, liveAnimals.size());
+            IAnimal animal = deadAnimals.get(index);
+            deadAnimals.remove(animal);
+        }
+    }
+    //----------------------------------------------------------------------------------------------
+
 
     //sorting and comparing-------------------------------------------------------------------------
     private void sortTheAnimalsByEnergy(List<IAnimal> animalList) {
@@ -256,7 +290,7 @@ public class Population {
         animalList.sort(new Comparator<IAnimal>() {
             @Override
             public int compare(IAnimal o1, IAnimal o2) {
-                return -(o1.getChildrenNumber() - o2.getChildrenNumber());
+                return -(o1.getNumberOfChildren() - o2.getNumberOfChildren());
             }
         });
     }
@@ -279,7 +313,7 @@ public class Population {
 
     private List<IAnimal> getNumberOfChildrenDrawsList(List<IAnimal> animalList) {
         int numberOfDraws = 1;
-        while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getChildrenNumber() == animalList.get(numberOfDraws - 1).getChildrenNumber()) {
+        while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getNumberOfChildren() == animalList.get(numberOfDraws - 1).getNumberOfChildren()) {
             numberOfDraws++;
         }
         return animalList.subList(0, numberOfDraws);

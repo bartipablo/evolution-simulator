@@ -36,7 +36,7 @@ public class PopulationTest {
         population = new Population(POPULATION_SIZE, MINIMUM_ENERGY_TO_REPRODUCTION,
                 GENOME_LENGTH, ENERGY_USED_TO_REPRODUCTION, MINIMUM_NUMBER_OF_MUTATIONS,
                 MAXIMUM_NUMBER_OF_MUTATIONS, map, reproductionVariant, terrain, BehaviourVariant.FULL_PREDESTINATION,
-                DAILY_ENERGY_CONSUMPTION, INITIAL_ENERGY);
+                DAILY_ENERGY_CONSUMPTION, INITIAL_ENERGY, null);
     }
 
     @Test

@@ -22,24 +22,24 @@
          <children>
             <Label fx:id="numberOfAllPlantsLabel" layoutX="52.0" layoutY="476.0" prefHeight="18.0" prefWidth="205.0" text="number of all plants:" />
             <Separator layoutX="345.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="716.0" prefWidth="0.0" />
-            <LineChart layoutX="38.0" layoutY="31.0" prefHeight="214.0" prefWidth="279.0">
+            <LineChart fx:id="populationChart" createSymbols="false" layoutX="5.0" layoutY="31.0" prefHeight="214.0" prefWidth="312.0" title="Population">
                <xAxis>
-                  <CategoryAxis side="BOTTOM" />
+                  <CategoryAxis prefHeight="22.0" prefWidth="222.0" side="BOTTOM" />
                </xAxis>
                <yAxis>
-                  <NumberAxis side="LEFT" />
+                  <NumberAxis label="Population size" side="LEFT" />
                </yAxis>
             </LineChart>
-            <LineChart layoutX="38.0" layoutY="236.0" prefHeight="214.0" prefWidth="279.0">
+            <LineChart fx:id="plantsChart" createSymbols="false" layoutX="5.0" layoutY="236.0" prefHeight="214.0" prefWidth="312.0" title="Plants">
                <xAxis>
-                  <CategoryAxis side="BOTTOM" />
+                  <CategoryAxis prefHeight="20.0" prefWidth="222.0" side="BOTTOM" />
                </xAxis>
                <yAxis>
-                  <NumberAxis side="LEFT" />
+                  <NumberAxis label="Plants quantity" side="LEFT" />
                </yAxis>
             </LineChart>
             <Label fx:id="numberOfAllAnimalsLabel" layoutX="52.0" layoutY="450.0" prefHeight="18.0" prefWidth="205.0" text="number of all animals:" />
-            <Label layoutX="118.0" layoutY="14.0" text="General Statistics" textAlignment="CENTER">
+            <Label layoutX="105.0" layoutY="14.0" text="General Statistics" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -54,16 +54,7 @@
       <ScrollPane prefHeight="716.0" prefWidth="857.0">
          <content>
             <GridPane fx:id="mapGridPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT">
-<!--         <columnConstraints>-->
-<!--            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />-->
-<!--            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />-->
-<!--         </columnConstraints>-->
-<!--         <rowConstraints>-->
-<!--            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />-->
-<!--            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />-->
-<!--            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />-->
-<!--         </rowConstraints>-->
-      </GridPane>
+            </GridPane>
          </content>
       </ScrollPane>
       <AnchorPane prefHeight="715.0" prefWidth="296.0">
@@ -78,19 +69,19 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="liveAnimalsChoiceBox" layoutX="85.0" layoutY="77.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="liveAnimalsChoiceBox" layoutX="85.0" layoutY="77.0" onAction="#onChoiceLiveAnimalClicked" prefWidth="150.0" />
             <Label layoutX="115.0" layoutY="52.0" text="Live animals list" />
             <Label layoutX="111.0" layoutY="117.0" text="Dead animals list" />
-            <ChoiceBox fx:id="deadAnimalsChoiceBox" layoutX="85.0" layoutY="147.0" prefHeight="26.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="deadAnimalsChoiceBox" layoutX="85.0" layoutY="147.0" onAction="#onChoiceDeadAnimalClicked" prefHeight="26.0" prefWidth="150.0" />
             <VBox layoutX="12.0" layoutY="451.0" prefHeight="200.0" prefWidth="282.0" spacing="6.0">
                <children>
-                  <Label text="animal's genome:" />
-                  <Label text="active genome:" />
-                  <Label text="animal energy:" />
-                  <Label text="The number of plants eaten:" />
-                  <Label text="Number of children:" />
-                  <Label text="Life expectancy:" />
-                  <Label text="Date of death:" />
+                  <Label fx:id="animalGenomeLabel" text="animal's genome:" />
+                  <Label fx:id="activeGenomeLabel" text="active genome:" />
+                  <Label fx:id="animalEnergyLabel" text="animal energy:" />
+                  <Label fx:id="numberOfPlantsEatenLabel" text="The number of plants eaten:" />
+                  <Label fx:id="numberOfChildrenLabel" text="Number of children:" />
+                  <Label fx:id="ageLabel" text="Age:" />
+                  <Label fx:id="dateOfDeathLabel" text="Date of death:" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -105,15 +96,20 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="99.0" layoutY="223.0" text="Selected Animal" textAlignment="CENTER">
+            <Label layoutX="99.0" layoutY="241.0" text="Selected Animal" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Separator layoutX="14.0" layoutY="187.0" prefHeight="36.0" prefWidth="292.0" />
-            <Label layoutX="111.0" layoutY="251.0" text="animal name:" />
-            <Label layoutX="127.0" layoutY="295.0" text="picture:" />
-            <ImageView fx:id="animalPictureView" fitHeight="89.0" fitWidth="90.0" layoutX="102.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true" />
+            <Separator layoutX="11.0" layoutY="215.0" prefHeight="36.0" prefWidth="292.0" />
+            <Label layoutX="118.0" layoutY="262.0" text="animal name:" />
+            <Label layoutX="136.0" layoutY="316.0" text="picture:" />
+            <ImageView fx:id="animalPictureView" fitHeight="89.0" fitWidth="90.0" layoutX="108.0" layoutY="333.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="selectAnimalButton" layoutX="121.0" layoutY="190.0" mnemonicParsing="false" onAction="#onSelectAnimalButtonClicked" text="Select animal" />
+            <Label fx:id="animalNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="279.0" prefHeight="26.0" prefWidth="93.0" text="-" textAlignment="CENTER" textFill="#f8a602">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
          </children>
       </AnchorPane>
    </children>

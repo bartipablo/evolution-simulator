@@ -5,11 +5,12 @@ import com.example.evolutiongenerator.direction.MapDirection;
 import com.example.evolutiongenerator.direction.Vector2D;
 
 public interface IAnimal {
+    String getName();
     Vector2D getPosition();
     MapDirection getDirection();
     int getEnergy();
     int getAge();
-    int getChildrenNumber();
+    int getNumberOfChildren();
     int getActualGenome();
     int[] getGenomes();
     int getEatenPlantsNumber();

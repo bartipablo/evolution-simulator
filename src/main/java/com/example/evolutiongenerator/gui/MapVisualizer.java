@@ -1,6 +1,6 @@
 package com.example.evolutiongenerator.gui;
 
-import com.example.evolutiongenerator.Constant;
+import com.example.evolutiongenerator.Properties;
 import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.interfaces.IMap;
 import javafx.scene.layout.ColumnConstraints;
@@ -23,8 +23,8 @@ public class MapVisualizer {
     }
 
     private void calculateColumnsAndRowsSize() {
-        int squareHeight = (int) Math.ceil(1.0 * Constant.GRID_PANE_HEIGHT_PX / map.getMapHeight());
-        int squareWidth  = (int) Math.ceil(1.0 * Constant.GRID_PANE_WIDTH_PX / map.getMapWidth());
+        int squareHeight = (int) Math.ceil(1.0 * Properties.GRID_PANE_HEIGHT_PX / map.getMapHeight());
+        int squareWidth  = (int) Math.ceil(1.0 * Properties.GRID_PANE_WIDTH_PX / map.getMapWidth());
         this.sideLengthOfSquarePx = Math.max(40, Math.max(squareWidth, squareHeight));
         gridPane.getColumnConstraints().add(new ColumnConstraints(sideLengthOfSquarePx));
         gridPane.getRowConstraints().add(new RowConstraints(sideLengthOfSquarePx));

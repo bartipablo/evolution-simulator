@@ -2,17 +2,17 @@ package com.example.evolutiongenerator;
 
 import com.example.evolutiongenerator.direction.Vector2D;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
 import java.util.Random;
 
-import com.opencsv.*;
-
-import static com.example.evolutiongenerator.Constant.FILE_NAME;
-
 public class Static {
+    public static int animalNumber = 0;
+
+    public static String getAnimalIdentifier() {
+        animalNumber++;
+        return "Animal" + animalNumber;
+    }
+
+
     public static void shuffleIntArray(int[] array) {
         Random random = new Random();
         for (int i = array.length - 1; i > 0; i--) {
@@ -83,16 +83,5 @@ public class Static {
     }
 
     //------------------------------------------------------------------------------------------------------------
-    // CSV file methods
-    public static void writeDataToCSV(List<String[]> data) {
-        File file = new File(FILE_NAME);
-        try {
-            FileWriter outputfile = new FileWriter(file);
-            CSVWriter writer = new CSVWriter(outputfile);
-            writer.writeAll(data);
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 }

@@ -2,7 +2,7 @@ package com.example.evolutiongenerator.gui;
 
 import com.example.evolutiongenerator.Configuration;
 import com.example.evolutiongenerator.Main;
-import com.example.evolutiongenerator.World;
+import com.example.evolutiongenerator.SimulationEngine;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,8 +28,6 @@ public class MainSceneController implements Initializable {
     @FXML
     private List<SimulationSceneController> simulationSceneControllerList = new ArrayList<>();
     //---------------------------------------------------
-
-    private int simulationNumber = 1;
     @FXML
     private TabPane tabPane;
     @Override
@@ -57,10 +55,9 @@ public class MainSceneController implements Initializable {
         Parent root = fxmlLoader.load();
         SimulationSceneController simulationSceneController = fxmlLoader.getController();
         simulationSceneController.setMainSceneController(this);
-        simulationSceneController.setWorld(new World(configuration));
+        simulationSceneController.setWorld(new SimulationEngine(configuration));
         simulationSceneControllerList.add(simulationSceneController);
-        Tab tab = new Tab("Simulation " + simulationNumber);
-        simulationNumber += 1;
+        Tab tab = new Tab(configuration.getSimulationName());
         tab.setContent(root);
         tabPane.getTabs().add(tab);
     }
@@ -71,6 +68,4 @@ public class MainSceneController implements Initializable {
         tabPane.getTabs().remove(i + 1, i + 2);
         simulationSceneControllerList.remove(i);
     }
-
-
 }

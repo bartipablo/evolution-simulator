@@ -11,5 +11,6 @@ public interface IStatisticsObserver {
     void setAverageEnergy(List<IAnimal> aliveAnimals);
     void setFreeFieldQuantity(IMap map);
     void setTheMostPopularGenotype(List<int[]> animalGenotypes);
+    void setSimulationDay(int day);
 
     }

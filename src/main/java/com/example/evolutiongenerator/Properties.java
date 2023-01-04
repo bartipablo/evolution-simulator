@@ -1,29 +1,29 @@
 package com.example.evolutiongenerator;
 
-public class Constant {
+public class Properties {
     //map properties-----------------------------------
 
     public static final int MIN_MAP_HEIGHT = 5;
-    public static final int MAX_MAP_HEIGHT = 100;
+    public static final int MAX_MAP_HEIGHT = 35;
     public static final int MIN_MAP_WIDTH = 5;
-    public static final int MAX_MAP_WIDTH = 100;
+    public static final int MAX_MAP_WIDTH = 35;
 
     //-------------------------------------------------
 
     //energy properties--------------------------------
 
-    public static final int MIN_PLANTS_ENERGY_PROFIT = 10;
-    public static final int MAX_PLANTS_ENERGY_PROFIT = 100;
+    public static final int MIN_PLANTS_ENERGY_PROFIT = 1;
+    public static final int MAX_PLANTS_ENERGY_PROFIT = 1000;
     public static final int MIN_MINIMUM_ENERGY_TO_COPULATION = 1;
     public static final int MAX_MINIMUM_ENERGY_TO_COPULATION = 1000;
     public static final int MIN_ANIMAL_START_ENERGY = 1;
     public static final int MAX_ANIMAL_START_ENERGY = 1000;
     public static final int MIN_DAILY_ENERGY_COST = 1;
     public static final int MAX_DAILY_ENERGY_COST = 1000;
-    public static final int MIN_ENERGY_USED_TO_COPULATION = 10;
+    public static final int MIN_ENERGY_USED_TO_COPULATION = 1;
     public static final int MAX_ENERGY_USED_TO_COPULATION = 1000;
-    public static final int MIN_GENOME_LENGTH = 10;
-    public static final int MAX_GENOME_LENGTH = 1000;
+    public static final int MIN_GENOME_LENGTH = 1;
+    public static final int MAX_GENOME_LENGTH = 100;
     //-------------------------------------------------
 
     //spawn properties---------------------------------
@@ -37,9 +37,9 @@ public class Constant {
 
     //others ------------------------------------------------------
 
-    public static final int MIN_REFRESH_TIME = 10;
-    public static final int MAX_REFRESH_TIME = 100;
-    public static final int MIN_MUTATION_NUMBER = 10;
+    public static final int MIN_REFRESH_TIME = 1000;
+    public static final int MAX_REFRESH_TIME = 1000;
+    public static final int MIN_MUTATION_NUMBER = 1;
     public static final int MAX_MUTATION_NUMBER = 100;
     //-------------------------------------------------------------
 
