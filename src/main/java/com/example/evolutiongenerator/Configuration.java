@@ -23,11 +23,12 @@ public class Configuration {
     private final TerrainVariant terrainVariant;
     private final boolean saveToCSV;
     private final boolean removeExcessAnimals;
+    private final String simulationName;
 
     public Configuration(int mapHeight, int mapWidth, int dailyEnergyConsumption, int initialPlantsNumber, int initialAnimalsNumber, int initialAnimalsEnergy,
                          int energyRequiredForReproduction, int energyUsedForReproduction, int genomeLength, int numberOfPlantGrowingDaily, int plantEnergy,
                          MapVariant mapVariant, BehaviourVariant behaviourVariant, MutationVariant mutationVariant, TerrainVariant terrainVariant,
-                         boolean saveToCSV, boolean removeExcessAnimals) {
+                         boolean saveToCSV, boolean removeExcessAnimals, String simulationName) {
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
         this.dailyEnergyConsumption = dailyEnergyConsumption;
@@ -45,6 +46,7 @@ public class Configuration {
         this.terrainVariant = terrainVariant;
         this.saveToCSV = saveToCSV;
         this.removeExcessAnimals = removeExcessAnimals;
+        this.simulationName = simulationName;
     }
 
     public int getMapHeight() {
@@ -113,5 +115,9 @@ public class Configuration {
 
     public boolean isRemoveExcessAnimals() {
         return removeExcessAnimals;
+    }
+
+    public String getSimulationName() {
+        return simulationName;
     }
 }

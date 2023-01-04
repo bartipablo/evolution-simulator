@@ -71,6 +71,4 @@ public class MainSceneController implements Initializable {
         tabPane.getTabs().remove(i + 1, i + 2);
         simulationSceneControllerList.remove(i);
     }
-
-
 }

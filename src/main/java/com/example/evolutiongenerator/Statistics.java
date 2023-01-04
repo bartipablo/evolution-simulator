@@ -4,12 +4,14 @@ import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.interfaces.IMap;
 import com.example.evolutiongenerator.interfaces.IStatisticsObserver;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Statistics implements IStatisticsObserver {
 
+    private int simulationDay;
     private int populationSize;
     private int plantsQuantity;
     private double averageLifeLength;
@@ -26,6 +28,7 @@ public class Statistics implements IStatisticsObserver {
         this.freeFieldQuantity = 0;
         this.mostPopularGenotypeQuantity = 0;
         this.theMostPopularGenotype = new int[]{};
+        this.simulationDay = 0;
     }
 
 
@@ -110,6 +113,15 @@ public class Statistics implements IStatisticsObserver {
         }
         this.theMostPopularGenotype = theMostPopularGenotype;
         this.mostPopularGenotypeQuantity = quantityOfTheMostPopularGenotypes;
+    }
+
+    @Override
+    public void setSimulationDay(int day) {
+        this.simulationDay = day;
+    }
+
+    public int getSimulationDay() {
+        return simulationDay;
     }
 
 

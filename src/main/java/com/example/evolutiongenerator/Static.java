@@ -2,9 +2,7 @@ package com.example.evolutiongenerator;
 
 import com.example.evolutiongenerator.direction.Vector2D;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.Random;
 
@@ -91,16 +89,5 @@ public class Static {
     }
 
     //------------------------------------------------------------------------------------------------------------
-    // CSV file methods
-    public static void writeDataToCSV(List<String[]> data) {
-        File file = new File(FILE_NAME);
-        try {
-            FileWriter outputfile = new FileWriter(file);
-            CSVWriter writer = new CSVWriter(outputfile);
-            writer.writeAll(data);
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 }

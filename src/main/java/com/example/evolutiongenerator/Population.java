@@ -28,12 +28,12 @@ public class Population {
     private int totalLifeExpectancy;
     private final BehaviourVariant behaviourVariant;
     private final int initialPopulationSize;
-
+    private final World world;
 
     //constructors-------------------------------------------------------------------------
     public Population(int populationSize, int minimumEnergyToReproduction, int genomeLength, int energyUsedToReproduction,
                int minimumNumberOfMutations, int maximumNumberOfMutations, IMap map, IReproduction reproductionVariant,
-               ITerrain terrain, BehaviourVariant behaviourVariant, int dailyEnergyConsumption, int initialEnergy) {
+               ITerrain terrain, BehaviourVariant behaviourVariant, int dailyEnergyConsumption, int initialEnergy, World world) {
         this.reproductionVariant = reproductionVariant;
         this.minimumEnergyToReproduction = minimumEnergyToReproduction;
         this.map = map;
@@ -47,6 +47,7 @@ public class Population {
         this.initialEnergy = initialEnergy;
         this.totalLifeExpectancy = 0;
         this.initialPopulationSize = populationSize;
+        this.world = world;
     }
 
     public void generateNewPopulation() {
@@ -182,6 +183,7 @@ public class Population {
             if (animal.getEnergy() <= 0) {
                 totalLifeExpectancy += animal.getAge();
                 removeAnimal(animal);
+                animal.setDeathDay(world.getSimulationDay());
                 informObserversAboutDeathAnimal(animal);
             }
         }

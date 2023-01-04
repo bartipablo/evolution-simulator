@@ -1,6 +1,7 @@
 import com.example.evolutiongenerator.direction.Vector2D;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,12 +136,13 @@ public class StaticTest {
     }
 
     @Test
-    void generateFileTest(){
-        List<String[]> data = new ArrayList<String[]>();
+    void generateFileTest() throws FileNotFoundException {
+        List<String[]> data = new ArrayList<>();
         data.add(new String[]{"1","2","3","4","5"});
         data.add(new String[]{"11","21","31","41","51"});
         data.add(new String[]{"11","12","13","14","15"});
-        writeDataToCSV(data);
+        writeDataToCSV(new String[]{"1","2","3","4","5"}, "tracz");
+        writeDataToCSV(new String[]{"1","8","3","2","5"}, "tracz");
     }
 
 }
