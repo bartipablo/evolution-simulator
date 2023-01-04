@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static com.example.evolutiongenerator.Constant.*;
+import static com.example.evolutiongenerator.Properties.*;
 
 public class NewSimulationController implements Initializable {
 

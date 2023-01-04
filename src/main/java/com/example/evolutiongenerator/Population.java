@@ -29,11 +29,13 @@ public class Population {
     private final BehaviourVariant behaviourVariant;
     private final int initialPopulationSize;
     private final World world;
+    private final boolean isDeletedExcessAnimals;
 
     //constructors-------------------------------------------------------------------------
     public Population(int populationSize, int minimumEnergyToReproduction, int genomeLength, int energyUsedToReproduction,
                int minimumNumberOfMutations, int maximumNumberOfMutations, IMap map, IReproduction reproductionVariant,
-               ITerrain terrain, BehaviourVariant behaviourVariant, int dailyEnergyConsumption, int initialEnergy, World world) {
+               ITerrain terrain, BehaviourVariant behaviourVariant, int dailyEnergyConsumption, int initialEnergy, World world,
+               Boolean isDeletedExcessAnimals) {
         this.reproductionVariant = reproductionVariant;
         this.minimumEnergyToReproduction = minimumEnergyToReproduction;
         this.map = map;
@@ -48,6 +50,7 @@ public class Population {
         this.totalLifeExpectancy = 0;
         this.initialPopulationSize = populationSize;
         this.world = world;
+        this.isDeletedExcessAnimals = isDeletedExcessAnimals;
     }
 
     public void generateNewPopulation() {
@@ -61,8 +64,6 @@ public class Population {
             } else {
                 animal = new AnimalBehaviourB(initialPosition, initialDirection, map, genomeLength, initialEnergy);
             }
-            //IMapElementsObserver mapElementsObserver = (IMapElementsObserver) map;
-            //mapElementsObserver.addAnimalToMap(animal);
 
             animal.addPositionObserver((IMapElementsObserver) map);
             addNewAnimal(animal);
@@ -237,6 +238,33 @@ public class Population {
             animal.changeAge(1);
         }
     }
+
+    //remove excess animals-------------------------------------------------------------------------
+    public void removeExcessAnimals() {
+        int maxAnimalsNumber = (map.getMapHeight() * map.getMapWidth()) * 4;
+        if (liveAnimals.size() > maxAnimalsNumber && isDeletedExcessAnimals) removeExcessLiveAnimals(liveAnimals.size() - maxAnimalsNumber);
+        if (deadAnimals.size() > maxAnimalsNumber && isDeletedExcessAnimals) removeExcessDeadAnimals(liveAnimals.size() - maxAnimalsNumber);
+
+    }
+
+    private void removeExcessLiveAnimals(int quantity) {
+        Random random = new Random();
+        for (int i = 0; i < quantity; i++) {
+            int index = random.nextInt(0, liveAnimals.size());
+            IAnimal animal = liveAnimals.get(index);
+            removeAnimal(animal);
+        }
+    }
+
+    private void removeExcessDeadAnimals(int quantity) {
+        Random random = new Random();
+        for (int i = 0; i < quantity; i++) {
+            int index = random.nextInt(0, liveAnimals.size());
+            IAnimal animal = deadAnimals.get(index);
+            deadAnimals.remove(animal);
+        }
+    }
+    //----------------------------------------------------------------------------------------------
 
 
     //sorting and comparing-------------------------------------------------------------------------

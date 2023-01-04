@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class WriterCSV {
 
@@ -38,7 +39,7 @@ public class WriterCSV {
             variableToWrite[1] = Integer.toString(statistics.getPopulationSize());
             variableToWrite[2] = Integer.toString(statistics.getPlantsQuantity());
             variableToWrite[3] = Integer.toString(statistics.getFreeFieldQuantity());
-            variableToWrite[4] = statistics.getTheMostPopularGenotype().toString();
+            variableToWrite[4] = Arrays.toString(statistics.getTheMostPopularGenotype());
             variableToWrite[5] = Double.toString(statistics.getAverageEnergy());
             variableToWrite[6] = Double.toString(statistics.getAverageLifeLength());
             writeDataToCSV(variableToWrite, configuration.getSimulationName());

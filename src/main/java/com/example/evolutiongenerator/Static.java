@@ -2,13 +2,7 @@ package com.example.evolutiongenerator;
 
 import com.example.evolutiongenerator.direction.Vector2D;
 
-import java.io.*;
-import java.util.List;
 import java.util.Random;
-
-import com.opencsv.*;
-
-import static com.example.evolutiongenerator.Constant.FILE_NAME;
 
 public class Static {
     public static int animalNumber = 0;

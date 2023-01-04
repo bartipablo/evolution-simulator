@@ -36,11 +36,11 @@ public class World extends Thread {
                 configuration.getEnergyRequiredForReproduction(),
                 configuration.getGenomeLength(),
                 configuration.getEnergyUsedForReproduction(),
-                Constant.MIN_MUTATION_NUMBER, Constant.MAX_MUTATION_NUMBER,
+                Properties.MIN_MUTATION_NUMBER, Properties.MAX_MUTATION_NUMBER,
                 map, reproduction, terrain, behaviourVariant,
                 configuration.getDailyEnergyConsumption(),
                 configuration.getInitialAnimalsEnergy(),
-                this
+                this, configuration.isRemoveExcessAnimals()
         );
         setObservators();
         population.generateNewPopulation();
@@ -105,6 +105,7 @@ public class World extends Thread {
         statistics.setSimulationDay(simulationDay);
         refreshGui();
         writerCSV.saveStatisticsToCSV();
+        population.removeExcessAnimals();
     }
 
     public IMap getMap() {
