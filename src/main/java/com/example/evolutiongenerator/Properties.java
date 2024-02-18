@@ -48,6 +48,5 @@ public class Properties {
     public static final int GRID_PANE_WIDTH_PX = 867;
 
     //-------------------------------------------------------------
-    public static final String FILE_NAME = "C:\\Users\\adas8\\OneDrive\\Pulpit\\file.csv";
 
 }
