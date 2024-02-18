@@ -34,6 +34,10 @@ public class ForestedEquators extends AbstractTerrain {
     }
 
     private void setAtPositions(Vector2D[] positions, int quantity) {
+        if (quantity <= 0) {
+            return;
+        }
+
         for (Vector2D position: positions) {
             Plant plant = new Plant(position, initialPlantsEnergy);
             if (map.getPlantAtPosition(position) == null) {
@@ -41,8 +45,8 @@ public class ForestedEquators extends AbstractTerrain {
                 quantity -= 1;
                 informObserverAboutAddedNewPlats(plant);
             }
-            if (quantity == 0) {
-                break;
+            if (quantity <= 0) {
+                return;
             }
         }
     }

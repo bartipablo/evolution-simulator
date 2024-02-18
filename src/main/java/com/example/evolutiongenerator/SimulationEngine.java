@@ -122,6 +122,7 @@ public class SimulationEngine extends Thread {
             refreshGuiCharts();
             isFirstSimulationStep = false;
         }
+        simulationDay++;
         population.ageIncrease();
         terrain.dailyPlantGrowth();
         population.dailyMoving();
@@ -134,7 +135,6 @@ public class SimulationEngine extends Thread {
         refreshGui();
         population.reproduction();
         population.completeStatistics();
-        simulationDay++;
         statistics.setSimulationDay(simulationDay);
         refreshGui();
         writerCSV.saveStatisticsToCSV();

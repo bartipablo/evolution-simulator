@@ -260,5 +260,6 @@ public class NewSimulationController implements Initializable {
                 simulationNameTextField.getText(),
                 Integer.parseInt(refreshTimeTextField.getText())
         );
+        System.out.println("elo");
     }
 }
