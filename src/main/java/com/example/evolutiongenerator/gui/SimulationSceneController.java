@@ -3,6 +3,8 @@ package com.example.evolutiongenerator.gui;
 import com.example.evolutiongenerator.Statistics;
 import com.example.evolutiongenerator.SimulationEngine;
 import com.example.evolutiongenerator.direction.Vector2D;
+import com.example.evolutiongenerator.gui.MainSceneController;
+import com.example.evolutiongenerator.gui.MapVisualizer;
 import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.interfaces.IGuiObserver;
 import javafx.application.Platform;
@@ -25,6 +27,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SimulationSceneController implements IGuiObserver {
+
+    private static final Image selectedAnimalImage;
+
+    static {
+        try {
+            selectedAnimalImage = new Image(new FileInputStream("src/main/resources/com/example/evolutiongenerator/images/animal.png"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     //FXML---------------------------------------------------
     private MainSceneController mainSceneController;
@@ -122,7 +135,7 @@ public class SimulationSceneController implements IGuiObserver {
 
     private void selectObservedAnimal(String name, boolean isLive) throws FileNotFoundException {
         animalNameLabel.setText(name);
-        Image image = new Image(new FileInputStream("src/main/resources/com/example/evolutiongenerator/animal.png"));
+        Image image = selectedAnimalImage;
         animalPictureView.setImage(image);
         List<IAnimal> animalList;
         if (isLive) {

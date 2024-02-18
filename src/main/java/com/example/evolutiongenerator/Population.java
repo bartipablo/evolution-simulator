@@ -50,7 +50,7 @@ public class Population {
         this.totalLifeExpectancy = 0;
         this.initialPopulationSize = populationSize;
         this.world = world;
-        this.isDeletedExcessAnimals = isDeletedExcessAnimals;
+        this.isDeletedExcessAnimals = true;
     }
 
     public void generateNewPopulation() {

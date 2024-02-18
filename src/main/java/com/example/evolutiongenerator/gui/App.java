@@ -28,7 +28,7 @@ public class App extends Application {
         stage.setResizable(true);
         stage.setMaximized(true);
         stage.setTitle("Evolution Simulator");
-        stage.getIcons().add(new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/icon.png")));
+        stage.getIcons().add(new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/icon.png")));
         stage.setScene(scene);
         stage.show();
     }

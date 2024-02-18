@@ -52,25 +52,25 @@ public class GuiElementBox {
 
     static {
         try {
-            emptyPositionImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/emptyPosition.png"));
-            emptyPositionWithPlantImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/emptyPositionWithPlant.png"));
-            oneAnimalsPositionImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/oneAnimalsPosition.png"));
-            twoAnimalsPositionImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/twoAnimalsPosition.png"));
-            threeAnimalsPositionImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/threeAnimalsPosition.png"));
-            fourAnimalsPositionImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/fourAnimalsPosition.png"));
-            oneAnimalsPositionWithPlantImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/oneAnimalsPositionWithPlant.png"));
-            twoAnimalsPositionWithPlantImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/twoAnimalsPositionWithPlant.png"));
-            threeAnimalsPositionWithPlantImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/threeAnimalsPositionWithPlant.png"));
-            fourAnimalsPositionWithPlantImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/fourAnimalsPositionWithPlant.png"));
-            errorImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/error.png"));
-            oneAnimalsPositionObservedImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/oneAnimalsPositionObserved.png"));
-            twoAnimalsPositionObservedImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/twoAnimalsPositionObserved.png"));
-            threeAnimalsPositionObservedImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/threeAnimalsPositionObserved.png"));
-            fourAnimalsPositionObservedImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/fourAnimalsPositionObserved.png"));
-            oneAnimalsPositionWithPlantObservedImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/oneAnimalsPositionWithPlantObserved.png"));
-            twoAnimalsPositionWithPlantObservedImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/twoAnimalsPositionWithPlantObserved.png"));
-            threeAnimalsPositionWithPlantObservedImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/threeAnimalsPositionWithPlantObserved.png"));
-            fourAnimalsPositionWithPlantObservedImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/fourAnimalsPositionWithPlantObserved.png"));
+            emptyPositionImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/emptyPosition.png"));
+            emptyPositionWithPlantImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/emptyPositionWithPlant.png"));
+            oneAnimalsPositionImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/oneAnimalsPosition.png"));
+            twoAnimalsPositionImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/twoAnimalsPosition.png"));
+            threeAnimalsPositionImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/threeAnimalsPosition.png"));
+            fourAnimalsPositionImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/fourAnimalsPosition.png"));
+            oneAnimalsPositionWithPlantImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/oneAnimalsPositionWithPlant.png"));
+            twoAnimalsPositionWithPlantImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/twoAnimalsPositionWithPlant.png"));
+            threeAnimalsPositionWithPlantImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/threeAnimalsPositionWithPlant.png"));
+            fourAnimalsPositionWithPlantImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/fourAnimalsPositionWithPlant.png"));
+            errorImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/error.png"));
+            oneAnimalsPositionObservedImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/oneAnimalsPositionObserved.png"));
+            twoAnimalsPositionObservedImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/twoAnimalsPositionObserved.png"));
+            threeAnimalsPositionObservedImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/threeAnimalsPositionObserved.png"));
+            fourAnimalsPositionObservedImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/fourAnimalsPositionObserved.png"));
+            oneAnimalsPositionWithPlantObservedImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/oneAnimalsPositionWithPlantObserved.png"));
+            twoAnimalsPositionWithPlantObservedImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/twoAnimalsPositionWithPlantObserved.png"));
+            threeAnimalsPositionWithPlantObservedImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/threeAnimalsPositionWithPlantObserved.png"));
+            fourAnimalsPositionWithPlantObservedImage = new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/images/fourAnimalsPositionWithPlantObserved.png"));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
