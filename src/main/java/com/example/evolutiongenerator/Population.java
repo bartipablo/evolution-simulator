@@ -156,7 +156,7 @@ public class Population {
 
         drawsList = getAgeDrawsList(drawsList);
         sortTheAnimalsByNumberOfChildren(drawsList);
-        if (drawsList.get(0).getNumberOfChildren() > drawsList.get(1).getNumberOfChildren()) {
+        if (drawsList.get(0).getQuantityOfChildren() > drawsList.get(1).getQuantityOfChildren()) {
             return drawsList.subList(0, 1);
         }
 
@@ -290,7 +290,7 @@ public class Population {
         animalList.sort(new Comparator<IAnimal>() {
             @Override
             public int compare(IAnimal o1, IAnimal o2) {
-                return -(o1.getNumberOfChildren() - o2.getNumberOfChildren());
+                return -(o1.getQuantityOfChildren() - o2.getQuantityOfChildren());
             }
         });
     }
@@ -313,7 +313,7 @@ public class Population {
 
     private List<IAnimal> getNumberOfChildrenDrawsList(List<IAnimal> animalList) {
         int numberOfDraws = 1;
-        while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getNumberOfChildren() == animalList.get(numberOfDraws - 1).getNumberOfChildren()) {
+        while(numberOfDraws < animalList.size() && animalList.get(numberOfDraws).getQuantityOfChildren() == animalList.get(numberOfDraws - 1).getQuantityOfChildren()) {
             numberOfDraws++;
         }
         return animalList.subList(0, numberOfDraws);

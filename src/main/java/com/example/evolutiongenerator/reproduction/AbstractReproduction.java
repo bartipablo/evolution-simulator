@@ -14,12 +14,19 @@ import java.util.Random;
 public abstract class AbstractReproduction implements IReproduction {
 
     protected IAnimal parentA;
+
     protected IAnimal parentB;
+
     protected int[] genome;
+
     protected int genomeLength;
+
     protected int minimumQuantityMutations;
+
     protected int maximumQuantityMutations;
+
     protected int energyUsedToReproduction;
+
     protected int childrenEnergy;
 
     protected void initialVariable(IAnimal parentA, IAnimal parentB, int genomeLength, int minimumQuantityMutations,

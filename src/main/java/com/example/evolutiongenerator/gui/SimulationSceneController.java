@@ -238,7 +238,7 @@ public class SimulationSceneController implements IGuiObserver {
         activeGenomeLabel.setText("active genome: " + observedAnimal.getActualGenome());
         animalEnergyLabel.setText("animal energy: " + observedAnimal.getEnergy());
         numberOfPlantsEatenLabel.setText("The number of plants eaten: " + observedAnimal.getEatenPlantsNumber());
-        numberOfChildrenLabel.setText("Number of children: " + observedAnimal.getNumberOfChildren());
+        numberOfChildrenLabel.setText("Number of children: " + observedAnimal.getQuantityOfChildren());
         ageLabel.setText("Age: " + observedAnimal.getAge());
         dateOfDeathLabel.setText("Date of death: " + observedAnimal.getDeathDay());
 

@@ -11,17 +11,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractAnimal implements IAnimal {
+
     protected int actualGenomeIndex;
+
     protected int energy;
+
     private int age;
-    private int numberOfChildren;
+
+    private int quantityOfChildren;
+
     private int eatenPlantsNumber;
+
     private int deathDay;
+
     private String name;
+
     private final List<IMapElementsObserver> positionObservers = new ArrayList<>();
+
+
     protected Vector2D position;
+
+
     protected MapDirection direction;
+
     protected final IMap map;
+
     protected Gene gene;
 
     AbstractAnimal(Vector2D initialPosition, MapDirection initialDirection, IMap map, int genomeLength, int initialEnergy) {
@@ -31,7 +45,7 @@ public abstract class AbstractAnimal implements IAnimal {
         this.gene = new Gene(genomeLength);
         this.actualGenomeIndex = 0;
         this.eatenPlantsNumber = 0;
-        this.numberOfChildren = 0;
+        this.quantityOfChildren = 0;
         this.age = 0;
         this.energy = initialEnergy;
         setName();
@@ -44,7 +58,7 @@ public abstract class AbstractAnimal implements IAnimal {
         this.gene = gene;
         this.actualGenomeIndex = 0;
         this.eatenPlantsNumber = 0;
-        this.numberOfChildren = 0;
+        this.quantityOfChildren = 0;
         this.age = 0;
         this.energy = initialEnergy;
         setName();
@@ -90,8 +104,8 @@ public abstract class AbstractAnimal implements IAnimal {
     }
 
     @Override
-    public int getNumberOfChildren() {
-        return numberOfChildren;
+    public int getQuantityOfChildren() {
+        return quantityOfChildren;
     }
 
     @Override
@@ -110,13 +124,13 @@ public abstract class AbstractAnimal implements IAnimal {
     }
 
     @Override
-    public void changeEnergy(int amount) {
-        energy += amount;
+    public void changeEnergy(int quantity) {
+        energy += quantity;
     }
 
     @Override
     public void changeChildrenNumber(int quantity) {
-        numberOfChildren += quantity;
+        quantityOfChildren += quantity;
     }
 
     @Override

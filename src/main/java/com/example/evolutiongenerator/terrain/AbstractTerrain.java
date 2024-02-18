@@ -12,12 +12,19 @@ import java.util.Random;
 public abstract class AbstractTerrain implements ITerrain {
 
     protected final Random random;
+
     protected final IMap map;
+
     protected final int plantsNumberGrowingDaily;
+
     protected final int initialPlantsEnergy;
+
     protected final int initialPlantsNumber;
+
     protected final List<Plant> plants = new ArrayList<>();
+
     private final List<IStatisticsObserver> statisticsObservers = new ArrayList<>();
+
     protected final List<IMapElementsObserver> terrainObserver = new ArrayList<>();
 
 
