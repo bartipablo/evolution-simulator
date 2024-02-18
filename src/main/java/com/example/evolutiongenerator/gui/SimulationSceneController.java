@@ -2,6 +2,7 @@ package com.example.evolutiongenerator.gui;
 
 import com.example.evolutiongenerator.Statistics;
 import com.example.evolutiongenerator.SimulationEngine;
+import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.interfaces.IAnimal;
 import com.example.evolutiongenerator.interfaces.IGuiObserver;
 import javafx.application.Platform;
@@ -95,7 +96,7 @@ public class SimulationSceneController implements IGuiObserver {
     //simulation--------------------------------------------
     private SimulationEngine world;
     private MapVisualizer mapVisualizer;
-//    private Thread thread;
+
     private IAnimal observedAnimal;
 
     //------------------------------------------------------
@@ -136,6 +137,7 @@ public class SimulationSceneController implements IGuiObserver {
                 break;
             }
         }
+        updateGuiViews();
     }
 
     public void onChoiceLiveAnimalClicked() {
@@ -208,7 +210,11 @@ public class SimulationSceneController implements IGuiObserver {
     }
 
     private void updateMapRepresentation() {
-        mapVisualizer.visualizeMap();
+        if (observedAnimal != null && observedAnimal.getEnergy() > 0) {
+            mapVisualizer.visualizeMap(observedAnimal.getPosition());
+        } else {
+            mapVisualizer.visualizeMap(new Vector2D(-1, -1));
+        }
     }
 
 

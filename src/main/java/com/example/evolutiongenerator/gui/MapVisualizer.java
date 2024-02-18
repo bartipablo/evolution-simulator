@@ -30,12 +30,13 @@ public class MapVisualizer {
         gridPane.getRowConstraints().add(new RowConstraints(sideLengthOfSquarePx));
     }
 
-    public void  visualizeMap() {
+    public void  visualizeMap(Vector2D observedPosition) {
         gridPane.getChildren().clear();
         for (int x = 0; x < map.getMapWidth(); x++) {
             for (int y = 0; y < map.getMapHeight(); y++) {
                 Vector2D position = new Vector2D(x, y);
-                GuiElementBox guiElementBox = new GuiElementBox(map, position, sideLengthOfSquarePx);
+                boolean isObservedPosition = position.equals(observedPosition);
+                GuiElementBox guiElementBox = new GuiElementBox(map, position, sideLengthOfSquarePx, isObservedPosition);
                 gridPane.add(guiElementBox.getVBox(), x, y);
             }
         }
