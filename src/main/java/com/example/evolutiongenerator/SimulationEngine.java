@@ -24,6 +24,10 @@ public class SimulationEngine extends Thread {
     private int simulationDay = 0;
     private final WriterCSV writerCSV;
 
+    private boolean isPaused = false;
+
+    private final int refreshTime;
+
     //constructors------------------------------------------------------------------------------------------------------
 
     public SimulationEngine(Configuration configuration) throws FileNotFoundException {
@@ -42,6 +46,7 @@ public class SimulationEngine extends Thread {
                 configuration.getInitialAnimalsEnergy(),
                 this, configuration.isRemoveExcessAnimals()
         );
+        refreshTime = configuration.getRefreshTime();
         setObservators();
         population.generateNewPopulation();
         terrain.generateInitialTerrain();
@@ -78,12 +83,35 @@ public class SimulationEngine extends Thread {
 
     @Override
     public void run() {
-        while (population.getLiveAnimals().size() > 0) {
+        do {
+            synchronized (this) {
+                while (isPaused) {
+                    try {
+                        this.wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+
             try {
                 simulate();
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
+        } while (population.getLiveAnimals().size() > 0);
+    }
+
+    public void pauseSimulation() {
+        synchronized (this) {
+            isPaused = true;
+        }
+    }
+
+    public void resumeSimulation() {
+        synchronized (this) {
+            isPaused = false;
+            this.notifyAll();
         }
     }
 
@@ -122,6 +150,10 @@ public class SimulationEngine extends Thread {
 
     public int getSimulationDay() {
         return simulationDay;
+    }
+
+    public int getRefreshTime() {
+        return refreshTime;
     }
 
     //observers---------------------------------------------------------------------------------------------------------

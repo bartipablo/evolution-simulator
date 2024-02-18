@@ -33,17 +33,6 @@ public class Static {
         }
     }
 
-    public static int[] generateIntArray(int firstNumber, int lastNumber) {
-        if (lastNumber < firstNumber) {
-            return null;
-        }
-        int[] resultArray = new int[lastNumber - firstNumber + 1];
-        for (int i = firstNumber; i <= lastNumber; i++) {
-            resultArray[i - firstNumber] = i;
-        }
-        return resultArray;
-    }
-
     public static Vector2D[] generateVector2DArray(int xMin, int xMax, int yMin, int yMax) {
         int g = 0;
         if (xMax < xMin || yMax < yMin) {
@@ -83,5 +72,4 @@ public class Static {
     }
 
     //------------------------------------------------------------------------------------------------------------
-
 }

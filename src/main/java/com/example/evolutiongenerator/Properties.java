@@ -3,10 +3,10 @@ package com.example.evolutiongenerator;
 public class Properties {
     //map properties-----------------------------------
 
-    public static final int MIN_MAP_HEIGHT = 5;
-    public static final int MAX_MAP_HEIGHT = 35;
-    public static final int MIN_MAP_WIDTH = 5;
-    public static final int MAX_MAP_WIDTH = 35;
+    public static final int MIN_MAP_HEIGHT = 10;
+    public static final int MAX_MAP_HEIGHT = 50;
+    public static final int MIN_MAP_WIDTH = 10;
+    public static final int MAX_MAP_WIDTH = 50;
 
     //-------------------------------------------------
 
@@ -28,17 +28,17 @@ public class Properties {
 
     //spawn properties---------------------------------
     public static final int MIN_ANIMALS_SPAWNING_AT_START = 1;
-    public static final int MAX_ANIMALS_SPAWNING_AT_START = 1000;
+    public static final int MAX_ANIMALS_SPAWNING_AT_START = 5000;
     public static final int MIN_PLANTS_SPAWNING_AT_THE_START = 1;
-    public static final int MAX_PLANTS_SPAWNING_AT_THE_START = 1000;
+    public static final int MAX_PLANTS_SPAWNING_AT_THE_START = 5000;
     public static final int MIN_PLANTS_SPAWNED_AT_EACH_DAY = 1;
     public static final int MAX_PLANTS_SPAWNED_AT_EACH_DAY = 1000;
     //-------------------------------------------------------------
 
     //others ------------------------------------------------------
 
-    public static final int MIN_REFRESH_TIME = 1000;
-    public static final int MAX_REFRESH_TIME = 1000;
+    public static final int MIN_REFRESH_TIME = 10;
+    public static final int MAX_REFRESH_TIME = 100;
     public static final int MIN_MUTATION_NUMBER = 1;
     public static final int MAX_MUTATION_NUMBER = 100;
     //-------------------------------------------------------------

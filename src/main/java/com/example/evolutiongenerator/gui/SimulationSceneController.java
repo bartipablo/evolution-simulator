@@ -95,7 +95,7 @@ public class SimulationSceneController implements IGuiObserver {
     //simulation--------------------------------------------
     private SimulationEngine world;
     private MapVisualizer mapVisualizer;
-    private Thread thread;
+//    private Thread thread;
     private IAnimal observedAnimal;
 
     //------------------------------------------------------
@@ -170,21 +170,21 @@ public class SimulationSceneController implements IGuiObserver {
 
     private void startSimulation() {
         if (firstStart) {
-            thread.start();
+            world.start();
             firstStart = false;
         } else {
-            thread.resume();
+            world.resumeSimulation();
         }
     }
 
     private void pauseSimulation() throws InterruptedException {
-        thread.suspend();
+        world.pauseSimulation();
     }
 
     public void setWorld(SimulationEngine world) {
         this.world = world;
         world.addObserver(this);
-        this.thread = new Thread(world);
+//        this.thread = new Thread(world);
         this.mapVisualizer = new MapVisualizer(world.getMap(), mapGridPane);
         mapGridPane.setAlignment(Pos.CENTER);
         updateGuiViews();
@@ -197,7 +197,7 @@ public class SimulationSceneController implements IGuiObserver {
             Platform.runLater(this::updateMapRepresentation);
             Platform.runLater(this::updateGeneralStatistics);
             if (observedAnimal != null) Platform.runLater(this::updateAnimalStatistics);
-           Thread.sleep(1000);
+           Thread.sleep(world.getRefreshTime());
         } catch (InterruptedException ex) {
             System.out.println(ex.getMessage());
         }

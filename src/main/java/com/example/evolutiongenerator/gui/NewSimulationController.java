@@ -257,7 +257,8 @@ public class NewSimulationController implements Initializable {
                 Integer.parseInt(plantsEnergyProfitTextField.getText()),
                 mapVariant, behaviourVariant, mutationVariant, terrainVariant,
                 saveCSVCheckBox.isSelected(), removeExcessAnimalsCheckBox.isSelected(),
-                simulationNameTextField.getText()
+                simulationNameTextField.getText(),
+                Integer.parseInt(refreshTimeTextField.getText())
         );
     }
 }
