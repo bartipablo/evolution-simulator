@@ -5,6 +5,7 @@ import com.example.evolutiongenerator.SimulationEngine;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -16,10 +17,14 @@ import java.util.List;
 public class App extends Application {
 
     private final static List<SimulationEngine> worlds = new ArrayList<>();
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-scene.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1530, 790);
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(fxmlLoader.load());
+
+        Scene scene = new Scene(scrollPane, 1530, 790);
         stage.setResizable(true);
         stage.setMaximized(true);
         stage.setTitle("Evolution Simulator");
