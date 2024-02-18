@@ -1,6 +1,7 @@
 package com.example.evolutiongenerator.terrain;
 
 import com.example.evolutiongenerator.Plant;
+import com.example.evolutiongenerator.direction.Vector2D;
 import com.example.evolutiongenerator.interfaces.IMap;
 import com.example.evolutiongenerator.interfaces.IMapElementsObserver;
 import com.example.evolutiongenerator.interfaces.IStatisticsObserver;
@@ -95,6 +96,24 @@ public abstract class AbstractTerrain implements ITerrain {
         setAtPreferPosition(quantityOfPlantsOnPreferPosition);
         setOutsidePreferPosition(quantityOfPlantsOutsidePreferPosition);
         completeStatistics();
+    }
+
+    protected void setAtPositions(List<Vector2D> positions, int quantity) {
+        if (quantity <= 0) {
+            return;
+        }
+
+        for (Vector2D position: positions) {
+            Plant plant = new Plant(position, initialPlantsEnergy);
+            if (map.getPlantAtPosition(position) == null) {
+                plants.add(plant);
+                quantity -= 1;
+                informObserverAboutAddedNewPlats(plant);
+            }
+            if (quantity <= 0) {
+                return;
+            }
+        }
     }
 
     protected abstract void setAtPreferPosition(int quantityOfPlants);

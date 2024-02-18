@@ -12,7 +12,6 @@ public class ToxicCorpses extends AbstractTerrain {
 
     public ToxicCorpses(IMap map, int numberOfPlantsGrowingDaily, int plantEnergy, int initialPlantsNumber) {
         super(map, numberOfPlantsGrowingDaily, plantEnergy, initialPlantsNumber);
-        //generateTerrain(initialPlantsNumber);
     }
 
     @Override
@@ -28,17 +27,4 @@ public class ToxicCorpses extends AbstractTerrain {
         setAtPositions(preferPositions, quantity);
     }
 
-    private void setAtPositions(List<Vector2D> positions, int quantity) {
-        for (Vector2D position : positions) {
-            Plant plant = new Plant(position, initialPlantsEnergy);
-            if (map.getPlantAtPosition(position) == null) {
-                plants.add(plant);
-                quantity -= 1;
-                informObserverAboutAddedNewPlats(plant);
-            }
-            if (quantity == 0) {
-                break;
-            }
-        }
-    }
 }

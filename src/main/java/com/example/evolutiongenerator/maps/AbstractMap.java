@@ -62,6 +62,7 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
     public List<Vector2D> getPositionsSortedByNumbersOfDeaths() {
         List<Vector2D> resultList = new ArrayList<>();
         for (List<Vector2D> vector2DList : positionWithNumberOfDeath.values()) {
+            Collections.shuffle(vector2DList);
             resultList.addAll(vector2DList);
         }
         return resultList;
@@ -148,6 +149,4 @@ public abstract class AbstractMap implements IMap, IMapElementsObserver {
     public void removePlantFromMap(Plant plant) {
         plantsOnMap.remove(plant.getPosition());
     }
-
-
 }
