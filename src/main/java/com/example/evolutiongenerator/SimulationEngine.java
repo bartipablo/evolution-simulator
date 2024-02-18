@@ -26,6 +26,8 @@ public class SimulationEngine extends Thread {
 
     private boolean isPaused = false;
 
+    private boolean isFirstSimulationStep = true;
+
     private final int refreshTime;
 
     //constructors------------------------------------------------------------------------------------------------------
@@ -116,7 +118,10 @@ public class SimulationEngine extends Thread {
     }
 
     private void simulate() throws FileNotFoundException {
-        refreshGuiCharts();
+        if (isFirstSimulationStep) {
+            refreshGuiCharts();
+            isFirstSimulationStep = false;
+        }
         population.ageIncrease();
         terrain.dailyPlantGrowth();
         population.dailyMoving();
@@ -134,6 +139,7 @@ public class SimulationEngine extends Thread {
         refreshGui();
         writerCSV.saveStatisticsToCSV();
         population.removeExcessAnimals();
+        refreshGuiCharts();
     }
 
     public IMap getMap() {

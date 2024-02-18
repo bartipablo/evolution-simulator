@@ -224,11 +224,16 @@ public class SimulationSceneController implements IGuiObserver {
     }
 
     private void updateCharts() {
+        populationChart.setAnimated(false);
+        plantsChart.setAnimated(false);
         Statistics statistics = world.getStatistics();
         seriesA.setName("Day");
         seriesB.setName("Day");
         seriesA.getData().add(new XYChart.Data(Integer.toString(world.getSimulationDay()), statistics.getPopulationSize()));
         seriesB.getData().add(new XYChart.Data(Integer.toString(world.getSimulationDay()), statistics.getPlantsQuantity()));
+        populationChart.getData().clear();
+        plantsChart.getData().clear();
+
         populationChart.getData().add(seriesA);
         plantsChart.getData().add(seriesB);
     }
