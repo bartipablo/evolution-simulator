@@ -62,6 +62,19 @@ public class MainSceneController implements Initializable {
         tabPane.getTabs().add(tab);
     }
 
+    //HELP
+    @FXML
+    public void help() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("help.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 867, 481);
+        Stage stage = new Stage();
+        stage.setResizable(false);
+        stage.setTitle("Help");
+        stage.getIcons().add(new Image(new FileInputStream("./src/main/resources/com/example/evolutiongenerator/icon.png")));
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public void removeTab(SimulationSceneController simulationSceneController) {
         if (simulationSceneControllerList.size() == 0) return;
         int i = simulationSceneControllerList.indexOf(simulationSceneController);
