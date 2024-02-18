@@ -25,7 +25,7 @@ class AbstractMapTest {
         map.changePositionOnMap(animal,new Vector2D(0,0),new Vector2D(1,1));
         map.removeAnimalFromMap(animal1);
         assertEquals(map.getAnimalsAtPosition(new Vector2D(1,1)).get(0),animal);
-        assertNull(map.getAnimalsAtPosition(new Vector2D(0,1)));
+        assertEquals(map.getAnimalsAtPosition(new Vector2D(0,1)).size(),0);
         System.out.println(Arrays.toString(map.getAnimalsPositions()));
     }
 
